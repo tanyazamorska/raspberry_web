@@ -11,14 +11,14 @@ const PORT = process.env.PORT || "8888";
 
 loaders.push({
 	test: /\.css$/,
-	loaders: ['style-loader', 'css-loader?importLoaders=1'],
+    loaders: ['style-loader', 'css-loader?importLoaders=1'],
 	exclude: ['node_modules']
 });
 
 loaders.push({
 	test: /\.scss$/,
 	loaders: ['style-loader', 'css-loader?importLoaders=1', 'sass-loader'],
-	exclude: ['node_modules']
+	exclude: ['node_modules'],
 });
 
 module.exports = {
@@ -26,7 +26,7 @@ module.exports = {
 		'react-hot-loader/patch',
 		'./src/index.js', // your app's entry point
 	],
-	devtool: process.env.WEBPACK_DEVTOOL || 'eval-source-map',
+	devtool: 'eval-source-map',
 	output: {
 		publicPath: '/',
 		path: path.join(__dirname, 'public'),

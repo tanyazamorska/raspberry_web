@@ -1,4 +1,6 @@
 import React from 'react';
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootswatch/paper/bootstrap.min.css'
 import './styles.scss';
 
 export default class App extends React.Component {
@@ -14,4 +16,4 @@ export default class App extends React.Component {
 }
 
 
-console.log(123123)
+console.log(123123);
