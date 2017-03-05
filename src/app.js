@@ -2,18 +2,18 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootswatch/paper/bootstrap.min.css'
 import './styles.scss';
+import Header from './components/Header.js';
+import Footer from './components/Footer.js';
+import Content from './components/Content.js';
 
 export default class App extends React.Component {
   render() {
     return (
       <div>
-        <h1>It Works!</h1>
-        <p>This React project just works including <span className="redBg">module</span> local styles.</p>
-        <p>Enjoy!</p>
+        <Header />
+        <Content />
+        <Footer />
       </div>
     )
   }
 }
-
-
-console.log(123123);

@@ -17,7 +17,7 @@ loaders.push({
 
 loaders.push({
 	test: /\.scss$/,
-	loaders: ['style-loader', 'css-loader?importLoaders=1', 'sass-loader'],
+	loaders: ['style-loader', 'css-loader?importLoaders=1', 'sass-loader?sourceMap'],
 	exclude: ['node_modules'],
 });
 
@@ -26,7 +26,7 @@ module.exports = {
 		'react-hot-loader/patch',
 		'./src/index.js', // your app's entry point
 	],
-	devtool: 'eval-source-map',
+	devtool: 'source-map',
 	output: {
 		publicPath: '/',
 		path: path.join(__dirname, 'public'),
