@@ -1,4 +1,3 @@
-"use strict";
 var webpack = require('webpack');
 var path = require('path');
 var loaders = require('./webpack.loaders');
@@ -8,18 +7,6 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const HOST = process.env.HOST || "localhost";
 const PORT = process.env.PORT || "8888";
-
-loaders.push({
-	test: /\.css$/,
-    loaders: ['style-loader', 'css-loader?importLoaders=1'],
-	exclude: ['node_modules']
-});
-
-loaders.push({
-	test: /\.scss$/,
-	loaders: ['style-loader', 'css-loader?importLoaders=1', 'sass-loader?sourceMap'],
-	exclude: ['node_modules'],
-});
 
 module.exports = {
 	entry: [
@@ -35,9 +22,7 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.jsx']
 	},
-	module: {
-		loaders
-	},
+	module: {loaders},
 	devServer: {
 		contentBase: "./public",
 		// do not print bundle build stats

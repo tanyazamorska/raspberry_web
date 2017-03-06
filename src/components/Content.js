@@ -5,7 +5,7 @@ export default class Footer extends React.Component {
     return (
     <div className="content">
       <div className="photo-raspberry">
-        <img className="photo" src="photo-raspberry.jpg" alt="photo-raspberry" />
+        <img className="photo" src={'img/photo-raspberry.jpg'} alt="photo-raspberry" />
       </div>
       <div className="pleer"></div>
     </div>
