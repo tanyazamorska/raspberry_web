@@ -49,12 +49,11 @@ module.exports = [
   },
   {
     test: /\.css$/,
-    loaders: ['style-loader', 'css-loader'],
-    exclude: ['node_modules']
+    loaders: ['style-loader', 'css-loader']
   },
   {
     test: /\.scss$/,
     loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
-    exclude: ['node_modules'],
+    exclude: ['node_modules']
   }
 ];

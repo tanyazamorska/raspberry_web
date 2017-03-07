@@ -1,7 +1,7 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootswatch/paper/bootstrap.min.css'
-import './styles.scss';
+require('bootstrap/dist/css/bootstrap.css');
+require('bootswatch/paper/bootstrap.min.css');
+require('./styles.scss');
 import Header from './components/Header.js';
 import Footer from './components/Footer.js';
 import Content from './components/Content.js';
