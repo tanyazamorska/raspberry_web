@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router';
 
 export default class Header extends React.Component {
   render() {
@@ -6,9 +7,9 @@ export default class Header extends React.Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <a className="navbar-brand" href="#">
-              <span className="glyphicon glyphicon-home" aria-hidden="true"></span>
-            </a>
+            <Link to={"/"} className="navbar-brand">
+              <i className="glyphicon glyphicon-home"></i>
+            </Link>
           </div>
         </div>
       </nav>

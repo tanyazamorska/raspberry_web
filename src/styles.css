@@ -1,15 +1,5 @@
-.container {
-  margin: 0;
-  padding: 0;
-  width: 100%; }
-
-.row.content {
-  height: auto;
-  margin-left: 100px;
-  margin-right: 100px; }
-
 .folder {
-  height: 110px;
+  height: 120px;
   width: 180px;
   line-height: 150px; }
 
@@ -19,7 +9,7 @@ footer {
   padding: 15px;
   position: fixed;
   bottom: 0;
-  width: 100%;
-  height: 150px; }
+  height: 80px;
+  width: 100%; }
 
 /*# sourceMappingURL=styles.css.map */

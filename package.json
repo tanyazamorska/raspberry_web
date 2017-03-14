@@ -7,7 +7,7 @@
     "build": "webpack --config webpack.production.config.js --progress --profile --colors",
     "start": "webpack-dev-server --progress --profile --colors",
     "lint": "eslint --ext js --ext jsx src || exit 0",
-    "dev": " webpack-dashboard -- webpack-dev-server --progress --profile --colors"
+    "dev": "webpack-dashboard -- webpack-dev-server --progress --profile --colors"
   },
   "repository": {
     "type": "git",
@@ -40,6 +40,7 @@
     "jquery": "^3.1.1",
     "postcss-loader": "^1.2.2",
     "react-hot-loader": "^3.0.0-beta.6",
+    "react-router": "^3.0.2",
     "source-map": "^0.5.6",
     "style-loader": "0.13.1",
     "url-loader": "0.5.7",
