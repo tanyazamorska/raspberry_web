@@ -1,0 +1,63 @@
+{
+  "path": "/home/tanya/developer/workspace/tanyazamorska/raspberry_web",
+  "filesAndFolders": [
+    {
+      "name": ".",
+      "kind": "folder"
+    },
+    {
+      "name": "..",
+      "kind": "folder"
+    },
+    {
+      "name": ".babelrc",
+      "kind": "file"
+    },
+    {
+      "name": ".git",
+      "kind": "folder"
+    },
+    {
+      "name": ".gitignore",
+      "kind": "file"
+    },
+    {
+      "name": ".idea",
+      "kind": "folder"
+    },
+    {
+      "name": "node_modules",
+      "kind": "folder"
+    },
+    {
+      "name": "package.json",
+      "kind": "file"
+    },
+    {
+      "name": "postcss.config.js",
+      "kind": "file"
+    },
+    {
+      "name": "public",
+      "kind": "folder"
+    },
+    {
+      "name": "README.md",
+      "kind": "file"
+    },
+    {
+      "name": "src",
+      "kind": "folder"
+    },
+    {
+      "name": "webpack.config.js",
+      "kind": "file"
+    },
+    {
+      "name": "webpack.loaders.js",
+      "kind": "file"
+    }
+  ]
+}
+
+

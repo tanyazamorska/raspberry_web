@@ -1,26 +1,21 @@
 import React from 'react';
+require('bootstrap/dist/css/bootstrap.css');
+require('bootswatch/paper/bootstrap.min.css');
+require('./styles.scss');
 import { render } from 'react-dom';
 import ReactDOM from 'react-dom';
-import App from './app.js';
-import Folders from './components/Folders.js';
-import Camera from './components/Camera.js';
+import Layout from './components/Layout';
+import Folders from './pages/Folders.js';
+import Camera from './pages/Camera.js';
 import {Router, Route, hashHistory} from 'react-router';
 
-if (module && module.hot) {
-    module.hot.accept('./app.js', () => {
-        const App = require('./app.js').default;
-        render(
-            <App/>,
-            document.querySelector("app")
-        );
-    });
-}
 
 ReactDOM.render(
   <Router history={hashHistory}>
-    <Route path="/" component={App} />
-    <Route path="/folders" component={Folders} />
-    <Route path="/camera" component={Camera} />
+    <Route path="/" component={Layout} >
+      <Route path="/folders" component={Folders} />
+      <Route path="/camera" component={Camera} />
+    </Route>
   </Router>,
   document.getElementById('app')
 );
