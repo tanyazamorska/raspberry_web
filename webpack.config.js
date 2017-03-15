@@ -11,7 +11,7 @@ const PORT = process.env.PORT || "8888";
 module.exports = {
 	entry: [
 		'react-hot-loader/patch',
-		'./src/index.js', // your app's entry point
+		'./src/index.js' // your app's entry point
 	],
 	devtool: 'source-map',
 	output: {
@@ -51,5 +51,12 @@ module.exports = {
 				js: [ "bundle.js"],
 			}
 		}),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery"
+    }),
 	]
 };
+
+
+
