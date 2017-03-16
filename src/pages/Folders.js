@@ -9,7 +9,7 @@ class Folder extends React.Component {
     } else {
       additionalClass = "glyphicon glyphicon-file";
     }
-
+console.log(this.props)
     return (
       <li className="list">
         <pre>
@@ -17,6 +17,7 @@ class Folder extends React.Component {
           <i className={"glyphicon " + additionalClass}></i>
           <span>&nbsp;&nbsp;&nbsp;{this.props.path}</span><br></br>
           <span>{this.props.name}</span>
+           <i className="glyphicon glyphicon-download-alt upload"></i>
         </Link>
         </pre>
       </li>
@@ -41,7 +42,7 @@ export default class Folders extends React.Component {
       complete: function (res) {
         self.setState(res.responseJSON);
        }
-    });
+      });
   }
 
   render() {
