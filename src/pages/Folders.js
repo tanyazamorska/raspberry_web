@@ -9,12 +9,16 @@ class Folder extends React.Component {
     } else {
       additionalClass = "glyphicon glyphicon-file";
     }
+
     return (
       <li className="list">
-        <Link to={"/"}>
+        <pre>
+        <Link to={"#"}>
           <i className={"glyphicon " + additionalClass}></i>
-          <span>&nbsp;&nbsp;&nbsp;{this.props.name}</span>
+          <span>&nbsp;&nbsp;&nbsp;{this.props.path}</span><br></br>
+          <span>{this.props.name}</span>
         </Link>
+        </pre>
       </li>
     )
   }
@@ -41,9 +45,11 @@ export default class Folders extends React.Component {
   }
 
   render() {
+   let path = this.state.path;
     {
       this.state.filesAndFolders.forEach(function (item, key) {
         item.id = key;
+        item.path = path;
       });
     }
     return (
@@ -51,7 +57,7 @@ export default class Folders extends React.Component {
         <ul>
           {
             this.state.filesAndFolders.map(function (el) {
-            return <Folder name={el.name} kind={el.kind} key={el.id}/>
+            return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path}/>
             })
           }
         </ul>
