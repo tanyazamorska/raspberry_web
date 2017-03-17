@@ -10,5 +10,9 @@
 .k-folders .k-icon-remove {
   font-size: 15px;
   display: inline-block; }
+.k-folders .k-row-big {
+  width: 50%; }
+.k-folders .k-row-small {
+  width: 25px; }
 
 /*# sourceMappingURL=folders.css.map */

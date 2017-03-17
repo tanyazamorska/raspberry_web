@@ -27,8 +27,8 @@ class Folder extends React.Component {
 
     return (
       <tr>
-        <td><i className={"glyphicon " + additionalClass}></i></td>
-        <td><Link to={"#"} title="open"><span>{this.props.name}</span></Link></td>
+        <td className="k-row-small"><i className={"glyphicon " + additionalClass}></i></td>
+        <td className="k-row-big"><Link to={"#"} title="open"><span>{this.props.name}</span></Link></td>
         <td>size</td>
         <td>{lastModified}</td>
         <td><Link to={"#"} title="download"><i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i></Link>
@@ -79,8 +79,8 @@ export default class Folders extends React.Component {
         <table className="table">
           <thead>
           <tr >
-            <th></th>
-            <th>Name</th>
+            <th className="k-row-small"></th>
+            <th className="k-row-big">Name</th>
             <th>Size</th>
             <th>Modified</th>
             <th>Action</th>
