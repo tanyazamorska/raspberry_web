@@ -18,7 +18,9 @@ class Folder extends React.Component {
         <td><Link to={"#"} title="open"><span>{this.props.name}</span></Link></td>
         <td>size</td>
         <td>Modified</td>
-        <td><Link to={"#"} title="download"><i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i></Link></td>
+        <td><Link to={"#"} title="download"><i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i></Link>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link to={"#"} title="remove"><i className="glyphicon glyphicon-remove k-icon-remove" /></Link>
+        </td>
       </tr>
     )
   }
