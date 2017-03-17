@@ -16,7 +16,6 @@ class Folder extends React.Component {
     let lastModified = moment().format('YYYY-MM-DD hh:mm a');
     let day = moment().format('DD');
     let year = moment().format('YYYY');
-
     if (moment().format('DD') === day) {
       lastModified = moment().format('hh:mm a');
     } else if (moment().format('YYYY') === year) {
@@ -25,11 +24,18 @@ class Folder extends React.Component {
       lastModified = moment().format('YYYY-MM-DD');
     }
 
+    let size = this.props.size / 1000000;
+    if (this.props.kind === 'file') {
+      size = Math.round(size) + 'MB';
+    } else  {
+      size = '-';
+    }
+
     return (
       <tr>
         <td className="k-row-small"><i className={"glyphicon " + additionalClass}></i></td>
         <td className="k-row-big"><Link to={"#"} title="open"><span>{this.props.name}</span></Link></td>
-        <td>size</td>
+        <td>{size}</td>
         <td>{lastModified}</td>
         <td><Link to={"#"} title="download"><i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i></Link>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link to={"#"} title="remove"><i className="glyphicon glyphicon-remove k-icon-remove" /></Link>
@@ -51,7 +57,7 @@ export default class Folders extends React.Component {
     $.ajax({
       method: "POST",
       url: "http://192.168.0.100:7777/api/fs/ls",
-      data: JSON.stringify({"path": "/home/pi/OUR"}),
+      data: JSON.stringify({"path": "/home/pi/OUR/"}),
       contentType: 'application/json',
       complete: function (res) {
         self.setState(res.responseJSON);
@@ -89,7 +95,7 @@ export default class Folders extends React.Component {
           <tbody>
           {
             this.state.filesAndFolders.map(function (el) {
-              return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}/>
+              return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified} size={el.size}/>
             })
           }
           </tbody>
