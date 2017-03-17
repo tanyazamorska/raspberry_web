@@ -50,11 +50,7 @@ module.exports = {
 				css: ['style.css'],
 				js: [ "bundle.js"],
 			}
-		}),
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery"
-    }),
+		})
 	]
 };
 

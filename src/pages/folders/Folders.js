@@ -1,23 +1,25 @@
+import './folders.scss';
 import React from 'react';
 import {Link} from 'react-router';
+import $ from 'jquery'
 
 class Folder extends React.Component {
   render() {
     let additionalClass = null;
     if (this.props.kind === 'folder') {
-      additionalClass = "glyphicon-folder-close";
+      additionalClass = "glyphicon-folder-close k-icon-folder-close";
     } else {
-      additionalClass = "glyphicon glyphicon-file";
+      additionalClass = "glyphicon glyphicon-file k-icon-glyphicon-file";
     }
-console.log(this.props)
+
     return (
-      <li className="list">
+      <li className="k-folders">
         <pre>
         <Link to={"#"}>
           <i className={"glyphicon " + additionalClass}></i>
-          <span>&nbsp;&nbsp;&nbsp;{this.props.path}</span><br></br>
+          <span>&nbsp;&nbsp;&nbsp;{this.props.path}</span><br/>
           <span>{this.props.name}</span>
-           <i className="glyphicon glyphicon-download-alt upload"></i>
+          <i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i>
         </Link>
         </pre>
       </li>
@@ -41,29 +43,26 @@ export default class Folders extends React.Component {
       contentType: 'application/json',
       complete: function (res) {
         self.setState(res.responseJSON);
-       }
-      });
+      }
+    });
   }
 
   render() {
-   let path = this.state.path;
-    {
-      this.state.filesAndFolders.forEach(function (item, key) {
-        item.id = key;
-        item.path = path;
-      });
-    }
+    let path = this.state.path;
+    this.state.filesAndFolders.forEach(function (item, key) {
+      item.id = key;
+      item.path = path;
+    });
     return (
-      <div className="container">
+      <div>
         <ul>
           {
             this.state.filesAndFolders.map(function (el) {
-            return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path}/>
+              return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path}/>
             })
           }
         </ul>
-      </div>
-    )
+      </div>)
   }
 }
 
