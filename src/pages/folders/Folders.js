@@ -13,16 +13,13 @@ class Folder extends React.Component {
     }
 
     return (
-      <li className="k-folders">
-        <pre>
-        <Link to={"#"}>
-          <i className={"glyphicon " + additionalClass}></i>
-          <span>&nbsp;&nbsp;&nbsp;{this.props.path}</span><br/>
-          <span>{this.props.name}</span>
-          <i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i>
-        </Link>
-        </pre>
-      </li>
+      <tr>
+        <td><i className={"glyphicon " + additionalClass}></i></td>
+        <td><Link to={"#"} title="open"><span>{this.props.name}</span></Link></td>
+        <td>size</td>
+        <td>Modified</td>
+        <td><Link to={"#"} title="download"><i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i></Link></td>
+      </tr>
     )
   }
 }
@@ -53,20 +50,39 @@ export default class Folders extends React.Component {
       item.id = key;
       item.path = path;
     });
+
     return (
-      <div>
-        <ul>
+      <div className="k-folders">
+        <span><h4>{path}</h4></span>
+        <form className="navbar-form navbar-right" role="search">
+          <div className="form-group">
+            <input type="text" className="form-control" />
+          </div>
+          <button type="submit" className="btn btn-primary">Upload file</button>
+        </form>
+
+        <table className="table">
+          <thead>
+          <tr >
+            <th></th>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Modified</th>
+            <th>Action</th>
+          </tr>
+          </thead>
+          <tbody>
           {
             this.state.filesAndFolders.map(function (el) {
               return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path}/>
             })
           }
-        </ul>
-      </div>)
+          </tbody>
+        </table>
+      </div>
+    )
   }
 }
-
-
 
 
 
