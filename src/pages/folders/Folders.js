@@ -1,7 +1,8 @@
 import './folders.scss';
 import React from 'react';
 import {Link} from 'react-router';
-import $ from 'jquery'
+import $ from 'jquery';
+import moment from 'moment';
 
 class Folder extends React.Component {
   render() {
@@ -12,12 +13,24 @@ class Folder extends React.Component {
       additionalClass = "glyphicon glyphicon-file k-icon-glyphicon-file";
     }
 
+    let lastModified = moment().format('YYYY-MM-DD hh:mm a');
+    let day = moment().format('DD');
+    let year = moment().format('YYYY');
+
+    if (moment().format('DD') === day) {
+      lastModified = moment().format('hh:mm a');
+    } else if (moment().format('YYYY') === year) {
+      lastModified = moment().format('MM-DD');
+    } else {
+      lastModified = moment().format('YYYY-MM-DD');
+    }
+
     return (
       <tr>
         <td><i className={"glyphicon " + additionalClass}></i></td>
         <td><Link to={"#"} title="open"><span>{this.props.name}</span></Link></td>
         <td>size</td>
-        <td>Modified</td>
+        <td>{lastModified}</td>
         <td><Link to={"#"} title="download"><i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i></Link>
           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link to={"#"} title="remove"><i className="glyphicon glyphicon-remove k-icon-remove" /></Link>
         </td>
@@ -76,7 +89,7 @@ export default class Folders extends React.Component {
           <tbody>
           {
             this.state.filesAndFolders.map(function (el) {
-              return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path}/>
+              return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}/>
             })
           }
           </tbody>
