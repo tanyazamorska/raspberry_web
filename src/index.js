@@ -12,7 +12,7 @@ import {Router, Route, hashHistory} from 'react-router';
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={Layout} >
-      <Route path="/folders" component={Folders} />
+      <Route path="/folders/*" component={Folders} />
       <Route path="/camera" component={Camera} />
     </Route>
   </Router>,

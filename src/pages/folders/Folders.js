@@ -1,6 +1,6 @@
 import './folders.scss';
 import React from 'react';
-import {Link} from 'react-router';
+import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
 import moment from 'moment';
 
@@ -60,12 +60,20 @@ class Folder extends React.Component {
 
 
 export default class Folders extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    let self = this;
     this.state = {
       filesAndFolders: [],
       path: ""
     };
+    console.log(this.props.params); // TODO
+    browserHistory.listen( location =>  {
+      setTimeout(() => {
+        console.log(self.props.params); // TODO
+      }, 0);
+    });
+
     this.requestDataFromServer("/sys");
   }
 
