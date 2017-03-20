@@ -4,10 +4,7 @@
 .k-folders .k-icon-glyphicon-file {
   font-size: 35px;
   color: #67abc5; }
-.k-folders .k-icon-download-alt {
-  font-size: 15px;
-  display: inline-block; }
-.k-folders .k-icon-remove {
+.k-folders .k-icon-download-alt, .k-folders .k-icon-remove {
   font-size: 15px;
   display: inline-block; }
 .k-folders .k-row-big {

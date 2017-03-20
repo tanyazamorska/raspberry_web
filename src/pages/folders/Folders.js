@@ -27,37 +27,54 @@ class Folder extends React.Component {
     let size = this.props.size / 1000000;
     if (this.props.kind === 'file') {
       size = Math.round(size) + 'MB';
-    } else  {
+    } else {
       size = '-';
     }
 
+    let pathToGo = this.props.path;
+
     return (
       <tr>
-        <td className="k-row-small"><i className={"glyphicon " + additionalClass}></i></td>
-        <td className="k-row-big"><Link to={"#"} title="open"><span>{this.props.name}</span></Link></td>
+        <td className="k-row-small">
+          <i className={"glyphicon " + additionalClass} onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)}></i>
+        </td>
+        <td className="k-row-big">
+          <Link to={"folders/" + this.props.name} title="open">
+            <span>{this.props.name}</span>
+          </Link>
+        </td>
         <td>{size}</td>
         <td>{lastModified}</td>
-        <td><Link to={"#"} title="download"><i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i></Link>
-          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link to={"#"} title="remove"><i className="glyphicon glyphicon-remove k-icon-remove" /></Link>
+        <td>
+          <Link to={"#"} title="download">
+            <i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i>
+          </Link>
+          <Link to={"#"} title="remove">
+            <i className="glyphicon glyphicon-remove k-icon-remove"></i>
+          </Link>
         </td>
       </tr>
     )
   }
 }
 
+
 export default class Folders extends React.Component {
   constructor() {
     super();
-    let self = this;
     this.state = {
       filesAndFolders: [],
       path: ""
     };
+    this.requestDataFromServer("/sys");
+  }
 
+  requestDataFromServer(path) {
+    let self = this;
     $.ajax({
       method: "POST",
       url: "http://192.168.0.100:7777/api/fs/ls",
-      data: JSON.stringify({"path": "/home/pi/OUR/"}),
+      data: JSON.stringify({"path": path}),
       contentType: 'application/json',
       complete: function (res) {
         self.setState(res.responseJSON);
@@ -66,6 +83,7 @@ export default class Folders extends React.Component {
   }
 
   render() {
+    let self = this;
     let path = this.state.path;
     this.state.filesAndFolders.forEach(function (item, key) {
       item.id = key;
@@ -77,14 +95,14 @@ export default class Folders extends React.Component {
         <span><h4>{path}</h4></span>
         <form className="navbar-form navbar-right" role="search">
           <div className="form-group">
-            <input type="text" className="form-control" />
+            <input type="text" className="form-control"/>
           </div>
           <button type="submit" className="btn btn-primary">Upload file</button>
         </form>
 
         <table className="table">
           <thead>
-          <tr >
+          <tr>
             <th className="k-row-small"></th>
             <th className="k-row-big">Name</th>
             <th>Size</th>
@@ -95,7 +113,8 @@ export default class Folders extends React.Component {
           <tbody>
           {
             this.state.filesAndFolders.map(function (el) {
-              return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified} size={el.size}/>
+              return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}
+                             size={el.size} clickFunction={(path) => self.requestDataFromServer(path)}/>
             })
           }
           </tbody>
@@ -104,6 +123,7 @@ export default class Folders extends React.Component {
     )
   }
 }
+
 
 
 
