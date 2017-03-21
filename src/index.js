@@ -5,14 +5,14 @@ require('./styles.scss');
 import { render } from 'react-dom';
 import ReactDOM from 'react-dom';
 import Layout from './components/layout/Layout';
-import Folders from './pages/folders/Folders.js';
+import FileManager from './pages/file-manager/File-manager.js';
 import Camera from './pages/camera/Camera.js';
 import {Router, Route, hashHistory} from 'react-router';
 
 ReactDOM.render(
   <Router history={hashHistory}>
     <Route path="/" component={Layout} >
-      <Route path="/folders/*" component={Folders} />
+      <Route path="/folders/*" component={FileManager} />
       <Route path="/camera" component={Camera} />
     </Route>
   </Router>,

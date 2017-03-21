@@ -1,0 +1,18 @@
+.k-file-manager .table > tbody > tr > td {
+  vertical-align: middle; }
+.k-file-manager .k-icon-folder-close {
+  font-size: 35px;
+  color: #FFC107; }
+.k-file-manager .k-icon-glyphicon-file {
+  font-size: 35px;
+  color: #67abc5; }
+.k-file-manager .k-icon-download-alt, .k-file-manager .k-icon-remove {
+  font-size: 15px;
+  display: inline-block;
+  margin-right: 20px; }
+.k-file-manager .k-row-big {
+  width: 50%; }
+.k-file-manager .k-row-small {
+  width: 25px; }
+
+/*# sourceMappingURL=file-manager.css.map */

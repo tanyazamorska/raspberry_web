@@ -1,4 +1,8 @@
-.k-folders {
+.k-file-manager {
+
+  .table>tbody>tr>td {
+    vertical-align: middle;
+  }
 
   .k-icon-folder-close {
     font-size: 35px;
@@ -13,6 +17,7 @@
   .k-icon-download-alt, .k-icon-remove {
     font-size: 15px;
     display: inline-block;
+    margin-right: 20px;
   }
 
   .k-row-big {

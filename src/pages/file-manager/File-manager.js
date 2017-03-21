@@ -1,4 +1,4 @@
-import './folders.scss';
+import './file-manager.scss';
 import React from 'react';
 import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
@@ -39,7 +39,7 @@ class Folder extends React.Component {
           <i className={"glyphicon " + additionalClass} onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)}></i>
         </td>
         <td className="k-row-big">
-          <Link to={"folders/" + this.props.name} title="open">
+          <Link to={"fileManager/" + this.props.name} title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>
@@ -59,7 +59,7 @@ class Folder extends React.Component {
 }
 
 
-export default class Folders extends React.Component {
+export default class FileManager extends React.Component {
   constructor(props) {
     super(props);
     let self = this;
@@ -74,14 +74,14 @@ export default class Folders extends React.Component {
       }, 0);
     });
 
-    this.requestDataFromServer("/sys");
+    this.requestDataFromServer("/");
   }
 
   requestDataFromServer(path) {
     let self = this;
     $.ajax({
       method: "POST",
-      url: "http://192.168.0.100:7777/api/fs/ls",
+      url: "http://192.168.0.101:7777/api/fs/ls",
       data: JSON.stringify({"path": path}),
       contentType: 'application/json',
       complete: function (res) {
@@ -99,14 +99,25 @@ export default class Folders extends React.Component {
     });
 
     return (
-      <div className="k-folders">
-        <span><h4>{path}</h4></span>
-        <form className="navbar-form navbar-right" role="search">
-          <div className="form-group">
-            <input type="text" className="form-control"/>
+      <div className="k-file-manager">
+        <div className="row container">
+          <div className="col-xs-6 col-sm-6">
+            <form className="navbar-form navbar-left">
+              <div className="form-group">
+                <h4>{path}</h4>
+              </div>
+            </form>
+           </div>
+          <div className="col-xs-6 col-sm-6">
+            <form className="navbar-form navbar-right">
+             <div className="form-group">
+              <input type="text" className="form-control"/>
+            </div>
+             <button type="submit" className="btn btn-primary btn-sm">Upload file</button>
+            </form>
           </div>
-          <button type="submit" className="btn btn-primary">Upload file</button>
-        </form>
+        </div>
+
 
         <table className="table">
           <thead>
