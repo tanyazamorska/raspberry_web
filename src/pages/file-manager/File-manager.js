@@ -32,16 +32,17 @@ class Folder extends React.Component {
     }
 
     let pathToGo = this.props.path;
+    //console.log(pathToGo)
 
     return (
       <tr>
         <td className="k-row-small">
-          <Link to={"fileManager/"} onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)}>
+          <Link to={"file manager" + pathToGo + "/" + this.props.name} onClick={() => this.props.clickFunction(pathToGo + "/" + this.props.name)}>
           <i className={"glyphicon " + additionalClass} ></i>
           </Link>
         </td>
         <td className="k-row-big">
-          <Link to={"fileManager/" + this.props.name}  onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)}title="open">
+          <Link to={"file manager" + pathToGo + "/" + this.props.name}  onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)} title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>
@@ -69,10 +70,10 @@ export default class FileManager extends React.Component {
       filesAndFolders: [],
       path: ""
     };
-    console.log(this.props.params); // TODO
+    //console.log(this.props.params); // TODO
     browserHistory.listen( location =>  {
       setTimeout(() => {
-        console.log(self.props.params); // TODO
+        //console.log(self.props.params.splat); // TODO
       }, 0);
     });
 
