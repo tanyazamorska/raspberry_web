@@ -36,10 +36,12 @@ class Folder extends React.Component {
     return (
       <tr>
         <td className="k-row-small">
-          <i className={"glyphicon " + additionalClass} onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)}></i>
+          <Link to={"fileManager/"} onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)}>
+          <i className={"glyphicon " + additionalClass} ></i>
+          </Link>
         </td>
         <td className="k-row-big">
-          <Link to={"fileManager/" + this.props.name} title="open">
+          <Link to={"fileManager/" + this.props.name}  onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)}title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>
