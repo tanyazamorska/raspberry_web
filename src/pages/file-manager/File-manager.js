@@ -6,6 +6,7 @@ import moment from 'moment';
 
 class Folder extends React.Component {
   render() {
+
     let additionalClass = null;
     if (this.props.kind === 'folder') {
       additionalClass = "glyphicon-folder-close k-icon-folder-close";
@@ -24,12 +25,18 @@ class Folder extends React.Component {
       lastModified = moment().format('YYYY-MM-DD');
     }
 
-    let size = this.props.size / 1000000;
-    if (this.props.kind === 'file') {
-      size = Math.round(size) + 'MB';
-    } else {
-      size = '-';
-    }
+    let size = this.props.size;
+      if (this.props.kind === 'file') {
+        if (size < 1000) {
+          size = size + ' B';
+        } else if (size > 1000 && size < 99999) {
+          size = (size / 1000).toFixed(1) + ' kB';
+        }  else if (size < 1000000000) {
+          size = (size / 1000000).toFixed(1) + ' MB';
+        }
+      } else {
+        size = '-';
+      }
 
     let pathToGo = this.props.path;
     //console.log(pathToGo)
@@ -37,12 +44,14 @@ class Folder extends React.Component {
     return (
       <tr>
         <td className="k-row-small">
-          <Link to={"file manager" + pathToGo + "/" + this.props.name} onClick={() => this.props.clickFunction(pathToGo + "/" + this.props.name)}>
-          <i className={"glyphicon " + additionalClass} ></i>
+          <Link to={"file manager" + pathToGo + "/" + this.props.name}
+                onClick={() => this.props.clickFunction(pathToGo + "/" + this.props.name)}>
+            <i className={"glyphicon " + additionalClass} ></i>
           </Link>
         </td>
         <td className="k-row-big">
-          <Link to={"file manager" + pathToGo + "/" + this.props.name}  onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)} title="open">
+          <Link to={"file manager" + pathToGo + "/" + this.props.name}
+                onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)} title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>
@@ -120,8 +129,7 @@ export default class FileManager extends React.Component {
             </form>
           </div>
         </div>
-
-
+        
         <table className="table">
           <thead>
           <tr>
