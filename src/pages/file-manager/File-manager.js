@@ -6,7 +6,6 @@ import moment from 'moment';
 
 class Folder extends React.Component {
   render() {
-
     let additionalClass = null;
     if (this.props.kind === 'folder') {
       additionalClass = "glyphicon-folder-close k-icon-folder-close";
@@ -14,18 +13,23 @@ class Folder extends React.Component {
       additionalClass = "glyphicon glyphicon-file k-icon-glyphicon-file";
     }
 
-    let lastModified = moment().format('YYYY-MM-DD hh:mm a');
-    let day = moment().format('DD');
-    let year = moment().format('YYYY');
-    if (moment().format('DD') === day) {
-      lastModified = moment().format('hh:mm a');
-    } else if (moment().format('YYYY') === year) {
-      lastModified = moment().format('MM-DD');
-    } else {
-      lastModified = moment().format('YYYY-MM-DD');
-    }
+    let dateModified = (modified) => {
+      let date = moment(this.props.lastModified);
+      let lastModified = null; // 'YYYY.MM.DD hh:mm a'
+      let day = date.format('DD'); // 23
+      let year = date.format('YYYY'); // 2015
 
-    let size = this.props.size;
+      if (moment().format('DD') === day) {
+        lastModified = date.format('hh:mm a');
+      } else if (moment().format('YYYY') === year) {
+        lastModified = date.format('MMMM DD');
+      } else {
+        lastModified = date.format('YYYY.MM.DD');
+      }
+      return lastModified;
+    };
+
+    let setSizeOfFile = (size) => {
       if (this.props.kind === 'file') {
         if (size < 1000) {
           size = size + ' B';
@@ -37,26 +41,25 @@ class Folder extends React.Component {
       } else {
         size = '-';
       }
+      return size;
+    };
 
-    let pathToGo = this.props.path;
-    //console.log(pathToGo)
+    let pathToGo = (this.props.path === '/') ? "" : this.props.path;
 
     return (
       <tr>
         <td className="k-row-small">
-          <Link to={"file manager" + pathToGo + "/" + this.props.name}
-                onClick={() => this.props.clickFunction(pathToGo + "/" + this.props.name)}>
-            <i className={"glyphicon " + additionalClass} ></i>
+          <Link to={"file-manager" + pathToGo + "/" + this.props.name + '/'}>
+            <i className={"glyphicon " + additionalClass}></i>
           </Link>
         </td>
         <td className="k-row-big">
-          <Link to={"file manager" + pathToGo + "/" + this.props.name}
-                onClick={() => this.props.clickFunction(pathToGo +"/" + this.props.name)} title="open">
+          <Link to={"file-manager" + pathToGo + "/" + this.props.name + '/'} title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>
-        <td>{size}</td>
-        <td>{lastModified}</td>
+        <td>{setSizeOfFile(this.props.size)}</td>
+        <td>{dateModified(this.props.lastModified)}</td>
         <td>
           <Link to={"#"} title="download">
             <i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i>
@@ -79,14 +82,18 @@ export default class FileManager extends React.Component {
       filesAndFolders: [],
       path: ""
     };
-    //console.log(this.props.params); // TODO
-    browserHistory.listen( location =>  {
+
+    let setTimeoutFunction = () => {
       setTimeout(() => {
-        //console.log(self.props.params.splat); // TODO
+        self.requestDataFromServer("/" + self.props.params.splat);
       }, 0);
+    };
+
+    browserHistory.listen( location =>  {
+      setTimeoutFunction();
     });
 
-    this.requestDataFromServer("/");
+    setTimeoutFunction();
   }
 
   requestDataFromServer(path) {
@@ -129,7 +136,7 @@ export default class FileManager extends React.Component {
             </form>
           </div>
         </div>
-        
+
         <table className="table">
           <thead>
           <tr>
@@ -153,8 +160,3 @@ export default class FileManager extends React.Component {
     )
   }
 }
-
-
-
-
-
