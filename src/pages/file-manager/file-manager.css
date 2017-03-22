@@ -14,5 +14,10 @@
   width: 50%; }
 .k-file-manager .k-row-small {
   width: 25px; }
+.k-file-manager .k-col-3 {
+  position: relative;
+  top: 35px; }
+.k-file-manager .k-row-kontainer {
+  background-color: #9bb7c1; }
 
 /*# sourceMappingURL=file-manager.css.map */

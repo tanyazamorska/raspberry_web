@@ -6,6 +6,8 @@ import moment from 'moment';
 
 class Folder extends React.Component {
   render() {
+
+    //console.log(this.props)
     let additionalClass = null;
     if (this.props.kind === 'folder') {
       additionalClass = "glyphicon-folder-close k-icon-folder-close";
@@ -73,7 +75,6 @@ class Folder extends React.Component {
   }
 }
 
-
 export default class FileManager extends React.Component {
   constructor(props) {
     super(props);
@@ -81,7 +82,7 @@ export default class FileManager extends React.Component {
     this.state = {
       filesAndFolders: [],
       path: ""
-    };
+     };
 
     let setTimeoutFunction = () => {
       setTimeout(() => {
@@ -110,7 +111,6 @@ export default class FileManager extends React.Component {
   }
 
   render() {
-    let self = this;
     let path = this.state.path;
     this.state.filesAndFolders.forEach(function (item, key) {
       item.id = key;
@@ -119,15 +119,20 @@ export default class FileManager extends React.Component {
 
     return (
       <div className="k-file-manager">
-        <div className="row container">
-          <div className="col-xs-6 col-sm-6">
+        <div className="row container k-row-kontainer">
+          <div className="col-xs-5 col-sm-5">
             <form className="navbar-form navbar-left">
               <div className="form-group">
                 <h4>{path}</h4>
               </div>
             </form>
-           </div>
-          <div className="col-xs-6 col-sm-6">
+          </div>
+          <div className="col-xs-3 col-sm-3 k-col-3">
+            <div className="form-group">
+              <input type="checkbox" />display hidden files
+            </div>
+          </div>
+          <div className="col-xs-4 col-sm-4">
             <form className="navbar-form navbar-right">
              <div className="form-group">
               <input type="text" className="form-control"/>
