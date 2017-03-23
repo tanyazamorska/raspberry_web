@@ -46,24 +46,21 @@ class Folder extends React.Component {
     };
 
     let pathToGo = (this.props.path === '/') ? "" : this.props.path;
-    let toGo = "/" + this.props.name + '/';
 
     if (this.props.name === "..") {
-      let arr = this.props.path;
-      let newArr = arr.split('/')
-      console.log(newArr)
     }
-    //console.log(this.props)
+
+
 
     return (
       <tr>
         <td className="k-row-small">
-          <Link to={"file-manager" + pathToGo + toGo}>
+          <Link to={"file-manager" + pathToGo + "/" + this.props.name + '/'}>
             <i className={"glyphicon " + additionalClass}></i>
           </Link>
         </td>
         <td className="k-row-big">
-          <Link to={"file-manager" + pathToGo + toGo} title="open">
+          <Link to={"file-manager" + pathToGo + "/" + this.props.name + '/'} title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>
@@ -84,6 +81,7 @@ class Folder extends React.Component {
     )
   }
 }
+
 
 export default class FileManager extends React.Component {
   constructor(props) {
@@ -129,19 +127,45 @@ export default class FileManager extends React.Component {
   }
 
   render() {
+
+    if ($('#displayHiddenFiles') === this.checked) {
+      console.log("checked")
+    } else {
+      console.log("not checked")
+    }
+
+    let path = this.state.path;
+    if (path === '/') {
+
+    }
+    let arr = path.split('/');
+    arr.shift();
+    var href = '';
+    let linksPathArr = arr.map(function(item, i) {
+      href = href + '/' + item;
+      let el = <span key={i}><Link to={"/file-manager" + href }>{item}</Link> / </span>;
+      if (i === arr.length -1) {
+        el = <span key={i}>{item} / </span>;
+      }
+      return el;
+    });
+    linksPathArr.unshift(<span key="-1"><Link to="/file-manager/"><i className="glyphicon glyphicon-cd"></i></Link> / </span>);
+
     return (
       <div className="k-file-manager">
         <div className="row container k-row-kontainer">
           <div className="col-xs-5 col-sm-5">
             <form className="navbar-form navbar-left">
               <div className="form-group">
-                <h4>{this.state.path}</h4>
+                <h5>
+                  {linksPathArr}
+                </h5>
               </div>
             </form>
           </div>
           <div className="col-xs-3 col-sm-3 k-col-3">
             <div className="form-group">
-              <input type="checkbox" />display hidden files
+              <input type="checkbox" id="displayHiddenFiles"/>display hidden files
             </div>
           </div>
           <div className="col-xs-4 col-sm-4">
