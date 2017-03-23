@@ -7,7 +7,6 @@ import moment from 'moment';
 class Folder extends React.Component {
   render() {
 
-    //console.log(this.props)
     let additionalClass = null;
     if (this.props.kind === 'folder') {
       additionalClass = "glyphicon-folder-close k-icon-folder-close";
@@ -47,16 +46,24 @@ class Folder extends React.Component {
     };
 
     let pathToGo = (this.props.path === '/') ? "" : this.props.path;
+    let toGo = "/" + this.props.name + '/';
+
+    if (this.props.name === "..") {
+      let arr = this.props.path;
+      let newArr = arr.split('/')
+      console.log(newArr)
+    }
+    //console.log(this.props)
 
     return (
       <tr>
         <td className="k-row-small">
-          <Link to={"file-manager" + pathToGo + "/" + this.props.name + '/'}>
+          <Link to={"file-manager" + pathToGo + toGo}>
             <i className={"glyphicon " + additionalClass}></i>
           </Link>
         </td>
         <td className="k-row-big">
-          <Link to={"file-manager" + pathToGo + "/" + this.props.name + '/'} title="open">
+          <Link to={"file-manager" + pathToGo + toGo} title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>
@@ -68,6 +75,9 @@ class Folder extends React.Component {
           </Link>
           <Link to={"#"} title="remove">
             <i className="glyphicon glyphicon-remove k-icon-remove"></i>
+          </Link>
+          <Link to={"#"} title="editor">
+            <i className="glyphicon glyphicon-pencil k-icon-pencil"></i>
           </Link>
         </td>
       </tr>
@@ -105,25 +115,27 @@ export default class FileManager extends React.Component {
       data: JSON.stringify({"path": path}),
       contentType: 'application/json',
       complete: function (res) {
-        self.setState(res.responseJSON);
+        const state = res.responseJSON;
+        if (state.path !== "/") {
+          state.filesAndFolders.unshift({"name": "..", "kind": "folder"});
+        }
+        state.filesAndFolders.forEach(function (item, key) {
+          item.id = key;
+          item.path = path;
+        });
+        self.setState(state);
       }
     });
   }
 
   render() {
-    let path = this.state.path;
-    this.state.filesAndFolders.forEach(function (item, key) {
-      item.id = key;
-      item.path = path;
-    });
-
     return (
       <div className="k-file-manager">
         <div className="row container k-row-kontainer">
           <div className="col-xs-5 col-sm-5">
             <form className="navbar-form navbar-left">
               <div className="form-group">
-                <h4>{path}</h4>
+                <h4>{this.state.path}</h4>
               </div>
             </form>
           </div>
@@ -141,7 +153,6 @@ export default class FileManager extends React.Component {
             </form>
           </div>
         </div>
-
         <table className="table">
           <thead>
           <tr>
@@ -156,7 +167,7 @@ export default class FileManager extends React.Component {
           {
             this.state.filesAndFolders.map(function (el) {
               return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}
-                             size={el.size} clickFunction={(path) => self.requestDataFromServer(path)}/>
+                             size={el.size} />
             })
           }
           </tbody>
