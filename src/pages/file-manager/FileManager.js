@@ -45,20 +45,30 @@ class Folder extends React.Component {
       return size;
     };
 
-    let pathToGo = (this.props.path === '/') ? "" : this.props.path;
+    let url = (pathToGo) => {
+      pathToGo = (this.props.path === '/') ? "" : this.props.path;
+      let arr = pathToGo.split('/');
 
-    if (this.props.name === "..") {
-    }
+      if (this.props.name === "..") {
+        arr.pop();
+        pathToGo = arr.join('/') + '/';
+      } else if (this.props.name === ".." && this.props.path === 'sys') {
+        pathToGo ="file-manager/";
+      } else {
+        pathToGo = pathToGo + "/" + this.props.name + '/';
+      }
+      return pathToGo;
+    };
 
     return (
       <tr>
         <td className="k-row-small">
-          <Link to={"file-manager" + pathToGo + "/" + this.props.name + '/'}>
+          <Link to={"file-manager" + url(this.props.path)}>
             <i className={"glyphicon " + additionalClass}></i>
           </Link>
         </td>
         <td className="k-row-big">
-          <Link to={"file-manager" + pathToGo + "/" + this.props.name + '/'} title="open">
+          <Link to={"file-manager" + url(this.props.path)} title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>
@@ -134,6 +144,7 @@ export default class FileManager extends React.Component {
 
     let path = this.state.path;
     let arr = path.split('/');
+
     arr.shift();
     var href = '';
     let linksPathArr = arr.map(function(item, i) {
