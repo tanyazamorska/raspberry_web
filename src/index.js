@@ -3,8 +3,8 @@ require('bootstrap/dist/css/bootstrap.css');
 require('bootswatch/paper/bootstrap.min.css');
 require('./styles.scss');
 import ReactDOM from 'react-dom';
-import Layout from './components/layout/Layout';
-import FileManager from './pages/file-manager/File-manager.js';
+import Layout from './components/Layout/Layout';
+import FileManager from './pages/file-manager/FileManager.js';
 import Camera from './pages/camera/Camera.js';
 import {Router, Route, hashHistory} from 'react-router';
 

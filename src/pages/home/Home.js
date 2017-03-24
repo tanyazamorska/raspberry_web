@@ -1,7 +1,7 @@
-import './home.scss';
+import './Home.scss';
 import React from 'react';
 import {Link} from 'react-router';
-import './home.scss';
+import './Home.scss';
 
 export default class Home extends React.Component {
   render() {

@@ -1,4 +1,4 @@
-import './file-manager.scss';
+import './FileManager.scss';
 import React from 'react';
 import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
@@ -49,8 +49,6 @@ class Folder extends React.Component {
 
     if (this.props.name === "..") {
     }
-
-
 
     return (
       <tr>
@@ -109,7 +107,7 @@ export default class FileManager extends React.Component {
     let self = this;
     $.ajax({
       method: "POST",
-      url: "http://192.168.0.101:7777/api/fs/ls",
+      url: "http://192.168.0.102:7777/api/fs/ls",
       data: JSON.stringify({"path": path}),
       contentType: 'application/json',
       complete: function (res) {
@@ -128,16 +126,13 @@ export default class FileManager extends React.Component {
 
   render() {
 
-    if ($('#displayHiddenFiles') === this.checked) {
-      console.log("checked")
-    } else {
-      console.log("not checked")
-    }
+    // if ($('#displayHiddenFiles') === this.checked) {
+    //   console.log("checked")
+    // } else {
+    //   console.log("not checked")
+    // }
 
     let path = this.state.path;
-    if (path === '/') {
-
-    }
     let arr = path.split('/');
     arr.shift();
     var href = '';
@@ -149,7 +144,12 @@ export default class FileManager extends React.Component {
       }
       return el;
     });
-    linksPathArr.unshift(<span key="-1"><Link to="/file-manager/"><i className="glyphicon glyphicon-cd"></i></Link> / </span>);
+
+    if (path === '/') {
+      linksPathArr.unshift(<span key="-1"><i className="glyphicon glyphicon-cd"></i></span>);
+    } else {
+      linksPathArr.unshift(<span key="-1"><Link to="/file-manager/"><i className="glyphicon glyphicon-cd"></i></Link> / </span>);
+    }
 
     return (
       <div className="k-file-manager">

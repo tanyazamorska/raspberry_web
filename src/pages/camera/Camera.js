@@ -1,4 +1,4 @@
-import './camera.scss';
+import './Camera.scss';
 import React from 'react';
 
 export default class Camera extends React.Component {
