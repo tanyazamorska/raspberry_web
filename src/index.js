@@ -1,7 +1,8 @@
-import React from 'react';
 require('bootstrap/dist/css/bootstrap.css');
 require('bootswatch/paper/bootstrap.min.css');
 require('./styles.scss');
+
+import React from 'react';
 import ReactDOM from 'react-dom';
 import Layout from './components/Layout/Layout';
 import FileManager from './pages/file-manager/FileManager.js';
