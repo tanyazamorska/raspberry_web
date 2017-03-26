@@ -14,7 +14,8 @@ export default class FileManager extends React.Component {
       filesAndFolders: [],
       path: "",
       showHidden: false,
-      clickedName: ""
+      clickedName: "",
+      clickedSize: ""
     };
 
     let setTimeoutFunction = () => {
@@ -55,9 +56,16 @@ export default class FileManager extends React.Component {
     this.setState({showHidden: !this.state.showHidden});
   }
 
-  handleClick() {
+  handleClickName() {
+    this.setState({clickedSize: ""});
     this.setState({clickedName: false});
     this.setState({clickedName: !this.state.clickedName});
+  }
+
+  handleClickSize() {
+    this.setState({clickedName: ""});
+    this.setState({clickedSize: false});
+    this.setState({clickedSize: !this.state.clickedSize});
   }
 
   render() {
@@ -94,21 +102,40 @@ export default class FileManager extends React.Component {
       filesAndFolders = this.state.filesAndFolders;
     }
 
-    // sort
+    // sort by name
     if (this.state.clickedName === true) {
-     let sortArr = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
-      filesAndFolders = sortArr;
+     let sortName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
+      filesAndFolders = sortName;
     } else if (this.state.clickedName === false) {
-      let reverseArr = _.reverse(filesAndFolders);
-      filesAndFolders = reverseArr;
+      let reverseName = _.reverse(filesAndFolders);
+      filesAndFolders = reverseName;
     }
-
-    let showArrow = () => {
+    let showArrowAlphabet = () => {
       let span = (this.state.clickedName === '') ? <span></span> :
         (this.state.clickedName === true) ? <span> <i className="glyphicon glyphicon-sort-by-alphabet"></i></span> :
           <span> <i className="glyphicon glyphicon-sort-by-alphabet-alt"></i></span>;
           return span;
     };
+
+    //sort by size
+    if (this.state.clickedSize === true) {
+      var sortSize = _.sortBy(filesAndFolders, [function(obj) { if (obj.size === undefined) {
+        obj.size = "0"}
+        return parseInt(obj.size)}]);
+          filesAndFolders = sortSize;
+    } else if (this.state.clickedSize === false) {
+      let reverseSize = _.sortBy(filesAndFolders, [function(obj) { return parseInt(obj.size)}]);
+      reverseSize  =  _.reverse(reverseSize);
+      filesAndFolders = reverseSize;
+    }
+    let showArrowOrder = () => {
+      let span = (this.state.clickedSize === '') ? <span></span> :
+        (this.state.clickedSize === true) ? <span> <i className="glyphicon glyphicon-sort-by-order"></i></span> :
+          <span> <i className="glyphicon glyphicon-sort-by-order-alt"></i></span>;
+      return span;
+    };
+
+    //sort by modified
 
     return (
       <div className="k-file-manager">
@@ -143,9 +170,11 @@ export default class FileManager extends React.Component {
           <tr>
             <th className="k-row-small"></th>
             <th className="k-row-big">
-              <span onClick={() => this.handleClick()}>{this.state.clickedName}Name{showArrow()}</span>
+              <span onClick={() => this.handleClickName()}>{this.state.clickedName}Name{showArrowAlphabet()}</span>
             </th>
-            <th>Size</th>
+            <th>
+              <span onClick={() => this.handleClickSize()}>{this.state.clickedSize}Size{showArrowOrder()}</span>
+             </th>
             <th>Modified</th>
             <th>Action</th>
           </tr>
@@ -153,6 +182,7 @@ export default class FileManager extends React.Component {
           <tbody>
           {
             filesAndFolders.map(function (el) {
+              console.log(filesAndFolders)
               return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}
                              size={el.size} />
             })
