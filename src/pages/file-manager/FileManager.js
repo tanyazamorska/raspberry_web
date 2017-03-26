@@ -4,6 +4,7 @@ import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
 import _ from "lodash";
 import {Folder} from './Folder.js';
+import moment from 'moment';
 
 
 export default class FileManager extends React.Component {
@@ -15,7 +16,8 @@ export default class FileManager extends React.Component {
       path: "",
       showHidden: false,
       clickedName: "",
-      clickedSize: ""
+      clickedSize: "",
+      clickedModified: ""
     };
 
     let setTimeoutFunction = () => {
@@ -58,14 +60,23 @@ export default class FileManager extends React.Component {
 
   handleClickName() {
     this.setState({clickedSize: ""});
+    this.setState({clickedModified: ""});
     this.setState({clickedName: false});
     this.setState({clickedName: !this.state.clickedName});
   }
 
   handleClickSize() {
     this.setState({clickedName: ""});
+    this.setState({clickedModified: ""});
     this.setState({clickedSize: false});
     this.setState({clickedSize: !this.state.clickedSize});
+  }
+
+  handleClickModified() {
+    this.setState({clickedName: ""});
+    this.setState({clickedSize: ""});
+    this.setState({clickedModified: false});
+    this.setState({clickedModified: !this.state.clickedModified});
   }
 
   render() {
@@ -107,7 +118,8 @@ export default class FileManager extends React.Component {
      let sortName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
       filesAndFolders = sortName;
     } else if (this.state.clickedName === false) {
-      let reverseName = _.reverse(filesAndFolders);
+      let reverseName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
+      reverseName =  _.reverse(reverseName);
       filesAndFolders = reverseName;
     }
     let showArrowAlphabet = () => {
@@ -136,6 +148,20 @@ export default class FileManager extends React.Component {
     };
 
     //sort by modified
+    if (this.state.clickedModified === true) {
+      let sortModified = _.sortBy(filesAndFolders, [function(obj) {return (obj.lastModified)}]);
+      filesAndFolders = sortModified;
+    } else if (this.state.clickedModified === false) {
+      let reverseModified = _.sortBy(filesAndFolders, [function(obj) {return (obj.lastModified)}]);
+      reverseModified =  _.reverse(reverseModified);
+      filesAndFolders = reverseModified;
+    }
+    let showArrow = () => {
+      let span = (this.state.clickedModified === '') ? <span></span> :
+        (this.state.clickedModified === true) ? <span> <i className="glyphicon glyphicon-sort-by-order-alt"></i></span> :
+          <span> <i className="glyphicon glyphicon-sort-by-order"></i></span>;
+      return span;
+    };
 
     return (
       <div className="k-file-manager">
@@ -174,15 +200,16 @@ export default class FileManager extends React.Component {
             </th>
             <th>
               <span onClick={() => this.handleClickSize()}>{this.state.clickedSize}Size{showArrowOrder()}</span>
-             </th>
-            <th>Modified</th>
+            </th>
+            <th>
+              <span onClick={() => this.handleClickModified()}>{this.state.clickedModified}Modified{showArrow()}</span>
+            </th>
             <th>Action</th>
           </tr>
           </thead>
           <tbody>
           {
             filesAndFolders.map(function (el) {
-              console.log(filesAndFolders)
               return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}
                              size={el.size} />
             })
