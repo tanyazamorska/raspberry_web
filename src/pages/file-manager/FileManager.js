@@ -2,6 +2,7 @@ import './FileManager.scss';
 import React from 'react';
 import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
+import _ from "lodash";
 import {Folder} from './Folder.js';
 
 
@@ -87,6 +88,13 @@ export default class FileManager extends React.Component {
       filesAndFolders = this.state.filesAndFolders;
     }
 
+    // sort
+    let handleClick = ((arr) => {
+      arr  = _.sortBy(this.state.filesAndFolders, [function(obj) { return obj.name}]);
+      console.log(arr);
+      //return arr;
+    });
+
     return (
       <div className="k-file-manager">
         <div className="row container k-row-kontainer">
@@ -119,7 +127,7 @@ export default class FileManager extends React.Component {
           <thead>
           <tr>
             <th className="k-row-small"></th>
-            <th className="k-row-big">Name</th>
+            <th className="k-row-big"><span onClick={() => handleClick(this.state.filesAndFolders)}>Name</span></th>
             <th>Size</th>
             <th>Modified</th>
             <th>Action</th>
