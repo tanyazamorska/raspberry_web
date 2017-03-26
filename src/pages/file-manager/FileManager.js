@@ -55,8 +55,9 @@ export default class FileManager extends React.Component {
 
   render() {
     let path = this.state.path;
-    let arr = path.split('/');
 
+    // show path as links
+    let arr = path.split('/');
     arr.shift();
     var href = '';
     let linksPathArr = arr.map(function(item, i) {
@@ -74,8 +75,17 @@ export default class FileManager extends React.Component {
       linksPathArr.unshift(<span key="-1"><Link to="/file-manager/"><i className="glyphicon glyphicon-cd"></i></Link> / </span>);
     }
 
-    //let filesAndFolders = // this.state.showHidden == true => all
-                            // this.state.showHidden == false => filter
+    // show hidden files and folders
+    let filesAndFolders;
+    if (this.state.showHidden === false) {
+      filesAndFolders = this.state.filesAndFolders.filter((obj) => {
+        if (obj.name.charAt(0) !== '.' || obj.name === '..') {
+          return obj;
+        }
+      });
+    } else {
+      filesAndFolders = this.state.filesAndFolders;
+    }
 
     return (
       <div className="k-file-manager">
@@ -117,7 +127,7 @@ export default class FileManager extends React.Component {
           </thead>
           <tbody>
           {
-            this.state.filesAndFolders.map(function (el) {
+            filesAndFolders.map(function (el) {
               return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}
                              size={el.size} />
             })
