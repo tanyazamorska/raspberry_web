@@ -13,7 +13,8 @@ export default class FileManager extends React.Component {
     this.state = {
       filesAndFolders: [],
       path: "",
-      showHidden: false
+      showHidden: false,
+      clickedName: ""
     };
 
     let setTimeoutFunction = () => {
@@ -54,6 +55,11 @@ export default class FileManager extends React.Component {
     this.setState({showHidden: !this.state.showHidden});
   }
 
+  handleClick() {
+    this.setState({clickedName: false});
+    this.setState({clickedName: !this.state.clickedName});
+  }
+
   render() {
     let path = this.state.path;
 
@@ -89,11 +95,20 @@ export default class FileManager extends React.Component {
     }
 
     // sort
-    let handleClick = ((arr) => {
-      arr  = _.sortBy(this.state.filesAndFolders, [function(obj) { return obj.name}]);
-      console.log(arr);
-      //return arr;
-    });
+    if (this.state.clickedName === true) {
+     let sortArr = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
+      filesAndFolders = sortArr;
+    } else if (this.state.clickedName === false) {
+      let reverseArr = _.reverse(filesAndFolders);
+      filesAndFolders = reverseArr;
+    }
+
+    let showArrow = () => {
+      let span = (this.state.clickedName === '') ? <span></span> :
+        (this.state.clickedName === true) ? <span> <i className="glyphicon glyphicon-sort-by-alphabet"></i></span> :
+          <span> <i className="glyphicon glyphicon-sort-by-alphabet-alt"></i></span>;
+          return span;
+    };
 
     return (
       <div className="k-file-manager">
@@ -127,7 +142,9 @@ export default class FileManager extends React.Component {
           <thead>
           <tr>
             <th className="k-row-small"></th>
-            <th className="k-row-big"><span onClick={() => handleClick(this.state.filesAndFolders)}>Name</span></th>
+            <th className="k-row-big">
+              <span onClick={() => this.handleClick()}>{this.state.clickedName}Name{showArrow()}</span>
+            </th>
             <th>Size</th>
             <th>Modified</th>
             <th>Action</th>
