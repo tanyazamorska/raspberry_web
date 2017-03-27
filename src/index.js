@@ -19,4 +19,9 @@ ReactDOM.render(
   document.getElementById('app')
 );
 
-
+//       <Route path="/file-manager/:showHidden/*" component={FileManager} />
+// http://localhost:8888/#/file-manager/home/pi/
+// http://localhost:8888/#/{page}/show-hidden/{path_to_files*}
+// http://localhost:8888/#/{page}/hide-hidden/{path_to_files*}
+// http://localhost:8888/#/{page}/{path_to_files*}/{x}
+// hashHistory.push("/file-manager/home/pi/Downloads")

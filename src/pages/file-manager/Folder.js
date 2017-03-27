@@ -1,22 +1,22 @@
 import React from 'react';
-import {Link, browserHistory} from 'react-router';
+import {Link} from 'react-router';
 import moment from 'moment';
 
 export class Folder extends React.Component {
   render() {
 
-    let additionalClass = null;
+    let fileOrFolderClass = null;
     if (this.props.kind === 'folder') {
-      additionalClass = "glyphicon-folder-close k-icon-folder-close";
+      fileOrFolderClass = "glyphicon-folder-close k-icon-folder-close";
     } else {
-      additionalClass = "glyphicon glyphicon-file k-icon-glyphicon-file";
+      fileOrFolderClass = "glyphicon-file k-icon-glyphicon-file";
     }
 
-    let dateModified = (modified) => {
-      let date = moment(this.props.lastModified);
+    const dateModified = (modified) => {
+      const date = moment(modified);
+      const day = date.format('DD'); // 23
+      const year = date.format('YYYY'); // 2015
       let lastModified = null; // 'YYYY.MM.DD hh:mm a'
-      let day = date.format('DD'); // 23
-      let year = date.format('YYYY'); // 2015
 
       if (moment().format('DD') === day) {
         lastModified = date.format('hh:mm a');
@@ -28,13 +28,13 @@ export class Folder extends React.Component {
       return lastModified;
     };
 
-    let setSizeOfFile = (size) => {
-      if (this.props.kind === 'file') {
+    const setSizeOfFile = (size, kind) => {
+      if (kind === 'file') {
         if (size < 1000) {
           size = size + ' B';
         } else if (size > 1000 && size < 99999) {
           size = (size / 1000).toFixed(1) + ' kB';
-        }  else if (size < 1000000000) {
+        } else if (size < 1000000000) {
           size = (size / 1000000).toFixed(1) + ' MB';
         }
       } else {
@@ -43,26 +43,23 @@ export class Folder extends React.Component {
       return size;
     };
 
-    let url = (pathToGo, name) => {
+    const url = (pathToGo, name) => {
       // to kill double slash
       pathToGo = (pathToGo === '/') ? "" : pathToGo;
       // ex: "asd/asd/asd" => ["asd", "asd", "asd"]
-      let arr = pathToGo.split('/');
-
+      const arr = pathToGo.split('/');
       if (name === "..") {
         arr.pop();
         pathToGo = arr.join('/') + '/';
-      } else if (name === ".." && pathToGo === 'sys') {
-        pathToGo ="file-manager/";
       } else {
         pathToGo = pathToGo + "/" + name + '/';
       }
       return pathToGo;
     };
 
-    let editorIcon = (file) => {
+    const editorIcon = (file) => {
       if (file === 'file') {
-        return  <i className="glyphicon glyphicon-pencil k-icon-pencil"></i>;
+        return <i className="glyphicon glyphicon-pencil k-icon-pencil"></i>;
       }
     };
 
@@ -70,7 +67,7 @@ export class Folder extends React.Component {
       <tr>
         <td className="k-row-small">
           <Link to={"file-manager" + url(this.props.path, this.props.name)}>
-            <i className={"glyphicon " + additionalClass}></i>
+            <i className={"glyphicon " + fileOrFolderClass}></i>
           </Link>
         </td>
         <td className="k-row-big">
@@ -78,7 +75,7 @@ export class Folder extends React.Component {
             <span>{this.props.name}</span>
           </Link>
         </td>
-        <td>{setSizeOfFile(this.props.size)}</td>
+        <td>{setSizeOfFile(this.props.size, this.props.kind)}</td>
         <td>{dateModified(this.props.lastModified)}</td>
         <td>
           <Link to={"#"} title="download">

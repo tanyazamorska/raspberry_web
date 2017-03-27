@@ -5,10 +5,12 @@ import $ from 'jquery';
 import _ from "lodash";
 import {Folder} from './Folder.js';
 
+window.b = browserHistory;
+
 export default class FileManager extends React.Component {
   constructor(props) {
     super(props);
-    let self = this;
+    const self = this;
     this.state = {
       filesAndFolders: [],
       path: "",
@@ -18,21 +20,27 @@ export default class FileManager extends React.Component {
       clickedModified: ""
     };
 
-    let setTimeoutFunction = () => {
+    const setTimeoutFunctionHack = () => {
       setTimeout(() => {
         self.requestDataFromServer("/" + self.props.params.splat);
       }, 0);
     };
 
     browserHistory.listen( location =>  {
-      setTimeoutFunction();
+      // console.log("------------ browserHistory.listen ------------");
+      setTimeoutFunctionHack();
     });
 
-    setTimeoutFunction();
+    setTimeoutFunctionHack();
   }
 
+  /**
+   * fetches data from server and executes `complete` function callback when ready,
+   * finally executes `setState`
+   * @param path - path to folder on raspberry file system
+   */
   requestDataFromServer(path) {
-    let self = this;
+    const self = this;
     $.ajax({
       method: "POST",
       url: "http://192.168.0.102:7777/api/fs/ls",
@@ -40,12 +48,13 @@ export default class FileManager extends React.Component {
       contentType: 'application/json',
       complete: function (res) {
         const state = res.responseJSON;
-        if(state.path !== "/") {
+        if (state.path !== "/") {
           state.filesAndFolders.unshift({"name": "..", "kind": "folder"});
         }
         state.filesAndFolders.forEach(function (item, key) {
           item.id = key;
           item.path = path;
+          item.size = item.size || 0;
         });
         self.setState(state);
       }
@@ -56,35 +65,38 @@ export default class FileManager extends React.Component {
     this.setState({showHidden: !this.state.showHidden});
   }
 
-  handleClickName() {
-    this.setState({clickedSize: ""});
+  resetSortsState() {
+    this.setState({clickedName: ""});
     this.setState({clickedModified: ""});
-    this.setState({clickedName: false});
+    this.setState({clickedSize: ""});
+  }
+
+  handleClickName() {
+    this.resetSortsState();
     this.setState({clickedName: !this.state.clickedName});
   }
 
   handleClickSize() {
-    this.setState({clickedName: ""});
-    this.setState({clickedModified: ""});
-    this.setState({clickedSize: false});
+    this.resetSortsState();
     this.setState({clickedSize: !this.state.clickedSize});
   }
 
   handleClickModified() {
-    this.setState({clickedName: ""});
-    this.setState({clickedSize: ""});
-    this.setState({clickedModified: false});
+    this.resetSortsState();
     this.setState({clickedModified: !this.state.clickedModified});
   }
 
   render() {
-    let path = this.state.path;
+    //console.log("render -----------------");
+    // console.log(this.props.params);
+
+    const path = this.state.path;
 
     // show path as links
-    let arr = path.split('/');
+    const arr = path.split('/');
     arr.shift();
-    var href = '';
-    let linksPathArr = arr.map(function(item, i) {
+    let href = '';
+    const linksPathArr = arr.map(function(item, i) {
       href = href + '/' + item;
       let el = <span key={i}><Link to={"/file-manager" + href }>{item}</Link> / </span>;
       if (i === arr.length -1) {
@@ -111,45 +123,47 @@ export default class FileManager extends React.Component {
       filesAndFolders = this.state.filesAndFolders;
     }
 
+    /**
+     *
+     * @param checkKey - key from state that signals if need to sort item
+     * @param keyInObjToSort - key to sort by in obj
+     */
+    let sortItemsBy = (checkKey, keyInObjToSort) => {
+
+    };
+
+    // sortItemsBy("clickedName", "name");
+    // sortItemsBy("clickedSize", "size");
+    // sortItemsBy("modified", "lastModified");
+
+
     // sort by name
     if (this.state.clickedName === true) {
-      let sortName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
-      filesAndFolders = sortName;
+      const sortByName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
+      filesAndFolders = sortByName;
     } else if (this.state.clickedName === false) {
       let reverseName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
       reverseName =  _.reverse(reverseName);
       filesAndFolders = reverseName;
     }
 
-    let showArrowAlphabet = () => {
-      let span = (this.state.clickedName === '') ? <span></span> :
-        (this.state.clickedName === true) ? <span> <i className="glyphicon glyphicon-sort-by-alphabet"></i></span> :
-          <span> <i className="glyphicon glyphicon-sort-by-alphabet-alt"></i></span>;
-          return span;
-    };
-
     //sort by size
     if (this.state.clickedSize === true) {
-      var sortSize = _.sortBy(filesAndFolders, [function(obj) { if (obj.size === undefined) {
-        obj.size = "0"}
-        return parseInt(obj.size)}]);
-          filesAndFolders = sortSize;
+      const sortedBySize = _.sortBy(filesAndFolders, [function(obj) {
+        return obj.size;
+      }]);
+      filesAndFolders = sortedBySize;
     } else if (this.state.clickedSize === false) {
-      let reverseSize = _.sortBy(filesAndFolders, [function(obj) { return parseInt(obj.size)}]);
-      reverseSize  = _.reverse(reverseSize);
-      filesAndFolders = reverseSize;
+      let sortedBySizeAndReversed = _.sortBy(filesAndFolders, [function(obj) {
+        return obj.size;
+      }]);
+      sortedBySizeAndReversed  = _.reverse(sortedBySizeAndReversed);
+      filesAndFolders = sortedBySizeAndReversed;
     }
-
-    let showArrowOrder = () => {
-      let span = (this.state.clickedSize === '') ? <span></span> :
-        (this.state.clickedSize === true) ? <span> <i className="glyphicon glyphicon-sort-by-order"></i></span> :
-          <span> <i className="glyphicon glyphicon-sort-by-order-alt"></i></span>;
-      return span;
-    };
 
     //sort by modified
     if (this.state.clickedModified === true) {
-      let sortModified = _.sortBy(filesAndFolders, [function(obj) {return (obj.lastModified)}]);
+      const sortModified = _.sortBy(filesAndFolders, [function(obj){return (obj.lastModified)}]);
       filesAndFolders = sortModified;
     } else if (this.state.clickedModified === false) {
       let reverseModified = _.sortBy(filesAndFolders, [function(obj) {return (obj.lastModified)}]);
@@ -157,10 +171,10 @@ export default class FileManager extends React.Component {
       filesAndFolders = reverseModified;
     }
 
-    let showArrow = () => {
-      let span = (this.state.clickedModified === '') ? <span></span> :
-        (this.state.clickedModified === true) ? <span> <i className="glyphicon glyphicon-sort-by-order-alt"></i></span> :
-          <span> <i className="glyphicon glyphicon-sort-by-order"></i></span>;
+    const showArrow = (click) => {
+      const span = (click === '') ? <span></span> :
+        (click === true) ? <span> <i className="glyphicon glyphicon-arrow-up"></i></span> :
+          <span> <i className="glyphicon glyphicon-arrow-down"></i></span>;
       return span;
     };
 
@@ -179,8 +193,8 @@ export default class FileManager extends React.Component {
           <div className="col-xs-3 col-sm-3 k-col-3">
             <div className="form-group">
               <input type="checkbox"
-                     checked={this.state.showHidden}
-                     onChange={() => this.toggleChange()} />display hidden files
+                        checked={this.state.showHidden}
+                        onChange={() => this.toggleChange()} />show hidden files
             </div>
           </div>
           <div className="col-xs-4 col-sm-4">
@@ -197,13 +211,13 @@ export default class FileManager extends React.Component {
           <tr>
             <th className="k-row-small"></th>
             <th className="k-row-big">
-              <span onClick={() => this.handleClickName()}>{this.state.clickedName}Name{showArrowAlphabet()}</span>
+              <span onClick={() => this.handleClickName()}>Name{showArrow(this.state.clickedName)}</span>
             </th>
             <th>
-              <span onClick={() => this.handleClickSize()}>{this.state.clickedSize}Size{showArrowOrder()}</span>
+              <span onClick={() => this.handleClickSize()}>Size{showArrow(this.state.clickedSize)}</span>
             </th>
             <th>
-              <span onClick={() => this.handleClickModified()}>{this.state.clickedModified}Modified{showArrow()}</span>
+              <span onClick={() => this.handleClickModified()}>Modified{showArrow(this.state.clickedModified)}</span>
             </th>
             <th>Action</th>
           </tr>
