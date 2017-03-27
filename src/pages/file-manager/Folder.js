@@ -60,6 +60,12 @@ export class Folder extends React.Component {
       return pathToGo;
     };
 
+    let editorIcon = (file) => {
+      if (file === 'file') {
+        return  <i className="glyphicon glyphicon-pencil k-icon-pencil"></i>;
+      }
+    };
+
     return (
       <tr>
         <td className="k-row-small">
@@ -82,7 +88,7 @@ export class Folder extends React.Component {
             <i className="glyphicon glyphicon-remove k-icon-remove"></i>
           </Link>
           <Link to={"#"} title="editor">
-            <i className="glyphicon glyphicon-pencil k-icon-pencil"></i>
+            {editorIcon(this.props.kind)}
           </Link>
         </td>
       </tr>

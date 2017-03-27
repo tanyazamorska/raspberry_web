@@ -4,8 +4,6 @@ import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
 import _ from "lodash";
 import {Folder} from './Folder.js';
-import moment from 'moment';
-
 
 export default class FileManager extends React.Component {
   constructor(props) {
@@ -45,7 +43,7 @@ export default class FileManager extends React.Component {
         if(state.path !== "/") {
           state.filesAndFolders.unshift({"name": "..", "kind": "folder"});
         }
-        state.filesAndFolders.forEach(function (item, key, arr) {
+        state.filesAndFolders.forEach(function (item, key) {
           item.id = key;
           item.path = path;
         });
@@ -115,13 +113,14 @@ export default class FileManager extends React.Component {
 
     // sort by name
     if (this.state.clickedName === true) {
-     let sortName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
+      let sortName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
       filesAndFolders = sortName;
     } else if (this.state.clickedName === false) {
       let reverseName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
       reverseName =  _.reverse(reverseName);
       filesAndFolders = reverseName;
     }
+
     let showArrowAlphabet = () => {
       let span = (this.state.clickedName === '') ? <span></span> :
         (this.state.clickedName === true) ? <span> <i className="glyphicon glyphicon-sort-by-alphabet"></i></span> :
@@ -137,9 +136,10 @@ export default class FileManager extends React.Component {
           filesAndFolders = sortSize;
     } else if (this.state.clickedSize === false) {
       let reverseSize = _.sortBy(filesAndFolders, [function(obj) { return parseInt(obj.size)}]);
-      reverseSize  =  _.reverse(reverseSize);
+      reverseSize  = _.reverse(reverseSize);
       filesAndFolders = reverseSize;
     }
+
     let showArrowOrder = () => {
       let span = (this.state.clickedSize === '') ? <span></span> :
         (this.state.clickedSize === true) ? <span> <i className="glyphicon glyphicon-sort-by-order"></i></span> :
@@ -153,9 +153,10 @@ export default class FileManager extends React.Component {
       filesAndFolders = sortModified;
     } else if (this.state.clickedModified === false) {
       let reverseModified = _.sortBy(filesAndFolders, [function(obj) {return (obj.lastModified)}]);
-      reverseModified =  _.reverse(reverseModified);
+      reverseModified = _.reverse(reverseModified);
       filesAndFolders = reverseModified;
     }
+
     let showArrow = () => {
       let span = (this.state.clickedModified === '') ? <span></span> :
         (this.state.clickedModified === true) ? <span> <i className="glyphicon glyphicon-sort-by-order-alt"></i></span> :
