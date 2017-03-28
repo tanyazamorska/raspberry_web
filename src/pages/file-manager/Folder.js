@@ -5,12 +5,8 @@ import moment from 'moment';
 export class Folder extends React.Component {
   render() {
 
-    let fileOrFolderClass = null;
-    if (this.props.kind === 'folder') {
-      fileOrFolderClass = "glyphicon-folder-close k-icon-folder-close";
-    } else {
-      fileOrFolderClass = "glyphicon-file k-icon-glyphicon-file";
-    }
+    let fileOrFolderClass = (this.props.kind === 'folder') ?
+      "glyphicon-folder-close k-icon-folder-close" : "glyphicon-file k-icon-glyphicon-file";
 
     const dateModified = (modified) => {
       const date = moment(modified);
