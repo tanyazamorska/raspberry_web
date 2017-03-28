@@ -192,9 +192,8 @@ export default class FileManager extends React.Component {
           </div>
           <div className="col-xs-3 col-sm-3 k-col-3">
             <div className="form-group">
-              <input type="checkbox"
-                        checked={this.state.showHidden}
-                        onChange={() => this.toggleChange()} />show hidden files
+              <input type="checkbox" checked={this.state.showHidden}
+                     onChange={() => this.toggleChange()} />show hidden files
             </div>
           </div>
           <div className="col-xs-4 col-sm-4">
