@@ -173,8 +173,8 @@ export default class FileManager extends React.Component {
 
     const showArrow = (click) => {
       const span = (click === '') ? <span></span> :
-        (click === true) ? <span> <i className="glyphicon glyphicon-arrow-up"></i></span> :
-          <span> <i className="glyphicon glyphicon-arrow-down"></i></span>;
+        (click === true) ? <span> <i className="glyphicon glyphicon-triangle-top k-triangle-top"></i></span> :
+          <span> <i className="glyphicon glyphicon-triangle-bottom k-triangle-bottom"></i></span>;
       return span;
     };
 
