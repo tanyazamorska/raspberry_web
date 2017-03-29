@@ -129,7 +129,14 @@ export default class FileManager extends React.Component {
      * @param keyInObjToSort - key to sort by in obj
      */
     let sortItemsBy = (checkKey, keyInObjToSort) => {
-
+      if (this.state.clickedName === true) {
+        const sort = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
+        filesAndFolders = sort;
+      } else if (this.state.clickedName === false) {
+        let reverse = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
+        reverse =  _.reverse(reverse);
+        filesAndFolders = reverse;
+      }
     };
 
     // sortItemsBy("clickedName", "name");
@@ -139,12 +146,14 @@ export default class FileManager extends React.Component {
 
     // sort by name
     if (this.state.clickedName === true) {
-      const sortByName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
+      const sortByName = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
       filesAndFolders = sortByName;
+      console.log(sortByName)
     } else if (this.state.clickedName === false) {
-      let reverseName = _.sortBy(filesAndFolders, [function(obj) { return obj.name}]);
+      let reverseName = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
       reverseName =  _.reverse(reverseName);
       filesAndFolders = reverseName;
+      console.log(reverseName)
     }
 
     //sort by size
