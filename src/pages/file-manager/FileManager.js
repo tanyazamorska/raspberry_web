@@ -48,14 +48,6 @@ export default class FileManager extends React.Component {
       contentType: 'application/json',
       complete: function (res) {
         const state = res.responseJSON;
-        if (state.path !== "/") {
-          state.filesAndFolders.unshift({"name": "..", "kind": "folder"});
-        }
-        state.filesAndFolders.forEach(function (item, key) {
-          item.id = key;
-          item.path = path;
-          item.size = item.size || 0;
-        });
         self.setState(state);
       }
     });
@@ -87,6 +79,7 @@ export default class FileManager extends React.Component {
   }
 
   render() {
+
     //console.log("render -----------------");
     // console.log(this.props.params);
 
@@ -120,7 +113,7 @@ export default class FileManager extends React.Component {
         }
       });
     } else {
-      filesAndFolders = this.state.filesAndFolders;
+      filesAndFolders = this.state.filesAndFolders
     }
 
     /**
@@ -129,56 +122,30 @@ export default class FileManager extends React.Component {
      * @param keyInObjToSort - key to sort by in obj
      */
     let sortItemsBy = (checkKey, keyInObjToSort) => {
-      if (this.state.clickedName === true) {
-        const sort = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
-        filesAndFolders = sort;
-      } else if (this.state.clickedName === false) {
-        let reverse = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
-        reverse =  _.reverse(reverse);
+      if (this.state[checkKey] === true) {
+        const sortBy = _.sortBy(filesAndFolders, [function(obj) {return obj[keyInObjToSort]}]);
+        filesAndFolders = sortBy;
+      } else if (this.state[checkKey] === false) {
+        let reverse = _.sortBy(filesAndFolders, [function(obj) {return obj[keyInObjToSort]}]);
+        reverse = _.reverse(reverse);
         filesAndFolders = reverse;
       }
     };
 
-    // sortItemsBy("clickedName", "name");
-    // sortItemsBy("clickedSize", "size");
-    // sortItemsBy("modified", "lastModified");
+    sortItemsBy("clickedName", "name");
+    sortItemsBy("clickedSize", "size");
+    sortItemsBy("clickedModified", "lastModified");
 
-
-    // sort by name
-    if (this.state.clickedName === true) {
-      const sortByName = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
-      filesAndFolders = sortByName;
-      console.log(sortByName)
-    } else if (this.state.clickedName === false) {
-      let reverseName = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
-      reverseName =  _.reverse(reverseName);
-      filesAndFolders = reverseName;
-      console.log(reverseName)
+    if (path !== "/" && path !== "") {
+      filesAndFolders = _.filter(filesAndFolders, function(obj) { return obj.name !== ".."});
+      filesAndFolders.unshift({"name": "..", "kind": "folder"});
     }
 
-    //sort by size
-    if (this.state.clickedSize === true) {
-      const sortedBySize = _.sortBy(filesAndFolders, [function(obj) {
-        return obj.size;
-      }]);
-      filesAndFolders = sortedBySize;
-    } else if (this.state.clickedSize === false) {
-      let sortedBySizeAndReversed = _.sortBy(filesAndFolders, [function(obj) {
-        return obj.size;
-      }]);
-      sortedBySizeAndReversed  = _.reverse(sortedBySizeAndReversed);
-      filesAndFolders = sortedBySizeAndReversed;
-    }
-
-    //sort by modified
-    if (this.state.clickedModified === true) {
-      const sortModified = _.sortBy(filesAndFolders, [function(obj){return (obj.lastModified)}]);
-      filesAndFolders = sortModified;
-    } else if (this.state.clickedModified === false) {
-      let reverseModified = _.sortBy(filesAndFolders, [function(obj) {return (obj.lastModified)}]);
-      reverseModified = _.reverse(reverseModified);
-      filesAndFolders = reverseModified;
-    }
+    filesAndFolders.forEach(function (item, key) {
+      item.id = key;
+      item.path = path;
+      item.size = item.size || 0;
+    });
 
     const showArrow = (click) => {
       const span = (click === '') ? <span></span> :
