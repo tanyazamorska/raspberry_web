@@ -16,6 +16,9 @@ export class Folder extends React.Component {
 
       if (moment().format('DD') === day) {
         lastModified = date.format('hh:mm a');
+        if (this.props.name === "..") {
+          lastModified = '-'
+        }
       } else if (moment().format('YYYY') === year) {
         lastModified = date.format('MMMM DD');
       } else {
