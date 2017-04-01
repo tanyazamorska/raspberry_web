@@ -5,7 +5,7 @@ import $ from 'jquery';
 import _ from "lodash";
 import {Folder} from './Folder.js';
 
-window.b = browserHistory;
+window.a = browserHistory;
 
 export default class FileManager extends React.Component {
   constructor(props) {
@@ -19,15 +19,14 @@ export default class FileManager extends React.Component {
       clickedSize: "",
       clickedModified: ""
     };
-
     const setTimeoutFunctionHack = () => {
       setTimeout(() => {
         self.requestDataFromServer("/" + self.props.params.splat);
       }, 0);
     };
 
-    browserHistory.listen( location =>  {
-      // console.log("------------ browserHistory.listen ------------");
+    browserHistory.listen(location =>  {
+      //console.log("------------ browserHistory.listen ------------");
       setTimeoutFunctionHack();
     });
 
@@ -79,11 +78,8 @@ export default class FileManager extends React.Component {
   }
 
   render() {
-
-    //console.log("render -----------------");
-    // console.log(this.props.params);
-
     const path = this.state.path;
+    console.log("render -----------------");
 
     // show path as links
     const arr = path.split('/');
@@ -101,10 +97,11 @@ export default class FileManager extends React.Component {
     if (path === '/') {
       linksPathArr.unshift(<span key="-1"><i className="glyphicon glyphicon-cd"></i></span>);
     } else {
-      linksPathArr.unshift(<span key="-1"><Link to="/file-manager/"><i className="glyphicon glyphicon-cd"></i></Link> / </span>);
+      linksPathArr.unshift(<span key="-1"><Link to="/file-manager"><i className="glyphicon glyphicon-cd"></i></Link> / </span>);
     }
 
     // show hidden files and folders
+    this.state.showHidden === false ? this.props.params.hide = "hide-hidden" : this.props.params.hide = "show-hidden";
     let filesAndFolders;
     if (this.state.showHidden === false) {
       filesAndFolders = this.state.filesAndFolders.filter((obj) => {
