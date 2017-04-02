@@ -5,8 +5,6 @@ import $ from 'jquery';
 import _ from "lodash";
 import {Folder} from './Folder.js';
 
-window.a = browserHistory;
-
 export default class FileManager extends React.Component {
   constructor(props) {
     super(props);
@@ -29,9 +27,17 @@ export default class FileManager extends React.Component {
       //console.log("------------ browserHistory.listen ------------");
       setTimeoutFunctionHack();
     });
-
     setTimeoutFunctionHack();
   }
+
+  componentDidMount() {
+    window.addEventListener(console.log(1));
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener(console.log(2));
+  }
+
 
   /**
    * fetches data from server and executes `complete` function callback when ready,
@@ -79,7 +85,7 @@ export default class FileManager extends React.Component {
 
   render() {
     const path = this.state.path;
-    console.log("render -----------------");
+   // console.log("render -----------------");
 
     // show path as links
     const arr = path.split('/');
