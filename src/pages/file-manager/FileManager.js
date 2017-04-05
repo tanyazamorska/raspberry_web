@@ -12,11 +12,11 @@ export default class FileManager extends React.Component {
     this.state = {
       filesAndFolders: [],
       path: "",
-      showHidden: false,
       clickedName: "",
       clickedSize: "",
       clickedModified: ""
     };
+
     const setTimeoutFunctionHack = () => {
       setTimeout(() => {
         self.requestDataFromServer("/" + self.props.params.splat);
@@ -27,17 +27,16 @@ export default class FileManager extends React.Component {
       //console.log("------------ browserHistory.listen ------------");
       setTimeoutFunctionHack();
     });
+
     setTimeoutFunctionHack();
   }
 
-  componentDidMount() {
-    window.addEventListener(console.log(1));
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener(console.log(2));
-  }
-
+  // componentWillUnmount() {
+  //   this._reactInternalInstance = false;
+  //
+  //   console.log(this)
+  //   console.log(2)
+  // }
 
   /**
    * fetches data from server and executes `complete` function callback when ready,
@@ -48,7 +47,8 @@ export default class FileManager extends React.Component {
     const self = this;
     $.ajax({
       method: "POST",
-      url: "http://192.168.0.102:7777/api/fs/ls",
+      crossDomain: true,
+      url: "http://192.168.0.103:7777/api/fs/ls",
       data: JSON.stringify({"path": path}),
       contentType: 'application/json',
       complete: function (res) {
@@ -56,10 +56,6 @@ export default class FileManager extends React.Component {
         self.setState(state);
       }
     });
-  }
-
-  toggleChange() {
-    this.setState({showHidden: !this.state.showHidden});
   }
 
   resetSortsState() {
@@ -85,15 +81,39 @@ export default class FileManager extends React.Component {
 
   render() {
     const path = this.state.path;
-   // console.log("render -----------------");
+
+    // show hidden files and folders
+    let filesAndFolders;
+    if (this.props.params.hideHidden === "hide-hidden") {
+      filesAndFolders = this.state.filesAndFolders.filter((obj) => {
+        if (obj.name.charAt(0) !== '.' || obj.name === '..') {
+          return obj;
+        }
+      });
+    } else {
+      filesAndFolders = this.state.filesAndFolders;
+    }
+
+    // display show hidden files in url
+    let show;
+    let check;
+    if (this.props.params.hideHidden === "hide-hidden") {
+      show = "show-hidden";
+      check = false;
+    } else {
+      show = "hide-hidden";
+      check = true;
+    }
 
     // show path as links
     const arr = path.split('/');
     arr.shift();
     let href = '';
+    let reverseShow = show;
+    show === "show-hidden" ? reverseShow = "hide-hidden" : reverseShow = "show-hidden";
     const linksPathArr = arr.map(function(item, i) {
       href = href + '/' + item;
-      let el = <span key={i}><Link to={"/file-manager" + href }>{item}</Link> / </span>;
+      let el = <span key={i}><Link to={"/file-manager/" + reverseShow + '/' + href}>{item}</Link> / </span>;
       if (i === arr.length -1) {
         el = <span key={i}>{item} / </span>;
       }
@@ -103,20 +123,7 @@ export default class FileManager extends React.Component {
     if (path === '/') {
       linksPathArr.unshift(<span key="-1"><i className="glyphicon glyphicon-cd"></i></span>);
     } else {
-      linksPathArr.unshift(<span key="-1"><Link to="/file-manager"><i className="glyphicon glyphicon-cd"></i></Link> / </span>);
-    }
-
-    // show hidden files and folders
-    this.state.showHidden === false ? this.props.params.hide = "hide-hidden" : this.props.params.hide = "show-hidden";
-    let filesAndFolders;
-    if (this.state.showHidden === false) {
-      filesAndFolders = this.state.filesAndFolders.filter((obj) => {
-        if (obj.name.charAt(0) !== '.' || obj.name === '..') {
-          return obj;
-        }
-      });
-    } else {
-      filesAndFolders = this.state.filesAndFolders
+      linksPathArr.unshift(<span key="-1"><Link to={`/file-manager/${reverseShow}/`}><i className="glyphicon glyphicon-cd"></i></Link> / </span>);
     }
 
     /**
@@ -134,13 +141,12 @@ export default class FileManager extends React.Component {
         filesAndFolders = reverse;
       }
     };
-
     sortItemsBy("clickedName", "name");
     sortItemsBy("clickedSize", "size");
     sortItemsBy("clickedModified", "lastModified");
 
     if (path !== "/" && path !== "") {
-      filesAndFolders = _.filter(filesAndFolders, function(obj) { return obj.name !== ".."});
+      filesAndFolders = _.filter(filesAndFolders, function(obj) {return obj.name !== ".."});
       filesAndFolders.unshift({"name": "..", "kind": "folder"});
     }
 
@@ -171,8 +177,9 @@ export default class FileManager extends React.Component {
           </div>
           <div className="col-xs-3 col-sm-3 k-col-3">
             <div className="form-group">
-              <input type="checkbox" checked={this.state.showHidden}
-                     onChange={() => this.toggleChange()} />show hidden files
+              <Link to={`/file-manager/${show}${path}`}>
+                <input type="checkbox" checked={check}/>show hidden files
+              </Link>
             </div>
           </div>
           <div className="col-xs-4 col-sm-4">
@@ -202,9 +209,9 @@ export default class FileManager extends React.Component {
           </thead>
           <tbody>
           {
-            filesAndFolders.map(function (el) {
+            filesAndFolders.map(el => {
               return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}
-                             size={el.size} />
+                             size={el.size} hideHidden={this.props.params.hideHidden} />
             })
           }
           </tbody>

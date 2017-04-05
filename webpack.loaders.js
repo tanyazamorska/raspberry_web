@@ -55,9 +55,5 @@ module.exports = [
     test: /\.scss$/,
     loaders: ['style-loader', 'css-loader?sourceMap', 'sass-loader?sourceMap'],
     exclude: ['node_modules']
-  }//,
-  /*{
-    test: /bootstrap.+\.(jsx|js)$/,
-    loader: 'imports?jQuery=jquery,$=jquery,this=>window'
-  }*/
+  }
 ];

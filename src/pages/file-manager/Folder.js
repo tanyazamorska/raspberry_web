@@ -4,7 +4,6 @@ import moment from 'moment';
 
 export class Folder extends React.Component {
   render() {
-
     let fileOrFolderClass = (this.props.kind === 'folder') ?
       "glyphicon-folder-close k-icon-folder-close" : "glyphicon-file k-icon-glyphicon-file";
 
@@ -61,16 +60,17 @@ export class Folder extends React.Component {
         return <i className="glyphicon glyphicon-pencil k-icon-pencil"></i>;
       }
     };
+    //console.log(this.props.hideHidden)
 
     return (
       <tr>
         <td className="k-row-small">
-          <Link to={"file-manager" + url(this.props.path, this.props.name)}>
+          <Link to={"/file-manager/" + this.props.hideHidden + url(this.props.path, this.props.name)}>
             <i className={"glyphicon " + fileOrFolderClass}></i>
           </Link>
         </td>
         <td className="k-row-big">
-          <Link to={"file-manager" + url(this.props.path, this.props.name)} title="open">
+          <Link to={"/file-manager/" + this.props.hideHidden +  url(this.props.path, this.props.name)} title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>
