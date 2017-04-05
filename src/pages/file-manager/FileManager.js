@@ -12,9 +12,6 @@ export default class FileManager extends React.Component {
     this.state = {
       filesAndFolders: [],
       path: "",
-      clickedName: "",
-      clickedSize: "",
-      clickedModified: ""
     };
 
     const setTimeoutFunctionHack = () => {
@@ -32,10 +29,9 @@ export default class FileManager extends React.Component {
   }
 
   // componentWillUnmount() {
-  //   this._reactInternalInstance = false;
-  //
-  //   console.log(this)
-  //   console.log(2)
+  //   browserHistory.unlisten(location =>  {
+  //     setTimeoutFunctionHack();
+  //   });
   // }
 
   /**
@@ -56,27 +52,6 @@ export default class FileManager extends React.Component {
         self.setState(state);
       }
     });
-  }
-
-  resetSortsState() {
-    this.setState({clickedName: ""});
-    this.setState({clickedModified: ""});
-    this.setState({clickedSize: ""});
-  }
-
-  handleClickName() {
-    this.resetSortsState();
-    this.setState({clickedName: !this.state.clickedName});
-  }
-
-  handleClickSize() {
-    this.resetSortsState();
-    this.setState({clickedSize: !this.state.clickedSize});
-  }
-
-  handleClickModified() {
-    this.resetSortsState();
-    this.setState({clickedModified: !this.state.clickedModified});
   }
 
   render() {
@@ -109,11 +84,11 @@ export default class FileManager extends React.Component {
     const arr = path.split('/');
     arr.shift();
     let href = '';
-    let reverseShow = show;
-    show === "show-hidden" ? reverseShow = "hide-hidden" : reverseShow = "show-hidden";
+    const reverseShow = (show === "show-hidden") ? "hide-hidden" : "show-hidden";
+    let sortBy = this.props.params.notSort;
     const linksPathArr = arr.map(function(item, i) {
       href = href + '/' + item;
-      let el = <span key={i}><Link to={"/file-manager/" + reverseShow + href}>{item}</Link> / </span>;
+      let el = <span key={i}><Link to={`/file-manager/${reverseShow }/${sortBy}${href}`}>{item}</Link> / </span>;
       if (i === arr.length -1) {
         el = <span key={i}>{item} / </span>;
       }
@@ -121,29 +96,37 @@ export default class FileManager extends React.Component {
     });
 
     if (path === '/') {
-      linksPathArr.unshift(<span key="-1"><i className="glyphicon glyphicon-cd"></i></span>);
+      linksPathArr.unshift(<span key="-1"><i className="glyphicon glyphicon-cd"> </i></span>);
     } else {
-      linksPathArr.unshift(<span key="-1"><Link to={`/file-manager/${reverseShow}/`}><i className="glyphicon glyphicon-cd"></i></Link> / </span>);
+      linksPathArr.unshift(<span key="-1"><Link to={`/file-manager/${reverseShow}/${sortBy}/`}><i className="glyphicon glyphicon-cd"> </i></Link> / </span>);
     }
 
-    /**
-     *
-     * @param checkKey - key from state that signals if need to sort item
-     * @param keyInObjToSort - key to sort by in obj
-     */
-    let sortItemsBy = (checkKey, keyInObjToSort) => {
-      if (this.state[checkKey] === true) {
-        const sortBy = _.sortBy(filesAndFolders, [function(obj) {return obj[keyInObjToSort]}]);
-        filesAndFolders = sortBy;
-      } else if (this.state[checkKey] === false) {
-        let reverse = _.sortBy(filesAndFolders, [function(obj) {return obj[keyInObjToSort]}]);
+    sortBy = "notSort";
+    if (this.props.params.notSort === "sort-name-asc") {
+      const sortBy = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
+      filesAndFolders = sortBy;
+    } else if (this.props.params.notSort === "sort-name-desc") {
+      let reverse = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
         reverse = _.reverse(reverse);
         filesAndFolders = reverse;
-      }
-    };
-    sortItemsBy("clickedName", "name");
-    sortItemsBy("clickedSize", "size");
-    sortItemsBy("clickedModified", "lastModified");
+    } else if (this.props.params.notSort === "sort-size-asc") {
+      const sortBy = _.sortBy(filesAndFolders, [function(obj) {return obj.size}]);
+      filesAndFolders = sortBy;
+    } else if (this.props.params.notSort === "sort-size-desc") {
+      let reverse = _.sortBy(filesAndFolders, [function(obj) {return obj.size}]);
+      reverse = _.reverse(reverse);
+      filesAndFolders = reverse;
+    } else if (this.props.params.notSort === "sort-modified-asc") {
+      const sortBy = _.sortBy(filesAndFolders, [function(obj) {return obj.lastModified}]);
+      filesAndFolders = sortBy;
+    } else if (this.props.params.notSort === "sort-modified-desc") {
+      let reverse = _.sortBy(filesAndFolders, [function (obj) {return obj.lastModified}]);
+      reverse = _.reverse(reverse);
+      filesAndFolders = reverse;
+    }
+
+    //console.log(this.props.params.notSort);
+
 
     if (path !== "/" && path !== "") {
       filesAndFolders = _.filter(filesAndFolders, function(obj) {return obj.name !== ".."});
@@ -156,12 +139,12 @@ export default class FileManager extends React.Component {
       item.size = item.size || 0;
     });
 
-    const showArrow = (click) => {
-      const span = (click === '') ? <span></span> :
-        (click === true) ? <span> <i className="glyphicon glyphicon-triangle-top k-triangle-top"></i></span> :
-          <span> <i className="glyphicon glyphicon-triangle-bottom k-triangle-bottom"></i></span>;
-      return span;
-    };
+    // const showArrow = (click) => {
+    //   const span = (click === '') ? <span></span> :
+    //     (click === true) ? <span> <i className="glyphicon glyphicon-triangle-top k-triangle-top"> </i></span> :
+    //       <span> <i className="glyphicon glyphicon-triangle-bottom k-triangle-bottom"> </i></span>;
+    //   return span;
+    // };
 
     return (
       <div className="k-file-manager">
@@ -196,13 +179,19 @@ export default class FileManager extends React.Component {
           <tr>
             <th className="k-row-small"></th>
             <th className="k-row-big">
-              <span onClick={() => this.handleClickName()}>Name{showArrow(this.state.clickedName)}</span>
+              <Link to={`/file-manager/${show}/${sortBy}/${path}`}>
+                <span onClick={false}>Name</span>
+              </Link>
             </th>
             <th>
-              <span onClick={() => this.handleClickSize()}>Size{showArrow(this.state.clickedSize)}</span>
+              <Link to={`/file-manager/${show}/${sortBy}/${path}`}>
+                <span onClick={false}>Size</span>
+              </Link>
             </th>
             <th>
-              <span onClick={() => this.handleClickModified()}>Modified{showArrow(this.state.clickedModified)}</span>
+              <Link to={`/file-manager/${show}/${sortBy}/${path}`}>
+                <span onClick={false}>Modified</span>
+              </Link>
             </th>
             <th>Action</th>
           </tr>
@@ -211,7 +200,7 @@ export default class FileManager extends React.Component {
           {
             filesAndFolders.map(el => {
               return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}
-                             size={el.size} hideHidden={this.props.params.hideHidden} />
+                             size={el.size} hideHidden={this.props.params.hideHidden} notSort={this.props.params.notSort} />
             })
           }
           </tbody>

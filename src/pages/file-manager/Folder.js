@@ -60,17 +60,16 @@ export class Folder extends React.Component {
         return <i className="glyphicon glyphicon-pencil k-icon-pencil"></i>;
       }
     };
-    //console.log(this.props.hideHidden)
 
     return (
       <tr>
         <td className="k-row-small">
-          <Link to={"/file-manager/" + this.props.hideHidden + url(this.props.path, this.props.name)}>
+          <Link to={"/file-manager/" + this.props.hideHidden + '/' + this.props.notSort + url(this.props.path, this.props.name)}>
             <i className={"glyphicon " + fileOrFolderClass}></i>
           </Link>
         </td>
         <td className="k-row-big">
-          <Link to={"/file-manager/" + this.props.hideHidden + url(this.props.path, this.props.name)} title="open">
+          <Link to={"/file-manager/" + this.props.hideHidden + '/' + this.props.notSort + url(this.props.path, this.props.name)} title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>
