@@ -70,7 +70,7 @@ export class Folder extends React.Component {
           </Link>
         </td>
         <td className="k-row-big">
-          <Link to={"/file-manager/" + this.props.hideHidden +  url(this.props.path, this.props.name)} title="open">
+          <Link to={"/file-manager/" + this.props.hideHidden + url(this.props.path, this.props.name)} title="open">
             <span>{this.props.name}</span>
           </Link>
         </td>

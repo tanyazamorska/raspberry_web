@@ -113,7 +113,7 @@ export default class FileManager extends React.Component {
     show === "show-hidden" ? reverseShow = "hide-hidden" : reverseShow = "show-hidden";
     const linksPathArr = arr.map(function(item, i) {
       href = href + '/' + item;
-      let el = <span key={i}><Link to={"/file-manager/" + reverseShow + '/' + href}>{item}</Link> / </span>;
+      let el = <span key={i}><Link to={"/file-manager/" + reverseShow + href}>{item}</Link> / </span>;
       if (i === arr.length -1) {
         el = <span key={i}>{item} / </span>;
       }
