@@ -20,7 +20,7 @@ export default class FileManager extends React.Component {
       }, 0);
     };
 
-    browserHistory.listen(location =>  {
+    browserHistory.listen(location => {
       //console.log("------------ browserHistory.listen ------------");
       setTimeoutFunctionHack();
     });
@@ -57,7 +57,7 @@ export default class FileManager extends React.Component {
   render() {
     const path = this.state.path;
 
-    // show hidden files and folders
+    // filter hidden files and folders
     let filesAndFolders;
     if (this.props.params.hideHidden === "hide-hidden") {
       filesAndFolders = this.state.filesAndFolders.filter((obj) => {
@@ -69,27 +69,27 @@ export default class FileManager extends React.Component {
       filesAndFolders = this.state.filesAndFolders;
     }
 
-    // display show hidden files in url
+    //
     let show;
     let check;
     if (this.props.params.hideHidden === "hide-hidden") {
-      show = "show-hidden";
+      show = "hide-hidden";
       check = false;
     } else {
-      show = "hide-hidden";
+      show = "show-hidden";
       check = true;
     }
+    const reverseShow = (show === "show-hidden") ? "hide-hidden" : "show-hidden";
 
     // show path as links
     const arr = path.split('/');
     arr.shift();
     let href = '';
-    const reverseShow = (show === "show-hidden") ? "hide-hidden" : "show-hidden";
-    let sortBy = this.props.params.notSort;
-    const linksPathArr = arr.map(function(item, i) {
+    let sorted = this.props.params.sortBy;
+    const linksPathArr = arr.map(function (item, i) {
       href = href + '/' + item;
-      let el = <span key={i}><Link to={`/file-manager/${reverseShow }/${sortBy}${href}`}>{item}</Link> / </span>;
-      if (i === arr.length -1) {
+      let el = <span key={i}><Link to={`/file-manager/${show}/${sorted}${href}`}>{item}</Link> / </span>;
+      if (i === arr.length - 1) {
         el = <span key={i}>{item} / </span>;
       }
       return el;
@@ -98,35 +98,67 @@ export default class FileManager extends React.Component {
     if (path === '/') {
       linksPathArr.unshift(<span key="-1"><i className="glyphicon glyphicon-cd"> </i></span>);
     } else {
-      linksPathArr.unshift(<span key="-1"><Link to={`/file-manager/${reverseShow}/${sortBy}/`}><i className="glyphicon glyphicon-cd"> </i></Link> / </span>);
+      linksPathArr.unshift(<span key="-1"><Link to={`/file-manager/${show}/${sorted}/`}><i
+        className="glyphicon glyphicon-cd"> </i></Link> / </span>);
     }
 
-    sortBy = "notSort";
-    if (this.props.params.notSort === "sort-name-asc") {
-      const sortBy = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
-      filesAndFolders = sortBy;
-    } else if (this.props.params.notSort === "sort-name-desc") {
-      let reverse = _.sortBy(filesAndFolders, [function(obj) {return obj.name}]);
+    /**
+     * @param keyInObjToSort - key to sort by in obj
+     */
+    let sortItemsBy = (keyInObjToSort) => {
+        const sortBy = _.sortBy(filesAndFolders, [function(obj) {return obj[keyInObjToSort]}]);
+        filesAndFolders = sortBy;
+    };
+
+    let reverseSortItemsBy = (keyInObjToSort) => {
+        let reverse = _.sortBy(filesAndFolders, [function(obj) {return obj[keyInObjToSort]}]);
         reverse = _.reverse(reverse);
         filesAndFolders = reverse;
-    } else if (this.props.params.notSort === "sort-size-asc") {
-      const sortBy = _.sortBy(filesAndFolders, [function(obj) {return obj.size}]);
-      filesAndFolders = sortBy;
-    } else if (this.props.params.notSort === "sort-size-desc") {
-      let reverse = _.sortBy(filesAndFolders, [function(obj) {return obj.size}]);
-      reverse = _.reverse(reverse);
-      filesAndFolders = reverse;
-    } else if (this.props.params.notSort === "sort-modified-asc") {
-      const sortBy = _.sortBy(filesAndFolders, [function(obj) {return obj.lastModified}]);
-      filesAndFolders = sortBy;
-    } else if (this.props.params.notSort === "sort-modified-desc") {
-      let reverse = _.sortBy(filesAndFolders, [function (obj) {return obj.lastModified}]);
-      reverse = _.reverse(reverse);
-      filesAndFolders = reverse;
+    };
+
+    let showArrow, showArrow1, showArrow2 = <span> </span>;
+    let sorted1, sorted2;
+    if (sorted === "not-sort") {
+      sorted = "sort-name-asc";
+      sorted1 = "sort-size-asc";
+      sorted2 = "sort-modified-asc";
+    } else if (sorted === `sort-name-asc`) {
+      showArrow = <span> <i className="glyphicon glyphicon-triangle-top k-triangle-top"> </i></span>;
+      sorted = `sort-name-desc`;
+      sorted1 = "sort-size-asc";
+      sorted2 = "sort-modified-asc";
+      sortItemsBy('name');
+    } else if (sorted === `sort-name-desc`) {
+      showArrow = <span> <i className="glyphicon glyphicon-triangle-bottom k-triangle-bottom"> </i></span>;
+      sorted = `sort-name-asc`;
+      sorted1 = "sort-size-asc";
+      sorted2 = "sort-modified-asc";
+      reverseSortItemsBy('name');
+    } else if (sorted === "sort-size-asc") {
+      showArrow1 = <span> <i className="glyphicon glyphicon-triangle-top k-triangle-top"> </i></span>;
+      sorted = "sort-name-asc";
+      sorted1 = "sort-size-desc";
+      sorted2 = "sort-modified-asc";
+      sortItemsBy("size");
+    } else if (sorted === "sort-size-desc") {
+      showArrow1 = <span> <i className="glyphicon glyphicon-triangle-bottom k-triangle-bottom"> </i></span>;
+      sorted = "sort-name-asc";
+      sorted1 = "sort-size-asc";
+      sorted2 = "sort-modified-asc";
+      reverseSortItemsBy("size");
+    } else if (sorted === "sort-modified-asc") {
+      showArrow2 = <span> <i className="glyphicon glyphicon-triangle-top k-triangle-top"> </i></span>;
+      sorted = "sort-name-asc";
+      sorted1 = "sort-size-asc";
+      sorted2 = "sort-modified-desc";
+      sortItemsBy("modified");
+    } else if (sorted === "sort-modified-desc") {
+      showArrow2 = <span> <i className="glyphicon glyphicon-triangle-bottom k-triangle-bottom"> </i></span>;
+      sorted = "sort-name-asc";
+      sorted1 = "sort-size-asc";
+      sorted2 = "sort-modified-asc";
+      reverseSortItemsBy("modified");
     }
-
-    //console.log(this.props.params.notSort);
-
 
     if (path !== "/" && path !== "") {
       filesAndFolders = _.filter(filesAndFolders, function(obj) {return obj.name !== ".."});
@@ -138,13 +170,6 @@ export default class FileManager extends React.Component {
       item.path = path;
       item.size = item.size || 0;
     });
-
-    // const showArrow = (click) => {
-    //   const span = (click === '') ? <span></span> :
-    //     (click === true) ? <span> <i className="glyphicon glyphicon-triangle-top k-triangle-top"> </i></span> :
-    //       <span> <i className="glyphicon glyphicon-triangle-bottom k-triangle-bottom"> </i></span>;
-    //   return span;
-    // };
 
     return (
       <div className="k-file-manager">
@@ -160,8 +185,8 @@ export default class FileManager extends React.Component {
           </div>
           <div className="col-xs-3 col-sm-3 k-col-3">
             <div className="form-group">
-              <Link to={`/file-manager/${show}${path}`}>
-                <input type="checkbox" checked={check}/>show hidden files
+              <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path}`}>
+                <input type="checkbox" checked={check} onChange={() => {}}/>show hidden files
               </Link>
             </div>
           </div>
@@ -179,18 +204,18 @@ export default class FileManager extends React.Component {
           <tr>
             <th className="k-row-small"></th>
             <th className="k-row-big">
-              <Link to={`/file-manager/${show}/${sortBy}/${path}`}>
-                <span onClick={false}>Name</span>
+              <Link to={`/file-manager/${show}/${sorted}${path}`}>
+                <span>Name{showArrow}</span>
               </Link>
             </th>
             <th>
-              <Link to={`/file-manager/${show}/${sortBy}/${path}`}>
-                <span onClick={false}>Size</span>
+              <Link to={`/file-manager/${show}/${sorted1}${path}`}>
+                <span>Size{showArrow1}</span>
               </Link>
             </th>
             <th>
-              <Link to={`/file-manager/${show}/${sortBy}/${path}`}>
-                <span onClick={false}>Modified</span>
+              <Link to={`/file-manager/${show}/${sorted2}${path}`}>
+                <span>Modified{showArrow2}</span>
               </Link>
             </th>
             <th>Action</th>
@@ -200,7 +225,7 @@ export default class FileManager extends React.Component {
           {
             filesAndFolders.map(el => {
               return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}
-                             size={el.size} hideHidden={this.props.params.hideHidden} notSort={this.props.params.notSort} />
+                             size={el.size} hideHidden={this.props.params.hideHidden} sortBy={this.props.params.sortBy} />
             })
           }
           </tbody>

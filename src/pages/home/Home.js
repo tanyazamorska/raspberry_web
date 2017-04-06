@@ -8,7 +8,7 @@ export default class Home extends React.Component {
     return (
       <div className="row content k-home">
         <div className="col-xs-6 col-sm-3">
-          <Link to={`/file-manager/hide-hidden/notSort/`} className="btn btn-primary k-button">
+          <Link to={`/file-manager/hide-hidden/not-sort/`} className="btn btn-primary k-button">
             <i className="glyphicon glyphicon-folder-open k-icon-home"></i>
           </Link>
         </div>
