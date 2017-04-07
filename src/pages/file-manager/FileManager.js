@@ -29,7 +29,6 @@ export default class FileManager extends React.Component {
   }
 
   // componentWillUnmount() {
-  // console.log()
   // }
 
   /**
