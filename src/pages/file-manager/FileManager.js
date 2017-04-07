@@ -9,29 +9,27 @@ export default class FileManager extends React.Component {
   constructor(props) {
     super(props);
     const self = this;
-    this.state = {
+    self.state = {
       filesAndFolders: [],
       path: "",
     };
 
-    const setTimeoutFunctionHack = () => {
-      setTimeout(() => {
-        self.requestDataFromServer("/" + self.props.params.splat);
-      }, 0);
-    };
+    // ajax
+    const setTimeoutFunctionHack = () => {setTimeout(() => {self.requestDataFromServer("/" + self.props.params.splat);}, 0);};
 
+    let prevPath = self.props.routeParams.splat;
     browserHistory.listen(location => {
-      //console.log("------------ browserHistory.listen ------------");
-      setTimeoutFunctionHack();
+      let [, , , ,  path] = location.hash.split("/");
+      if (prevPath !== path) {
+        setTimeoutFunctionHack();
+      }
+      prevPath = path;
     });
-
     setTimeoutFunctionHack();
   }
 
   // componentWillUnmount() {
-  //   browserHistory.unlisten(location =>  {
-  //     setTimeoutFunctionHack();
-  //   });
+  // console.log()
   // }
 
   /**
@@ -102,6 +100,7 @@ export default class FileManager extends React.Component {
         className="glyphicon glyphicon-cd"> </i></Link> / </span>);
     }
 
+    // method sort of files and folders
     /**
      * @param keyInObjToSort - key to sort by in obj
      */

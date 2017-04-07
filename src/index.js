@@ -1,5 +1,3 @@
-require('bootstrap/dist/css/bootstrap.css');
-require('bootswatch/paper/bootstrap.min.css');
 require('./styles.scss');
 
 import React from 'react';
@@ -8,6 +6,8 @@ import Layout from './components/Layout/Layout';
 import FileManager from './pages/file-manager/FileManager.js';
 import Camera from './pages/camera/Camera.js';
 import {Router, Route, hashHistory} from 'react-router';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 
 ReactDOM.render(
   <Router history={hashHistory}>
