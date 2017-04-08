@@ -1,4 +1,13 @@
 import './FileManager.scss';
+import Checkbox from 'material-ui/Checkbox';
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow} from 'material-ui/Table';
+import HardwareArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
+import HardwareArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import ActionHome from 'material-ui/svg-icons/action/home';
+
+
 import React from 'react';
 import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
@@ -93,10 +102,9 @@ export default class FileManager extends React.Component {
     });
 
     if (path === '/') {
-      linksPathArr.unshift(<span key="-1"><i className="glyphicon glyphicon-cd"> </i></span>);
+      linksPathArr.unshift(<span key="-1"><ActionHome/></span>);
     } else {
-      linksPathArr.unshift(<span key="-1"><Link to={`/file-manager/${show}/${sorted}/`}><i
-        className="glyphicon glyphicon-cd"> </i></Link> / </span>);
+      linksPathArr.unshift(<span key="-1"><Link to={`/file-manager/${show}/${sorted}/`}><ActionHome/></Link> / </span>);
     }
 
     // method sort of files and folders
@@ -121,37 +129,37 @@ export default class FileManager extends React.Component {
       sorted1 = "sort-size-asc";
       sorted2 = "sort-modified-asc";
     } else if (sorted === `sort-name-asc`) {
-      showArrow = <span> <i className="glyphicon glyphicon-triangle-top k-triangle-top"> </i></span>;
+      showArrow = <span><HardwareArrowUp/></span>;
       sorted = `sort-name-desc`;
       sorted1 = "sort-size-asc";
       sorted2 = "sort-modified-asc";
       sortItemsBy('name');
     } else if (sorted === `sort-name-desc`) {
-      showArrow = <span> <i className="glyphicon glyphicon-triangle-bottom k-triangle-bottom"> </i></span>;
+      showArrow = <span><HardwareArrowDown/></span>;
       sorted = `sort-name-asc`;
       sorted1 = "sort-size-asc";
       sorted2 = "sort-modified-asc";
       reverseSortItemsBy('name');
     } else if (sorted === "sort-size-asc") {
-      showArrow1 = <span> <i className="glyphicon glyphicon-triangle-top k-triangle-top"> </i></span>;
+      showArrow1 = <span><HardwareArrowUp/></span>;
       sorted = "sort-name-asc";
       sorted1 = "sort-size-desc";
       sorted2 = "sort-modified-asc";
       sortItemsBy("size");
     } else if (sorted === "sort-size-desc") {
-      showArrow1 = <span> <i className="glyphicon glyphicon-triangle-bottom k-triangle-bottom"> </i></span>;
+      showArrow1 = <span><HardwareArrowDown/></span>;
       sorted = "sort-name-asc";
       sorted1 = "sort-size-asc";
       sorted2 = "sort-modified-asc";
       reverseSortItemsBy("size");
     } else if (sorted === "sort-modified-asc") {
-      showArrow2 = <span> <i className="glyphicon glyphicon-triangle-top k-triangle-top"> </i></span>;
+      showArrow2 = <span><HardwareArrowUp/></span>;
       sorted = "sort-name-asc";
       sorted1 = "sort-size-asc";
       sorted2 = "sort-modified-desc";
       sortItemsBy("modified");
     } else if (sorted === "sort-modified-desc") {
-      showArrow2 = <span> <i className="glyphicon glyphicon-triangle-bottom k-triangle-bottom"> </i></span>;
+      showArrow2 = <span><HardwareArrowDown/></span>;
       sorted = "sort-name-asc";
       sorted1 = "sort-size-asc";
       sorted2 = "sort-modified-asc";
@@ -171,64 +179,118 @@ export default class FileManager extends React.Component {
 
     return (
       <div className="k-file-manager">
-        <div className="row container k-row-kontainer">
-          <div className="col-xs-5 col-sm-5">
-            <form className="navbar-form navbar-left">
-              <div className="form-group">
-                <h5>
-                  {linksPathArr}
-                </h5>
-              </div>
-            </form>
-          </div>
-          <div className="col-xs-3 col-sm-3 k-col-3">
-            <div className="form-group">
-              <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path}`}>
-                <input type="checkbox" checked={check} onChange={() => {}}/>show hidden files
-              </Link>
-            </div>
-          </div>
-          <div className="col-xs-4 col-sm-4">
-            <form className="navbar-form navbar-right">
-             <div className="form-group">
-              <input type="text" className="form-control"/>
-            </div>
-             <button type="submit" className="btn btn-primary btn-sm">Upload file</button>
-            </form>
-          </div>
-        </div>
-        <table className="table">
-          <thead>
-          <tr>
-            <th className="k-row-small"></th>
-            <th className="k-row-big">
-              <Link to={`/file-manager/${show}/${sorted}${path}`}>
-                <span>Name{showArrow}</span>
-              </Link>
-            </th>
-            <th>
-              <Link to={`/file-manager/${show}/${sorted1}${path}`}>
-                <span>Size{showArrow1}</span>
-              </Link>
-            </th>
-            <th>
-              <Link to={`/file-manager/${show}/${sorted2}${path}`}>
-                <span>Modified{showArrow2}</span>
-              </Link>
-            </th>
-            <th>Action</th>
-          </tr>
-          </thead>
-          <tbody>
-          {
-            filesAndFolders.map(el => {
+        <Table>
+          <TableHeader>
+            <TableRow style={{backgroundColor: "#00BCD4"}}>
+              <TableHeaderColumn>
+                {linksPathArr}
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                {
+                  <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path}`}>
+                    <Checkbox  label="show hidden files" checked={check} onCheck={() => {}}/>
+                  </Link>
+                }
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                { <span>
+                  <TextField  hintText="Search"/>
+                  <RaisedButton label="submit" secondary={true}/>
+                </span>
+                }
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+              </TableHeaderColumn>
+            </TableRow>
+            <TableRow>
+              <TableHeaderColumn>
+                <Link to={`/file-manager/${show}/${sorted}${path}`}>
+                  <span>Name{showArrow}</span>
+                </Link>
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <Link to={`/file-manager/${show}/${sorted1}${path}`}>
+                  <span>Size{showArrow1}</span>
+                </Link>
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                <Link to={`/file-manager/${show}/${sorted2}${path}`}>
+                  <span>Modified{showArrow2}</span>
+                </Link>
+              </TableHeaderColumn>
+              <TableHeaderColumn>
+                Action
+              </TableHeaderColumn>
+            </TableRow>
+          </TableHeader>
+          <TableBody>
+              {
+              filesAndFolders.map(el => {
               return <Folder name={el.name} kind={el.kindButton} key={el.id} path={el.path} lastModified={el.lastModified}
-                             size={el.size} hideHidden={this.props.params.hideHidden} sortBy={this.props.params.sortBy} />
-            })
-          }
-          </tbody>
-        </table>
+              size={el.size} hideHidden={this.props.params.hideHidden} sortBy={this.props.params.sortBy} />
+              })
+              }
+          </TableBody>
+        </Table>
       </div>
     )
   }
 }
+
+
+
+{/*<div className="row container k-row-kontainer">*/}
+{/*<div className="col-xs-5 col-sm-5">*/}
+{/*<form className="navbar-form navbar-left">*/}
+{/*<div className="form-group">*/}
+{/*{linksPathArr}*/}
+{/*</div>*/}
+{/*</form>*/}
+{/*</div>*/}
+{/*<div className="col-xs-3 col-sm-3 k-col-3">*/}
+{/*<div className="form-group">*/}
+{/*<Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path}`}>*/}
+{/*<input type="checkbox" checked={check} onChange={() => {}}/>show hidden files*/}
+{/*</Link>*/}
+{/*</div>*/}
+{/*</div>*/}
+{/*<div className="col-xs-4 col-sm-4">*/}
+{/*<form className="navbar-form navbar-right">*/}
+{/*<div className="form-group">*/}
+{/*<input type="text" className="form-control"/>*/}
+{/*</div>*/}
+{/*<button type="submit" className="btn btn-primary btn-sm">Upload file</button>*/}
+{/*</form>*/}
+{/*</div>*/}
+{/*</div>*/}
+{/*<table className="table">*/}
+{/*<thead>*/}
+{/*<tr>*/}
+{/*<th className="k-row-small"></th>*/}
+{/*<th className="k-row-big">*/}
+{/*<Link to={`/file-manager/${show}/${sorted}${path}`}>*/}
+{/*<span>Name{showArrow}</span>*/}
+{/*</Link>*/}
+{/*</th>*/}
+{/*<th>*/}
+{/*<Link to={`/file-manager/${show}/${sorted1}${path}`}>*/}
+{/*<span>Size{showArrow1}</span>*/}
+{/*</Link>*/}
+{/*</th>*/}
+{/*<th>*/}
+{/*<Link to={`/file-manager/${show}/${sorted2}${path}`}>*/}
+{/*<span>Modified{showArrow2}</span>*/}
+{/*</Link>*/}
+{/*</th>*/}
+{/*<th>Action</th>*/}
+{/*</tr>*/}
+{/*</thead>*/}
+{/*<tbody>*/}
+{/*{*/}
+{/*filesAndFolders.map(el => {*/}
+{/*return <Folder name={el.name} kind={el.kindButton} key={el.id} path={el.path} lastModified={el.lastModified}*/}
+{/*size={el.size} hideHidden={this.props.params.hideHidden} sortBy={this.props.params.sortBy} />*/}
+{/*})*/}
+{/*}*/}
+{/*</tbody>*/}
+{/*</table>*/}

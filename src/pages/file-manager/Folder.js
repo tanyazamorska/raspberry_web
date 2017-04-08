@@ -2,10 +2,18 @@ import React from 'react';
 import {Link} from 'react-router';
 import moment from 'moment';
 
+import {TableRow, TableRowColumn} from 'material-ui/Table';
+import FileFolder from 'material-ui/svg-icons/file/folder';
+import FileDownload from 'material-ui/svg-icons/file/file-download';
+import EditorFile from 'material-ui/svg-icons/editor/insert-drive-file';
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import ContentRemove from 'material-ui/svg-icons/content/remove';
+
+
 export class Folder extends React.Component {
   render() {
     let fileOrFolderClass = (this.props.kindButton === 'folder') ?
-      "glyphicon-folder-close k-icon-folder-close" : "glyphicon-file k-icon-glyphicon-file";
+      <FileFolder/> : <EditorFile/>;
 
     const dateModified = (modified) => {
       const date = moment(modified);
@@ -57,36 +65,68 @@ export class Folder extends React.Component {
 
     const editorIcon = (file) => {
       if (file === 'file') {
-        return <i className="glyphicon glyphicon-pencil k-icon-pencil"></i>;
+        return <EditorModeEdit/>;
       }
     };
 
     return (
-      <tr>
-        <td className="k-row-small">
-          <Link to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)}>
-            <i className={"glyphicon " + fileOrFolderClass}></i>
+      <TableRow>
+        <TableRowColumn>
+          <Link
+            to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)}>
+            <FileFolder/>
           </Link>
-        </td>
-        <td className="k-row-big">
-          <Link to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)} title="open">
+        </TableRowColumn>
+        <TableRowColumn>
+          <Link
+            to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)}
+            title="open">
             <span>{this.props.name}</span>
           </Link>
-        </td>
-        <td>{setSizeOfFile(this.props.size, this.props.kindButton)}</td>
-        <td>{dateModified(this.props.lastModified)}</td>
-        <td>
+        </TableRowColumn>
+        <TableRowColumn>
+          {setSizeOfFile(this.props.size, this.props.kindButton)}
+        </TableRowColumn>
+        {dateModified(this.props.lastModified)}
+        <TableRowColumn>
           <Link to={"#"} title="download">
-            <i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i>
+            <FileDownload/>
           </Link>
           <Link to={"#"} title="remove">
-            <i className="glyphicon glyphicon-remove k-icon-remove"></i>
+            <ContentRemove/>
           </Link>
           <Link to={"#"} title="editor">
             {editorIcon(this.props.kindButton)}
           </Link>
-        </td>
-      </tr>
+        </TableRowColumn>
+      </TableRow>
     )
   }
 }
+
+
+// <tr>
+//   <td className="k-row-small">
+//     <Link to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)}>
+//       <i className={"glyphicon " + fileOrFolderClass}></i>
+//     </Link>
+//   </td>
+//   <td className="k-row-big">
+//     <Link to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)} title="open">
+//       <span>{this.props.name}</span>
+//     </Link>
+//   </td>
+//   <td>{setSizeOfFile(this.props.size, this.props.kindButton)}</td>
+//   <td>{dateModified(this.props.lastModified)}</td>
+//   <td>
+//     <Link to={"#"} title="download">
+//       <i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i>
+//     </Link>
+//     <Link to={"#"} title="remove">
+//       <i className="glyphicon glyphicon-remove k-icon-remove"></i>
+//     </Link>
+//     <Link to={"#"} title="editor">
+//       {editorIcon(this.props.kindButton)}
+//     </Link>
+//   </td>
+// </tr>

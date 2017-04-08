@@ -1,25 +1,38 @@
-.k-file-manager .table > tbody > tr > td {
+.k-file-manager {
+  margin-left: 150px;
+  margin-right: 150px;
+  margin-top: 50px; }
+
+.table > tbody > tr > td {
   vertical-align: middle; }
-.k-file-manager .k-icon-folder-close {
+
+.k-icon-folder-close {
   font-size: 35px;
   color: #FFC107; }
-.k-file-manager .k-icon-glyphicon-file {
+
+.k-icon-glyphicon-file {
   font-size: 35px;
   color: #67abc5; }
-.k-file-manager .k-icon-download-alt, .k-file-manager .k-icon-remove, .k-file-manager .k-icon-pencil {
+
+.k-icon-download-alt, .k-icon-remove, .k-icon-pencil {
   font-size: 15px;
   display: inline-block;
   margin-right: 20px; }
-.k-file-manager .k-row-big {
+
+.k-row-big {
   width: 50%; }
-.k-file-manager .k-row-small {
+
+.k-row-small {
   width: 25px; }
-.k-file-manager .k-col-3 {
+
+.k-col-3 {
   position: relative;
   top: 35px; }
-.k-file-manager .k-row-kontainer {
+
+.k-row-kontainer {
   background-color: #e5e5e5; }
-.k-file-manager .k-triangle-bottom {
+
+.k-triangle-bottom {
   top: 4px; }
 
 /*# sourceMappingURL=FileManager.css.map */

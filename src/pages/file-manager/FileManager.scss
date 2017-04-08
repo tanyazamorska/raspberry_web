@@ -1,44 +1,52 @@
 .k-file-manager {
+  margin-left: 150px;
+  margin-right: 150px;
+  margin-top: 50px;
+}
 
-  .table>tbody>tr>td {
-    vertical-align: middle;
-  }
 
-  .k-icon-folder-close {
-    font-size: 35px;
-    color: #FFC107;
-  }
 
-  .k-icon-glyphicon-file {
-    font-size: 35px;
-    color: #67abc5;
-  }
 
-  .k-icon-download-alt, .k-icon-remove, .k-icon-pencil {
-    font-size: 15px;
-    display: inline-block;
-    margin-right: 20px;
-  }
 
-  .k-row-big {
-    width: 50%;
-  }
 
-  .k-row-small {
-    width: 25px;
-  }
 
-  .k-col-3 {
-    position: relative;
-    top: 35px;
-  }
+.table>tbody>tr>td {
+  vertical-align: middle;
+}
 
-  .k-row-kontainer{
-    background-color: #e5e5e5;
-  }
+.k-icon-folder-close {
+  font-size: 35px;
+  color: #FFC107;
+}
 
-  .k-triangle-bottom {
-    top: 4px;
-  }
+.k-icon-glyphicon-file {
+  font-size: 35px;
+  color: #67abc5;
+}
 
+.k-icon-download-alt, .k-icon-remove, .k-icon-pencil {
+  font-size: 15px;
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.k-row-big {
+  width: 50%;
+}
+
+.k-row-small {
+  width: 25px;
+}
+
+.k-col-3 {
+  position: relative;
+  top: 35px;
+}
+
+.k-row-kontainer{
+  background-color: #e5e5e5;
+}
+
+.k-triangle-bottom {
+  top: 4px;
 }
