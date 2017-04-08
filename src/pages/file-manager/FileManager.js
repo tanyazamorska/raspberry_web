@@ -222,7 +222,7 @@ export default class FileManager extends React.Component {
           <tbody>
           {
             filesAndFolders.map(el => {
-              return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}
+              return <Folder name={el.name} kind={el.kindButton} key={el.id} path={el.path} lastModified={el.lastModified}
                              size={el.size} hideHidden={this.props.params.hideHidden} sortBy={this.props.params.sortBy} />
             })
           }

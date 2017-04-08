@@ -4,7 +4,7 @@ import moment from 'moment';
 
 export class Folder extends React.Component {
   render() {
-    let fileOrFolderClass = (this.props.kind === 'folder') ?
+    let fileOrFolderClass = (this.props.kindButton === 'folder') ?
       "glyphicon-folder-close k-icon-folder-close" : "glyphicon-file k-icon-glyphicon-file";
 
     const dateModified = (modified) => {
@@ -73,7 +73,7 @@ export class Folder extends React.Component {
             <span>{this.props.name}</span>
           </Link>
         </td>
-        <td>{setSizeOfFile(this.props.size, this.props.kind)}</td>
+        <td>{setSizeOfFile(this.props.size, this.props.kindButton)}</td>
         <td>{dateModified(this.props.lastModified)}</td>
         <td>
           <Link to={"#"} title="download">
@@ -83,7 +83,7 @@ export class Folder extends React.Component {
             <i className="glyphicon glyphicon-remove k-icon-remove"></i>
           </Link>
           <Link to={"#"} title="editor">
-            {editorIcon(this.props.kind)}
+            {editorIcon(this.props.kindButton)}
           </Link>
         </td>
       </tr>

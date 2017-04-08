@@ -5,11 +5,14 @@ import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
 import ActionPets from 'material-ui/svg-icons/action/pets';
 
+
 export default class Header extends React.Component {
   render() {
     return (
       <AppBar className="k-header"
-              iconElementLeft={<Link to={'/'}><IconButton><ActionPets className="k-pets-icon" /></IconButton></Link>}
+              iconElementLeft={<Link to={'/'}>
+                <IconButton className="k-pets-icon" style={{borderRadius: '25px', background: 'white'}}><ActionPets /></IconButton>
+              </Link>}
       />
     )
   }

@@ -1,12 +1,13 @@
-.k-home {
+.k-home-root {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-left: 85px;
+  margin-right: 85px;
+  margin-top: 95px;
+}
 
-  .k-button {
-    height: 120px;
-    width: 180px;
-    line-height: 150px;
-  }
-  .k-icon-home {
-    font-size: 70px;
-    top: 5px;
-  }
+.k-gridTitle {
+  width: 250px;
+  margin: 10px
 }
