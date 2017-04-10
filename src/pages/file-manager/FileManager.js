@@ -37,8 +37,9 @@ export default class FileManager extends React.Component {
     setTimeoutFunctionHack();
   }
 
-  // componentWillUnmount() {
-  // }
+  componentWillUnmount = () => {
+   this.requestDataFromServer = () => {};
+  };
 
   /**
    * fetches data from server and executes `complete` function callback when ready,
