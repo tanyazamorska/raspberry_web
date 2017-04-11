@@ -3,36 +3,28 @@
   margin-right: 150px;
   margin-top: 50px; }
 
-.table > tbody > tr > td {
-  vertical-align: middle; }
-
-.k-icon-folder-close {
+.k-folder-icon-folder {
   font-size: 35px;
   color: #FFC107; }
 
-.k-icon-glyphicon-file {
+.k-folder-icon-file {
   font-size: 35px;
   color: #67abc5; }
 
-.k-icon-download-alt, .k-icon-remove, .k-icon-pencil {
+.k-icon-download, .k-icon-remove, .k-icon-pencil {
   font-size: 15px;
   display: inline-block;
   margin-right: 20px; }
 
-.k-row-big {
-  width: 50%; }
+.k-icon-home {
+  font-size: 30px; }
 
-.k-row-small {
-  width: 25px; }
+.k-icon-arrow {
+  display: inline-block;
+  top: 5px; }
 
-.k-col-3 {
-  position: relative;
-  top: 35px; }
-
-.k-row-kontainer {
-  background-color: #e5e5e5; }
-
-.k-triangle-bottom {
-  top: 4px; }
+.k-center {
+  display: inline-block;
+  top: 5px; }
 
 /*# sourceMappingURL=FileManager.css.map */

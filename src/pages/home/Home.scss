@@ -2,12 +2,18 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  height: 100%;
   margin-left: 85px;
   margin-right: 85px;
-  margin-top: 95px;
+  margin-top: 45px;
 }
 
 .k-gridTitle {
   width: 250px;
   margin: 10px
+}
+
+.k-home-icon-camera {
+  font-size: 90px;
+  color: white;
 }

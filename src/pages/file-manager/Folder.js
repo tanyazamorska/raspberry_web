@@ -3,17 +3,24 @@ import {Link} from 'react-router';
 import moment from 'moment';
 
 import {TableRow, TableRowColumn} from 'material-ui/Table';
-import FileFolder from 'material-ui/svg-icons/file/folder';
 import FileDownload from 'material-ui/svg-icons/file/file-download';
-import EditorFile from 'material-ui/svg-icons/editor/insert-drive-file';
-import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+
+
 import ContentRemove from 'material-ui/svg-icons/content/remove';
 
 
 export class Folder extends React.Component {
   render() {
-    let fileOrFolderClass = (this.props.kindButton === 'folder') ?
-      <FileFolder/> : <EditorFile/>;
+
+    let additionalClass = null;
+    let kind = null;
+    if (this.props.kind === 'folder') {
+      additionalClass = `-icons k-folder-icon-folder`;
+      kind = 'folder';
+    } else {
+      additionalClass = `-icons k-folder-icon-file`;
+      kind = `insert_drive_file`;
+    }
 
     const dateModified = (modified) => {
       const date = moment(modified);
@@ -65,7 +72,7 @@ export class Folder extends React.Component {
 
     const editorIcon = (file) => {
       if (file === 'file') {
-        return <EditorModeEdit/>;
+        return <i className="material-icons k-icon-pencil">mode_edit</i>;
       }
     };
 
@@ -74,7 +81,7 @@ export class Folder extends React.Component {
         <TableRowColumn>
           <Link
             to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)}>
-            <FileFolder/>
+            <i className={"material" + additionalClass}>{kind}</i>
           </Link>
         </TableRowColumn>
         <TableRowColumn>
@@ -85,18 +92,20 @@ export class Folder extends React.Component {
           </Link>
         </TableRowColumn>
         <TableRowColumn>
-          {setSizeOfFile(this.props.size, this.props.kindButton)}
+          {setSizeOfFile(this.props.size, this.props.kind)}
         </TableRowColumn>
-        {dateModified(this.props.lastModified)}
+        <TableRowColumn>
+          {dateModified(this.props.lastModified)}
+        </TableRowColumn>
         <TableRowColumn>
           <Link to={"#"} title="download">
-            <FileDownload/>
+            <i className="material-icons k-icon-download">file_download</i>
           </Link>
           <Link to={"#"} title="remove">
-            <ContentRemove/>
+            <i className="material-icons k-icon-remove">clear</i>
           </Link>
           <Link to={"#"} title="editor">
-            {editorIcon(this.props.kindButton)}
+            {editorIcon(this.props.kind)}
           </Link>
         </TableRowColumn>
       </TableRow>
@@ -105,28 +114,3 @@ export class Folder extends React.Component {
 }
 
 
-// <tr>
-//   <td className="k-row-small">
-//     <Link to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)}>
-//       <i className={"glyphicon " + fileOrFolderClass}></i>
-//     </Link>
-//   </td>
-//   <td className="k-row-big">
-//     <Link to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)} title="open">
-//       <span>{this.props.name}</span>
-//     </Link>
-//   </td>
-//   <td>{setSizeOfFile(this.props.size, this.props.kindButton)}</td>
-//   <td>{dateModified(this.props.lastModified)}</td>
-//   <td>
-//     <Link to={"#"} title="download">
-//       <i className="glyphicon glyphicon-download-alt k-icon-download-alt"></i>
-//     </Link>
-//     <Link to={"#"} title="remove">
-//       <i className="glyphicon glyphicon-remove k-icon-remove"></i>
-//     </Link>
-//     <Link to={"#"} title="editor">
-//       {editorIcon(this.props.kindButton)}
-//     </Link>
-//   </td>
-// </tr>
