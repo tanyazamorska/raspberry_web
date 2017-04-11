@@ -1,4 +1,4 @@
-.k-home-root {
+.k-home {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
@@ -6,13 +6,8 @@
   margin-left: 85px;
   margin-right: 85px;
   margin-top: 45px; }
-
-.k-gridTitle {
-  width: 250px;
-  margin: 10px; }
-
-.k-home-icon-camera {
-  font-size: 90px;
-  color: white; }
+  .k-home .k-gridTitle {
+    width: 250px;
+    margin: 10px; }
 
 /*# sourceMappingURL=Home.css.map */

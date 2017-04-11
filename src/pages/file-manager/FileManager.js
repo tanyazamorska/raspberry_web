@@ -23,35 +23,35 @@ export default class FileManager extends React.Component {
       setTimeout(() => {
         self.requestDataFromServer("/" + self.props.params.splat);
       }, 0);
-    }
+    };
 
     let prevPath = self.props.routeParams.splat;
-    requestDataFromServerWithHack();
     browserHistory.listen(location => {
-      // let [, , , , path] = location.hash.split("/");
-      // if (prevPath !== path) {
-      //   setTimeoutFunctionHack();
-      // }
-      requestDataFromServerWithHack();
-      //prevPath = path;
+      let arrPath = location.hash.split("/");
+      arrPath.splice(0,4);
+      let path = arrPath.join('/');
+      if (prevPath !== path) {
+        requestDataFromServerWithHack();
+      }
+       prevPath = path;
     });
-
+    requestDataFromServerWithHack();
 
     // $.on("click")
 /*    const stopListening = browserHistory.listen(param => {
         console.log(123);
     });
-
     stopListening()
 */
-
-
   }
 
-  componentWillUnmount = () => {
-    this.requestDataFromServer = () => {
-    };
-  };
+
+  // componentWillUnmount = () => {
+  //   console.log(321)
+  //   const unListen = browserHistory.listen(param => {});
+  //   unListen()
+  // };
+
 
   /**
    * fetches data from server and executes `complete` function callback when ready,
@@ -107,12 +107,13 @@ export default class FileManager extends React.Component {
     let sorted = this.props.params.sortBy;
     const linksPathArr = arr.map(function (item, i) {
       href = href + '/' + item;
-      let el = <span key={i}><Link to={`/file-manager/${show}/${sorted}${href}`}>{item}</Link> / </span>;
+      let el = <span key={i}><Link to={`/file-manager/${show}/${sorted}${href}/`}>{item}</Link> / </span>;
       if (i === arr.length - 1) {
         el = <span key={i}>{item} / </span>;
       }
       return el;
     });
+
 
     if (path === '/') {
       linksPathArr.unshift(<span key="-1"><i className="material-icons k-icon-home">home</i></span>);
@@ -120,7 +121,6 @@ export default class FileManager extends React.Component {
       linksPathArr.unshift(<span key="-1"><Link to={`/file-manager/${show}/${sorted}/`}><i
         className="material-icons k-icon-home">home</i></Link> / </span>);
     }
-
     // method sort of files and folders
     /**
      * @param keyInObjToSort - key to sort by in obj
@@ -210,7 +210,7 @@ export default class FileManager extends React.Component {
               </TableRowColumn>
               <TableRowColumn>
                 {
-                  <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path}`}>
+                  <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path === "/" ? '' : path}/`}>
                     <Checkbox label="show hidden files" checked={check} onCheck={() => {}}/>
                   </Link>
                 }
@@ -227,17 +227,17 @@ export default class FileManager extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                <Link to={`/file-manager/${show}/${sorted}${path}`}>
+                <Link to={`/file-manager/${show}/${sorted}${path === "/" ? '' : path}/`}>
                   <span>Name{showArrow}</span>
                 </Link>
               </TableRowColumn>
               <TableRowColumn>
-                <Link to={`/file-manager/${show}/${sorted1}${path}`}>
+                <Link to={`/file-manager/${show}/${sorted1}${path === "/" ? '' : path}/`}>
                   <span>Size{showArrow1}</span>
                 </Link>
               </TableRowColumn>
               <TableRowColumn>
-                <Link to={`/file-manager/${show}/${sorted2}${path}`}>
+                <Link to={`/file-manager/${show}/${sorted2}${path === "/" ? '' : path}/`}>
                   <span>Modified{showArrow2}</span>
                 </Link>
               </TableRowColumn>
