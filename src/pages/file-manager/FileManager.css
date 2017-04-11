@@ -2,29 +2,22 @@
   margin-left: 150px;
   margin-right: 150px;
   margin-top: 50px; }
-
-.k-folder-icon-folder {
-  font-size: 35px;
-  color: #FFC107; }
-
-.k-folder-icon-file {
-  font-size: 35px;
-  color: #67abc5; }
-
-.k-icon-download, .k-icon-remove, .k-icon-pencil {
-  font-size: 15px;
-  display: inline-block;
-  margin-right: 20px; }
-
-.k-icon-home {
-  font-size: 30px; }
-
-.k-icon-arrow {
-  display: inline-block;
-  top: 5px; }
-
-.k-center {
-  display: inline-block;
-  top: 5px; }
+  .k-file-manager .k-folder-icon-folder {
+    font-size: 35px;
+    color: #FFC107; }
+  .k-file-manager .k-folder-icon-file {
+    font-size: 35px;
+    color: #67abc5; }
+  .k-file-manager .k-icon-download, .k-file-manager .k-icon-remove, .k-file-manager .k-icon-pencil {
+    font-size: 15px;
+    display: inline-block;
+    margin-right: 20px; }
+  .k-file-manager .k-text-top {
+    display: inline-block;
+    margin-top: 5px; }
+  .k-file-manager .k-icon-home {
+    position: relative;
+    font-size: 30px;
+    top: 6px; }
 
 /*# sourceMappingURL=FileManager.css.map */

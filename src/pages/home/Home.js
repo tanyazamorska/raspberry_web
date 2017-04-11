@@ -6,12 +6,12 @@ import FlatButton from 'material-ui/FlatButton';
 
 const style = {
   sizeButton: {
-    height: "140px",
-    width: "200px"
+    height: "140px", // ???
+    width: "200px"   // ???
   },
   sizeIcon: {
     fontSize: "90px",
-    color: "white"
+    color: "white"    // magic
   }
 };
 

@@ -16,7 +16,7 @@ export default class FileManager extends React.Component {
     const self = this;
     self.state = {
       filesAndFolders: [],
-      path: "",
+      path: ""
     };
 
     const requestDataFromServerWithHack = () => {
@@ -26,7 +26,10 @@ export default class FileManager extends React.Component {
     };
 
     let prevPath = self.props.routeParams.splat;
-    browserHistory.listen(location => {
+    this.stop = browserHistory.listen(location => {
+      if (location.hash.indexOf("#/file-manager/") === -1) {
+        return;
+      }
       let arrPath = location.hash.split("/");
       arrPath.splice(0,4);
       let path = arrPath.join('/');
@@ -36,22 +39,11 @@ export default class FileManager extends React.Component {
        prevPath = path;
     });
     requestDataFromServerWithHack();
-
-    // $.on("click")
-/*    const stopListening = browserHistory.listen(param => {
-        console.log(123);
-    });
-    stopListening()
-*/
   }
 
-
-  // componentWillUnmount = () => {
-  //   console.log(321)
-  //   const unListen = browserHistory.listen(param => {});
-  //   unListen()
-  // };
-
+  componentWillUnmount() {
+    this.stop();
+  }
 
   /**
    * fetches data from server and executes `complete` function callback when ready,
@@ -114,13 +106,13 @@ export default class FileManager extends React.Component {
       return el;
     });
 
-
     if (path === '/') {
       linksPathArr.unshift(<span key="-1"><i className="material-icons k-icon-home">home</i></span>);
     } else {
       linksPathArr.unshift(<span key="-1"><Link to={`/file-manager/${show}/${sorted}/`}><i
         className="material-icons k-icon-home">home</i></Link> / </span>);
     }
+
     // method sort of files and folders
     /**
      * @param keyInObjToSort - key to sort by in obj
@@ -147,7 +139,7 @@ export default class FileManager extends React.Component {
       sorted1 = "sort-size-asc";
       sorted2 = "sort-modified-asc";
     } else if (sorted === `sort-name-asc`) {
-      showArrow = <span><i className="material-icons k-icon-arrow">keyboard_arrow_up</i></span>;
+      showArrow = <span><i className="material-icons">keyboard_arrow_up</i></span>;
       sorted = `sort-name-desc`;
       sorted1 = "sort-size-asc";
       sorted2 = "sort-modified-asc";
@@ -201,9 +193,9 @@ export default class FileManager extends React.Component {
       <div className="k-file-manager">
         <Table>
           <TableBody displayRowCheckbox={this.state.showCheckboxes = false}>
-            <TableRow style={{backgroundColor: "#00BCD4", height: "74px"}}>
+            <TableRow style={{backgroundColor: "rgb(142, 141, 144)", height: "74px"}}>
               <TableRowColumn>
-                <h3>{linksPathArr}</h3>
+               <h3 className="k-text-top">{linksPathArr}</h3>
               </TableRowColumn>
               <TableRowColumn>
 
@@ -259,114 +251,4 @@ export default class FileManager extends React.Component {
   }
 }
 
-
-{/*<div className="row container k-row-kontainer">*/
-}
-{/*<div className="col-xs-5 col-sm-5">*/
-}
-{/*<form className="navbar-form navbar-left">*/
-}
-{/*<div className="form-group">*/
-}
-{/*{linksPathArr}*/
-}
-{/*</div>*/
-}
-{/*</form>*/
-}
-{/*</div>*/
-}
-{/*<div className="col-xs-3 col-sm-3 k-col-3">*/
-}
-{/*<div className="form-group">*/
-}
-{/*<Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path}`}>*/
-}
-{/*<input type="checkbox" checked={check} onChange={() => {}}/>show hidden files*/
-}
-{/*</Link>*/
-}
-{/*</div>*/
-}
-{/*</div>*/
-}
-{/*<div className="col-xs-4 col-sm-4">*/
-}
-{/*<form className="navbar-form navbar-right">*/
-}
-{/*<div className="form-group">*/
-}
-{/*<input type="text" className="form-control"/>*/
-}
-{/*</div>*/
-}
-{/*<button type="submit" className="btn btn-primary btn-sm">Upload file</button>*/
-}
-{/*</form>*/
-}
-{/*</div>*/
-}
-{/*</div>*/
-}
-{/*<table className="table">*/
-}
-{/*<thead>*/
-}
-{/*<tr>*/
-}
-{/*<th className="k-row-small"></th>*/
-}
-{/*<th className="k-row-big">*/
-}
-{/*<Link to={`/file-manager/${show}/${sorted}${path}`}>*/
-}
-{/*<span>Name{showArrow}</span>*/
-}
-{/*</Link>*/
-}
-{/*</th>*/
-}
-{/*<th>*/
-}
-{/*<Link to={`/file-manager/${show}/${sorted1}${path}`}>*/
-}
-{/*<span>Size{showArrow1}</span>*/
-}
-{/*</Link>*/
-}
-{/*</th>*/
-}
-{/*<th>*/
-}
-{/*<Link to={`/file-manager/${show}/${sorted2}${path}`}>*/
-}
-{/*<span>Modified{showArrow2}</span>*/
-}
-{/*</Link>*/
-}
-{/*</th>*/
-}
-{/*<th>Action</th>*/
-}
-{/*</tr>*/
-}
-{/*</thead>*/
-}
-{/*<tbody>*/
-}
-{/*{*/
-}
-{/*filesAndFolders.map(el => {*/
-}
-{/*return <Folder name={el.name} kind={el.kindButton} key={el.id} path={el.path} lastModified={el.lastModified}*/
-}
-{/*size={el.size} hideHidden={this.props.params.hideHidden} sortBy={this.props.params.sortBy} />*/
-}
-{/*})*/
-}
-{/*}*/
-}
-{/*</tbody>*/
-}
-{/*</table>*/
-}
+// знайти змінні теми Material UI. І використовувати ті змінні. Ні не де НЕ використовувати магічні значення

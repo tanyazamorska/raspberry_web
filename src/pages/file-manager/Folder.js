@@ -1,13 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import moment from 'moment';
-
 import {TableRow, TableRowColumn} from 'material-ui/Table';
-import FileDownload from 'material-ui/svg-icons/file/file-download';
-
-
-import ContentRemove from 'material-ui/svg-icons/content/remove';
-
 
 export class Folder extends React.Component {
   render() {
@@ -70,8 +64,8 @@ export class Folder extends React.Component {
       return pathToGo;
     };
 
-    const editorIcon = (file) => {
-      if (file === 'file') {
+    const editorIcon = (file, size) => {
+      if (file === 'file' && size < 1000000) {
         return <i className="material-icons k-icon-pencil">mode_edit</i>;
       }
     };
@@ -104,8 +98,9 @@ export class Folder extends React.Component {
           <Link to={"#"} title="remove">
             <i className="material-icons k-icon-remove">clear</i>
           </Link>
-          <Link to={"#"} title="editor">
-            {editorIcon(this.props.kind)}
+          <Link to={`/editor/${this.props.hideHidden + `/` + this.props.sortBy + url(this.props.path, this.props.name)}`}
+                title="editor" target="_blank">
+            {editorIcon(this.props.kind, this.props.size)}
           </Link>
         </TableRowColumn>
       </TableRow>
