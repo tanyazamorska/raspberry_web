@@ -1,6 +1,14 @@
+html {
+  margin: 0px;
+  height: 100%;
+  min-width: 1320px;
+}
+
+
 body {
-  width: 100%;
+  min-height: 400px;
   margin: 0;
   overflow-y: auto;
+  overflow-x: hidden;
   background-color: #f4f5ea;
 }

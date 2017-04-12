@@ -208,7 +208,7 @@ export default class FileManager extends React.Component {
                 }
               </TableRowColumn>
               <TableRowColumn>
-                <TextField hintText="Search"/>
+                <TextField hintText="upload file"/>
               </TableRowColumn>
               <TableRowColumn>
                 <RaisedButton label="Submit"/>
