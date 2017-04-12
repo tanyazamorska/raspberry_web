@@ -5,7 +5,6 @@ import {TableRow, TableRowColumn} from 'material-ui/Table';
 
 export class Folder extends React.Component {
   render() {
-
     let additionalClass = null;
     let kind = null;
     if (this.props.kind === 'folder') {

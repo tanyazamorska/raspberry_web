@@ -36,7 +36,7 @@ export default class FileManager extends React.Component {
       if (prevPath !== path) {
         requestDataFromServerWithHack();
       }
-       prevPath = path;
+      prevPath = path;
     });
     requestDataFromServerWithHack();
   }
@@ -97,7 +97,7 @@ export default class FileManager extends React.Component {
     arr.shift();
     let href = '';
     let sorted = this.props.params.sortBy;
-    const linksPathArr = arr.map(function (item, i) {
+    const linksPathArr = arr.map((item, i) => {
       href = href + '/' + item;
       let el = <span key={i}><Link to={`/file-manager/${show}/${sorted}${href}/`}>{item}</Link> / </span>;
       if (i === arr.length - 1) {
@@ -118,18 +118,17 @@ export default class FileManager extends React.Component {
      * @param keyInObjToSort - key to sort by in obj
      */
     let sortItemsBy = (keyInObjToSort) => {
-      const sortBy = _.sortBy(filesAndFolders, [function (obj) {
+      console.log(filesAndFolders, keyInObjToSort)
+      filesAndFolders = _.sortBy(filesAndFolders, [function (obj) {
         return obj[keyInObjToSort]
       }]);
-      filesAndFolders = sortBy;
     };
 
     let reverseSortItemsBy = (keyInObjToSort) => {
-      let reverse = _.sortBy(filesAndFolders, [function (obj) {
+      const sorted = _.sortBy(filesAndFolders, [function (obj) {
         return obj[keyInObjToSort]
       }]);
-      reverse = _.reverse(reverse);
-      filesAndFolders = reverse;
+      filesAndFolders = _.reverse(sorted);
     };
 
     let showArrow, showArrow1, showArrow2 = <span> </span>;
@@ -167,13 +166,13 @@ export default class FileManager extends React.Component {
       sorted = "sort-name-asc";
       sorted1 = "sort-size-asc";
       sorted2 = "sort-modified-desc";
-      sortItemsBy("modified");
+      sortItemsBy("lastModified");
     } else if (sorted === "sort-modified-desc") {
       showArrow2 = <span><i className="material-icons">keyboard_arrow_down</i></span>;
       sorted = "sort-name-asc";
       sorted1 = "sort-size-asc";
       sorted2 = "sort-modified-asc";
-      reverseSortItemsBy("modified");
+      reverseSortItemsBy("lastModified");
     }
 
     if (path !== "/" && path !== "") {
@@ -250,5 +249,3 @@ export default class FileManager extends React.Component {
     )
   }
 }
-
-// знайти змінні теми Material UI. І використовувати ті змінні. Ні не де НЕ використовувати магічні значення
