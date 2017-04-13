@@ -1,7 +1,10 @@
 .k-file-manager {
-  margin-left: 150px;
-  margin-right: 150px;
-  margin-top: 50px;
+  //margin-left: 150px;
+  //margin-right: 150px;
+  //margin-top: 50px;
+  position: relative;
+  margin: auto;
+  width: 900px;
 
   .k-folder-icon-folder {
     font-size: 35px;

@@ -1,24 +1,27 @@
-import './Header.scss';
 import React from 'react';
 import {Link} from 'react-router';
 import AppBar from 'material-ui/AppBar';
 import IconButton from 'material-ui/IconButton';
+import ActionPets from 'material-ui/svg-icons/action/pets';
 
-const style = {
-  header: {
-    backgroundColor: "rgb(255, 252, 252)"
-  }
-};
+// const style= {
+//   iconPets: {
+//     display:'block',
+//     width: 60,
+//     height: 60,
+//   }
+// };
 
 export default class Header extends React.Component {
   render() {
     return (
-      <AppBar className="k-header" style={style.header}
-              iconElementLeft={
-                <Link to={'/'}>
-                  <IconButton><i className="material-icons md-48">pets</i></IconButton>
-                </Link>
-              }
+      <AppBar
+        iconElementLeft ={
+          <Link to={'/'}>
+            <IconButton>><ActionPets style={{display: 'block', width: '120px'}}/></IconButton>
+          </Link>
+        }
+        zDepth={2}
       />
     )
   }

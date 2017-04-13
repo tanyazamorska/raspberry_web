@@ -118,7 +118,6 @@ export default class FileManager extends React.Component {
      * @param keyInObjToSort - key to sort by in obj
      */
     let sortItemsBy = (keyInObjToSort) => {
-      console.log(filesAndFolders, keyInObjToSort)
       filesAndFolders = _.sortBy(filesAndFolders, [function (obj) {
         return obj[keyInObjToSort]
       }]);
