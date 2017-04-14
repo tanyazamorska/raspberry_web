@@ -1,4 +1,3 @@
-import './Layout.scss';
 import React from 'react';
 import Header from '../Header/Header.js';
 import Footer from '../Footer/Footer.js';
@@ -9,9 +8,10 @@ export default class Layout extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div className="k-layout">
+        <div>
           <Header />
-          <div className="container k-content">
+          <div style={{height: 70}}></div>
+          <div style={{minHeight: 350,  paddingBottom: 50}}>
             {this.props.children || <Home/>}
           </div>
           <Footer />

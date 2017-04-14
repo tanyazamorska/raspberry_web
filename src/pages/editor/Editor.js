@@ -1,7 +1,9 @@
 import React from 'react';
+import AppBar from 'material-ui/AppBar';
 import AceEditor from 'react-ace';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
+import FlatButton from 'material-ui/FlatButton';
 
 function onChange(newValue) {
   console.log('change',newValue);
@@ -11,10 +13,13 @@ export default class Editor extends React.Component {
   render() {
     return (
     <div>
-      <div>
-        <h3>path: {this.props.params.splat}</h3>
-      </div>
-      <div style={{position:'relative', margin: 'auto', width: 900}}>
+      <AppBar
+        showMenuIconButton={false}
+        style={{margin: 'auto', width: 900}}
+        title={this.props.params.splat}
+        iconElementRight={<FlatButton label="Save" />}
+      />
+      <div style={{margin: 'auto', width: 900}}>
         <AceEditor
           mode="javascript"
           theme="github"

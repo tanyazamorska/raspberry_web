@@ -2,17 +2,18 @@ import React from 'react';
 import {Link} from 'react-router';
 import moment from 'moment';
 import {TableRow, TableRowColumn} from 'material-ui/Table';
+import FileFolder from 'material-ui/svg-icons/file/folder';
+import EditorFile from 'material-ui/svg-icons/editor/insert-drive-file';
+import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
+import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 
 export class Folder extends React.Component {
   render() {
     let additionalClass = null;
-    let kind = null;
     if (this.props.kind === 'folder') {
-      additionalClass = `-icons k-folder-icon-folder`;
-      kind = 'folder';
+      additionalClass = <FileFolder />;
     } else {
-      additionalClass = `-icons k-folder-icon-file`;
-      kind = `insert_drive_file`;
+      additionalClass = <EditorFile />;
     }
 
     const dateModified = (modified) => {
@@ -65,7 +66,7 @@ export class Folder extends React.Component {
 
     const editorIcon = (file, size) => {
       if (file === 'file' && size < 1000000) {
-        return <i className="material-icons k-icon-pencil">mode_edit</i>;
+        return <EditorModeEdit />;
       }
     };
 
@@ -74,7 +75,7 @@ export class Folder extends React.Component {
         <TableRowColumn>
           <Link
             to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)}>
-            <i className={"material" + additionalClass}>{kind}</i>
+            {additionalClass}
           </Link>
         </TableRowColumn>
         <TableRowColumn>
@@ -92,7 +93,7 @@ export class Folder extends React.Component {
         </TableRowColumn>
         <TableRowColumn>
           <Link to={"#"} title="download">
-            <i className="material-icons k-icon-download">file_download</i>
+            <FileFileDownload style={{marginRight: 20}} />
           </Link>
           <Link to={`/editor/${this.props.hideHidden + `/` + this.props.sortBy + url(this.props.path, this.props.name)}`}
                 title="editor" target="_blank">

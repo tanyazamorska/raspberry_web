@@ -1,9 +1,10 @@
-import './FileManager.scss';
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
-
+import ActionHome from 'material-ui/svg-icons/action/home';
+import HadwareArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
+import HadwareArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import React from 'react';
 import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
@@ -31,7 +32,7 @@ export default class FileManager extends React.Component {
         return;
       }
       let arrPath = location.hash.split("/");
-      arrPath.splice(0,4);
+      arrPath.splice(0, 4);
       let path = arrPath.join('/');
       if (prevPath !== path) {
         requestDataFromServerWithHack();
@@ -107,10 +108,11 @@ export default class FileManager extends React.Component {
     });
 
     if (path === '/') {
-      linksPathArr.unshift(<span key="-1"><i className="material-icons k-icon-home">home</i></span>);
+      linksPathArr.unshift(<span key="-1"><ActionHome/></span>);
     } else {
-      linksPathArr.unshift(<span key="-1"><Link to={`/file-manager/${show}/${sorted}/`}><i
-        className="material-icons k-icon-home">home</i></Link> / </span>);
+      linksPathArr.unshift(<span key="-1">
+        <Link to={`/file-manager/${show}/${sorted}/`}><ActionHome/>
+      </Link> / </span>);
     }
 
     // method sort of files and folders
@@ -131,46 +133,30 @@ export default class FileManager extends React.Component {
     };
 
     let showArrow, showArrow1, showArrow2 = <span> </span>;
-    let sorted1, sorted2;
-    if (sorted === "not-sort") {
-      sorted = "sort-name-asc";
-      sorted1 = "sort-size-asc";
-      sorted2 = "sort-modified-asc";
-    } else if (sorted === `sort-name-asc`) {
-      showArrow = <span><i className="material-icons">keyboard_arrow_up</i></span>;
-      sorted = `sort-name-desc`;
-      sorted1 = "sort-size-asc";
-      sorted2 = "sort-modified-asc";
+    let sorted1 = "sort-name-asc", sorted2 = "sort-size-asc", sorted3 = "sort-modified-asc";
+    if (sorted === `sort-name-asc`) {
+      showArrow = <span><HadwareArrowUp /></span>;
+      sorted1 = `sort-name-desc`;
       sortItemsBy('name');
     } else if (sorted === `sort-name-desc`) {
-      showArrow = <span><i className="material-icons">keyboard_arrow_down</i></span>;
-      sorted = `sort-name-asc`;
-      sorted1 = "sort-size-asc";
-      sorted2 = "sort-modified-asc";
+      showArrow = <span><HadwareArrowDown /></span>;
+      sorted1 = `sort-name-asc`;
       reverseSortItemsBy('name');
     } else if (sorted === "sort-size-asc") {
-      showArrow1 = <span><i className="material-icons">keyboard_arrow_up</i></span>;
-      sorted = "sort-name-asc";
-      sorted1 = "sort-size-desc";
-      sorted2 = "sort-modified-asc";
+      showArrow1 = <span><HadwareArrowUp /></span>;
+      sorted2 = "sort-size-desc";
       sortItemsBy("size");
     } else if (sorted === "sort-size-desc") {
-      showArrow1 = <span><i className="material-icons">keyboard_arrow_down</i></span>;
-      sorted = "sort-name-asc";
-      sorted1 = "sort-size-asc";
-      sorted2 = "sort-modified-asc";
+      showArrow1 = <span><HadwareArrowDown /></span>;
+      sorted2 = "sort-size-asc";
       reverseSortItemsBy("size");
     } else if (sorted === "sort-modified-asc") {
-      showArrow2 = <span><i className="material-icons">keyboard_arrow_up</i></span>;
-      sorted = "sort-name-asc";
-      sorted1 = "sort-size-asc";
-      sorted2 = "sort-modified-desc";
+      showArrow2 = <span><HadwareArrowUp /></span>;
+      sorted3 = "sort-modified-desc";
       sortItemsBy("lastModified");
     } else if (sorted === "sort-modified-desc") {
-      showArrow2 = <span><i className="material-icons">keyboard_arrow_down</i></span>;
-      sorted = "sort-name-asc";
-      sorted1 = "sort-size-asc";
-      sorted2 = "sort-modified-asc";
+      showArrow2 = <span><HadwareArrowDown /></span>;
+      sorted3 = "sort-modified-asc";
       reverseSortItemsBy("lastModified");
     }
 
@@ -188,12 +174,12 @@ export default class FileManager extends React.Component {
     });
 
     return (
-      <div className="k-file-manager">
+      <div style={{margin: 'auto', width: 900}}>
         <Table>
           <TableBody displayRowCheckbox={this.state.showCheckboxes = false}>
-            <TableRow style={{backgroundColor: "rgb(142, 141, 144)", height: "74px"}}>
+            <TableRow >
               <TableRowColumn>
-               <h3 className="k-text-top">{linksPathArr}</h3>
+                <h4>{linksPathArr}</h4>
               </TableRowColumn>
               <TableRowColumn>
 
@@ -201,7 +187,8 @@ export default class FileManager extends React.Component {
               <TableRowColumn>
                 {
                   <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path === "/" ? '' : path}/`}>
-                    <Checkbox label="show hidden files" checked={check} onCheck={() => {}}/>
+                    <Checkbox label="show hidden files" checked={check} onCheck={() => {
+                    }}/>
                   </Link>
                 }
               </TableRowColumn>
@@ -217,17 +204,17 @@ export default class FileManager extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                <Link to={`/file-manager/${show}/${sorted}${path === "/" ? '' : path}/`}>
+                <Link to={`/file-manager/${show}/${sorted1}${path === "/" ? '' : path}/`}>
                   <span>Name{showArrow}</span>
                 </Link>
               </TableRowColumn>
               <TableRowColumn>
-                <Link to={`/file-manager/${show}/${sorted1}${path === "/" ? '' : path}/`}>
+                <Link to={`/file-manager/${show}/${sorted2}${path === "/" ? '' : path}/`}>
                   <span>Size{showArrow1}</span>
                 </Link>
               </TableRowColumn>
               <TableRowColumn>
-                <Link to={`/file-manager/${show}/${sorted2}${path === "/" ? '' : path}/`}>
+                <Link to={`/file-manager/${show}/${sorted3}${path === "/" ? '' : path}/`}>
                   <span>Modified{showArrow2}</span>
                 </Link>
               </TableRowColumn>
@@ -237,8 +224,13 @@ export default class FileManager extends React.Component {
             </TableRow>
             {
               filesAndFolders.map(el => {
-                return <Folder name={el.name} kind={el.kind} key={el.id} path={el.path} lastModified={el.lastModified}
-                               size={el.size} hideHidden={this.props.params.hideHidden}
+                return <Folder name={el.name}
+                               kind={el.kind}
+                               key={el.id}
+                               path={el.path}
+                               lastModified={el.lastModified}
+                               size={el.size}
+                               hideHidden={this.props.params.hideHidden}
                                sortBy={this.props.params.sortBy}/>
               })
             }
