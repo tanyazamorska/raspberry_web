@@ -94,9 +94,6 @@ export class Folder extends React.Component {
           <Link to={"#"} title="download">
             <i className="material-icons k-icon-download">file_download</i>
           </Link>
-          <Link to={"#"} title="remove">
-            <i className="material-icons k-icon-remove">clear</i>
-          </Link>
           <Link to={`/editor/${this.props.hideHidden + `/` + this.props.sortBy + url(this.props.path, this.props.name)}`}
                 title="editor" target="_blank">
             {editorIcon(this.props.kind, this.props.size)}
