@@ -10,7 +10,7 @@ export default class Header extends React.Component {
       <AppBar
         iconElementLeft ={
           <Link to={'/'}>
-            <ActionPets style={{width: 80, height: 80, color: 'pink'}}/>
+            <ActionPets style={{width: 80, height: 80, color: theme.palette.accent1Color}}/>
           </Link>}
          style={{backgroundColor: theme.palette.accent3Color}}
         zDepth={2}

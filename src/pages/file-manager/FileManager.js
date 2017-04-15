@@ -11,6 +11,8 @@ import $ from 'jquery';
 import _ from "lodash";
 import {Folder} from './Folder.js';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import * as variables from '../../variables.js';
+
 
 export default class FileManager extends React.Component {
   constructor(props) {
@@ -108,12 +110,13 @@ export default class FileManager extends React.Component {
       return el;
     });
 
+    const actionHome = <ActionHome style={{position: 'relative', top: '5px', height: '35px', width: '35px'}}/>;
     if (path === '/') {
-      linksPathArr.unshift(<span key="-1"><ActionHome/></span>);
+      linksPathArr.unshift(<span key="-1">{actionHome}</span>);
     } else {
       linksPathArr.unshift(<span key="-1">
-        <Link to={`/file-manager/${show}/${sorted}/`}><ActionHome/>
-      </Link> / </span>);
+        <Link to={`/file-manager/${show}/${sorted}/`}>{actionHome}</Link> /
+      </span>);
     }
 
     // method sort of files and folders
@@ -179,15 +182,12 @@ export default class FileManager extends React.Component {
     });
 
     return (
-      <div style={{margin: 'auto', width: 1150}}>
+      <div style={{margin: variables.default.margin, width: variables.default.width}}>
         <Table>
           <TableBody displayRowCheckbox={this.state.showCheckboxes = false}>
-            <TableRow style={{backgroundColor: theme.palette.primary2Color}}>
-              <TableRowColumn>
+            <TableRow style={{backgroundColor: theme.palette.accent1Color}}>
+              <TableRowColumn style={{width: '35%'}}>
                 <h4>{linksPathArr}</h4>
-              </TableRowColumn>
-              <TableRowColumn>
-
               </TableRowColumn>
               <TableRowColumn>
                 {
@@ -197,6 +197,9 @@ export default class FileManager extends React.Component {
                 }
               </TableRowColumn>
               <TableRowColumn>
+
+              </TableRowColumn>
+              <TableRowColumn>
                 <TextField hintText="upload file"/>
               </TableRowColumn>
               <TableRowColumn>
@@ -204,13 +207,13 @@ export default class FileManager extends React.Component {
               </TableRowColumn>
             </TableRow>
             <TableRow>
-              <TableRowColumn>
-
-              </TableRowColumn>
-              <TableRowColumn>
+              <TableRowColumn style={{paddingLeft: '75px'}}>
                 <Link to={`/file-manager/${show}/${sorted1}${path === "/" ? '' : path}/`}>
                   <span>Name{showArrow}</span>
                 </Link>
+              </TableRowColumn>
+              <TableRowColumn>
+
               </TableRowColumn>
               <TableRowColumn>
                 <Link to={`/file-manager/${show}/${sorted2}${path === "/" ? '' : path}/`}>

@@ -6,14 +6,17 @@ import FileFolder from 'material-ui/svg-icons/file/folder';
 import EditorFile from 'material-ui/svg-icons/editor/insert-drive-file';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import FileFileDownload from 'material-ui/svg-icons/file/file-download';
+import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 export class Folder extends React.Component {
   render() {
     let additionalClass = null;
     if (this.props.kind === 'folder') {
-      additionalClass = <FileFolder />;
+      additionalClass = <FileFolder
+        style={{height: '44px', width: '44px', marginRight: '20px', color: theme.palette.accent3Color}}/>;
     } else {
-      additionalClass = <EditorFile />;
+      additionalClass = <EditorFile
+        style={{height: '44px', width: '44px', marginRight: '20px', color: theme.palette.borderColor}}/>;
     }
 
     const dateModified = (modified) => {
@@ -72,18 +75,16 @@ export class Folder extends React.Component {
 
     return (
       <TableRow>
-        <TableRowColumn>
-          <Link
-            to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)}>
-            {additionalClass}
-          </Link>
-        </TableRowColumn>
-        <TableRowColumn>
+        <TableRowColumn style={{width: '25%'}}>
           <Link
             to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)}
             title="open">
-            <span>{this.props.name}</span>
+            <span>{additionalClass}</span>
+            <span style={{position: 'relative', top: '-15px'}}>{this.props.name}</span>
           </Link>
+        </TableRowColumn>
+        <TableRowColumn>
+
         </TableRowColumn>
         <TableRowColumn>
           {setSizeOfFile(this.props.size, this.props.kind)}
@@ -93,10 +94,11 @@ export class Folder extends React.Component {
         </TableRowColumn>
         <TableRowColumn>
           <Link to={"#"} title="download">
-            <FileFileDownload style={{marginRight: 20}} />
+            <FileFileDownload style={{marginRight: '20px'}}/>
           </Link>
-          <Link to={`/editor/${this.props.hideHidden + `/` + this.props.sortBy + url(this.props.path, this.props.name)}`}
-                title="editor" target="_blank">
+          <Link
+            to={`/editor/${this.props.hideHidden + `/` + this.props.sortBy + url(this.props.path, this.props.name)}`}
+            title="editor" target="_blank">
             {editorIcon(this.props.kind, this.props.size)}
           </Link>
         </TableRowColumn>

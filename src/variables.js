@@ -1,9 +1,12 @@
-import React from 'react';
+'use strict';
 
-const style = {
-  styleContent: {
+const myStyle = {
     width: '1150px',
     margin: 'auto'
-  }
 };
+
+export default myStyle;
+
+
+
 
