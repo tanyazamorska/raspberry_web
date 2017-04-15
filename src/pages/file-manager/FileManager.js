@@ -134,31 +134,33 @@ export default class FileManager extends React.Component {
     };
 
     let showArrow, showArrow1, showArrow2;
+    let spanArrowUp = <span style={{position: 'relative', top: '9px'}}><HadwareArrowUp /></span>;
+    let spanArrowDown = <span style={{position: 'relative', top: '9px'}}><HadwareArrowDown /></span>;
     let sorted1 = "sort-name-asc";
     let sorted2 = "sort-size-asc";
     let sorted3 = "sort-modified-asc";
     if (sorted === `sort-name-asc`) {
-      showArrow = <span><HadwareArrowUp /></span>;
+      showArrow = spanArrowUp;
       sorted1 = `sort-name-desc`;
       sortItemsBy('name');
     } else if (sorted === `sort-name-desc`) {
-      showArrow = <span><HadwareArrowDown /></span>;
+      showArrow = spanArrowDown;
       sorted1 = `sort-name-asc`;
       reverseSortItemsBy('name');
     } else if (sorted === "sort-size-asc") {
-      showArrow1 = <span><HadwareArrowUp /></span>;
+      showArrow1 = spanArrowUp;
       sorted2 = "sort-size-desc";
       sortItemsBy("size");
     } else if (sorted === "sort-size-desc") {
-      showArrow1 = <span><HadwareArrowDown /></span>;
+      showArrow1 = spanArrowDown;
       sorted2 = "sort-size-asc";
       reverseSortItemsBy("size");
     } else if (sorted === "sort-modified-asc") {
-      showArrow2 = <span><HadwareArrowUp /></span>;
+      showArrow2 = spanArrowUp;
       sorted3 = "sort-modified-desc";
       sortItemsBy("lastModified");
     } else if (sorted === "sort-modified-desc") {
-      showArrow2 = <span><HadwareArrowDown /></span>;
+      showArrow2 = spanArrowDown;
       sorted3 = "sort-modified-asc";
       reverseSortItemsBy("lastModified");
     }
@@ -221,7 +223,7 @@ export default class FileManager extends React.Component {
                 </Link>
               </TableRowColumn>
               <TableRowColumn>
-                Action
+                <span>Action</span>
               </TableRowColumn>
             </TableRow>
             {

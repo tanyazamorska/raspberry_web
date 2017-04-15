@@ -7,38 +7,35 @@ import ImageCamera from 'material-ui/svg-icons/image/camera-alt';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import * as colors from 'material-ui/styles/colors';
 
+class ComponentButton extends React.Component {
+  render() {
+    return (
+      <FlatButton
+        backgroundColor={this.props.backgroundColor}
+        style={{height: "140px", width: "200px"}}
+        icon={this.props.icon}
+      />
+    )
+  }
+}
+
 export default class Home extends React.Component {
   render() {
+    const iconStyle = {width: '50%', height: '50%'};
     return (
       <div style={{justifyContent: 'space-around', width: 900, margin: 'auto'}}>
         <GridList cols={4}>
           <Link to={`/file-manager/hide-hidden/not-sort/`}>
-            <FlatButton
-              backgroundColor={colors.red900}
-              icon={<FileFolder style={{width:100, height:100}}/>}
-              style={{height: "140px", width: "200px"}}
-            />
+            <ComponentButton backgroundColor={colors.red500} icon={<FileFolder style={iconStyle}/>}/>
           </Link>
           <Link to={`/camera/`}>
-            <FlatButton
-              backgroundColor={colors.pinkA700}
-              icon={<ImageCamera style={{width: "50%", height:"50%"}}/>}
-              style={{height: "140px", width: "200px"}}
-            />
+            <ComponentButton backgroundColor={colors.pinkA700} icon={<ImageCamera style={iconStyle}/>}/>
           </Link>
           <Link to={`#`}>
-            <FlatButton
-              backgroundColor={colors.purpleA700}
-              icon={<ContentAdd />}
-              style={{height: "140px", width: "200px"}}
-            />
+            <ComponentButton backgroundColor={colors.purpleA700} icon={<ContentAdd/>}/>
           </Link>
           <Link to={`#`}>
-            <FlatButton
-              backgroundColor={colors.deepPurpleA700}
-              icon={<ContentAdd />}
-              style={{height: "140px", width: "200px"}}
-            />
+            <ComponentButton backgroundColor={colors.deepPurpleA700} icon={<ContentAdd/>}/>
           </Link>
         </GridList>
       </div>
