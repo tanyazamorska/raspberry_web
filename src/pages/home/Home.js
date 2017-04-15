@@ -27,12 +27,12 @@ export default class Home extends React.Component {
       <div style={{justifyContent: 'space-around', width:variables.default.width, margin: variables.default.margin}}>
         <GridList cols={4}>
           <Link to={`/file-manager/hide-hidden/not-sort/`}>
-            <ComponentButton backgroundColor={colors.red500}
+            <ComponentButton backgroundColor={colors.pinkA700}
                              icon={<FileFolder
                                style={iconStyle}/>}/>
           </Link>
           <Link to={`/camera/`}>
-            <ComponentButton backgroundColor={colors.pinkA700}
+            <ComponentButton backgroundColor={colors.pink900}
                              icon={<ImageCamera
                                style={iconStyle}/>}/>
           </Link>

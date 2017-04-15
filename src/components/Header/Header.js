@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router';
 import AppBar from 'material-ui/AppBar';
-import ActionPets from 'material-ui/svg-icons/action/pets';
+//import ActionPets from 'material-ui/svg-icons/action/pets';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 export default class Header extends React.Component {
@@ -10,7 +10,8 @@ export default class Header extends React.Component {
       <AppBar
         iconElementLeft ={
           <Link to={'/'}>
-            <ActionPets style={{width: 80, height: 80, color: theme.palette.accent1Color}}/>
+            <img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png"  style={{width: 80, height: 80}}/>
+
           </Link>}
          style={{backgroundColor: theme.palette.accent3Color}}
         zDepth={2}
@@ -19,3 +20,4 @@ export default class Header extends React.Component {
   }
 };
 
+//<ActionPets style={{width: 80, height: 80, color: theme.palette.accent1Color}}/>
