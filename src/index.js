@@ -1,6 +1,4 @@
 require('./styles.scss');
-
-import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Layout from './components/Layout/Layout';
@@ -11,7 +9,6 @@ import {Router, Route, hashHistory} from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
-console.log(theme);
 
 ReactDOM.render(
   <Router history={hashHistory} >

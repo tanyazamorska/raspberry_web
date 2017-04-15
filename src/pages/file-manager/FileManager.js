@@ -10,6 +10,7 @@ import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
 import _ from "lodash";
 import {Folder} from './Folder.js';
+import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 export default class FileManager extends React.Component {
   constructor(props) {
@@ -132,8 +133,10 @@ export default class FileManager extends React.Component {
       filesAndFolders = _.reverse(sorted);
     };
 
-    let showArrow, showArrow1, showArrow2 = <span> </span>;
-    let sorted1 = "sort-name-asc", sorted2 = "sort-size-asc", sorted3 = "sort-modified-asc";
+    let showArrow, showArrow1, showArrow2;
+    let sorted1 = "sort-name-asc";
+    let sorted2 = "sort-size-asc";
+    let sorted3 = "sort-modified-asc";
     if (sorted === `sort-name-asc`) {
       showArrow = <span><HadwareArrowUp /></span>;
       sorted1 = `sort-name-desc`;
@@ -174,10 +177,10 @@ export default class FileManager extends React.Component {
     });
 
     return (
-      <div style={{margin: 'auto', width: 900}}>
+      <div style={{margin: 'auto', width: 1150}}>
         <Table>
           <TableBody displayRowCheckbox={this.state.showCheckboxes = false}>
-            <TableRow >
+            <TableRow style={{backgroundColor: theme.palette.primary2Color}}>
               <TableRowColumn>
                 <h4>{linksPathArr}</h4>
               </TableRowColumn>
@@ -187,8 +190,7 @@ export default class FileManager extends React.Component {
               <TableRowColumn>
                 {
                   <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path === "/" ? '' : path}/`}>
-                    <Checkbox label="show hidden files" checked={check} onCheck={() => {
-                    }}/>
+                    <Checkbox label="show hidden files" checked={check} onCheck={() => {}}/>
                   </Link>
                 }
               </TableRowColumn>

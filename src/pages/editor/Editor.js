@@ -3,7 +3,8 @@ import AppBar from 'material-ui/AppBar';
 import AceEditor from 'react-ace';
 import 'brace/mode/javascript';
 import 'brace/theme/github';
-import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 function onChange(newValue) {
   console.log('change',newValue);
@@ -15,9 +16,9 @@ export default class Editor extends React.Component {
     <div>
       <AppBar
         showMenuIconButton={false}
-        style={{margin: 'auto', width: 900}}
+        style={{margin: 'auto', width: 900, backgroundColor: theme.palette.primary2Color}}
         title={this.props.params.splat}
-        iconElementRight={<FlatButton label="Save" />}
+        iconElementRight={<RaisedButton label="Save" primary={true} style={{margin:"6px 12px"}} />}
       />
       <div style={{margin: 'auto', width: 900}}>
         <AceEditor
