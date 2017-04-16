@@ -79,16 +79,31 @@ export class Folder extends React.Component {
       }
     };
 
-
-    return (
-      <TableRow>
-        <TableRowColumn style={{width: '25%'}}>
+    const pathToGo = (file) => {
+      if (file === 'folder') {
+        return (
           <Link
             to={"/file-manager/" + this.props.hideHidden + '/' + this.props.sortBy + url(this.props.path, this.props.name)}
             title="open">
             <span>{additionalClass}</span>
             <span style={{position: 'relative', top: '-15px'}}>{this.props.name}</span>
           </Link>
+        )
+      } else if (file === 'file') {
+        return (
+          <Link>
+            <span>{additionalClass}</span>
+            <span style={{position: 'relative', top: '-15px'}}>{this.props.name}</span>
+          </Link>
+        )
+      }
+    };
+
+
+    return (
+      <TableRow>
+        <TableRowColumn style={{width: '25%'}}>
+          {pathToGo(this.props.kind)}
         </TableRowColumn>
         <TableRowColumn>
 
@@ -117,4 +132,3 @@ export class Folder extends React.Component {
 
 
 // link only folder
-// download only file
