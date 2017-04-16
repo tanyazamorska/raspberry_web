@@ -9,7 +9,7 @@ export default class Header extends React.Component {
       <AppBar
         iconElementLeft ={
           <Link to={'/'}>
-            <img src="https://assets-cdn.github.com/images/modules/logos_page/Octocat.png"
+            <img src="logo.png"
                  style={{width: 80, height: 80}}/>
           </Link>}
          style={{backgroundColor: theme.palette.accent3Color}}

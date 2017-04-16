@@ -24,10 +24,11 @@ export default class Home extends React.Component {
   render() {
     const iconStyle = {width: '50%', height: '50%'};
     return (
-      <div style={{display: 'flex', justifyContent: 'space-around', flexFlow: 'row wrap', width:variables.default.width}}>
+      <div style={{width: variables.default.width, marginLeft: '85px'}}>
         <GridList cols={4}>
           <Link to={`/file-manager/hide-hidden/not-sort/`}>
             <ComponentButton backgroundColor={colors.pinkA700}
+                             alignItems='center'
                              icon={<FileFolder
                                style={iconStyle}/>}/>
           </Link>
