@@ -73,6 +73,13 @@ export class Folder extends React.Component {
       }
     };
 
+    const downloadIcon = (file) => {
+      if (file === 'file') {
+        return <FileFileDownload style={{marginRight: '20px'}}/>;
+      }
+    };
+
+
     return (
       <TableRow>
         <TableRowColumn style={{width: '25%'}}>
@@ -93,11 +100,12 @@ export class Folder extends React.Component {
           {dateModified(this.props.lastModified)}
         </TableRowColumn>
         <TableRowColumn>
-          <Link to={"#"} title="download">
-            <FileFileDownload style={{marginRight: '20px'}}/>
-          </Link>
+          <a href={`http://192.168.0.103:7777/api/fs/download${this.props.path}/${this.props.name}`}
+             title="download" target="_blank">
+            {downloadIcon(this.props.kind)}
+          </a>
           <Link
-            to={`/editor/${this.props.hideHidden + `/` + this.props.sortBy + url(this.props.path, this.props.name)}`}
+            to={`/editor/${this.props.name}`}
             title="editor" target="_blank">
             {editorIcon(this.props.kind, this.props.size)}
           </Link>
@@ -108,3 +116,5 @@ export class Folder extends React.Component {
 }
 
 
+// link only folder
+// download only file
