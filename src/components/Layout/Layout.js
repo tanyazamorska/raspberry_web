@@ -12,7 +12,7 @@ export default class Layout extends React.Component {
         <div style={{backgroundColor: theme.palette.accent2Color}}>
           <Header />
           <div style={{height: 70}}></div>
-          <div style={{minHeight: 350,  paddingBottom: 50}}>
+          <div style={{minHeight: 350, paddingBottom: 50, display: 'flex', justifyContent: 'center', flexFlow: 'row wrap'}}>
             {this.props.children || <Home/>}
           </div>
           <Footer />

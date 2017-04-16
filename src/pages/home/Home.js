@@ -24,7 +24,7 @@ export default class Home extends React.Component {
   render() {
     const iconStyle = {width: '50%', height: '50%'};
     return (
-      <div style={{justifyContent: 'space-around', width:variables.default.width, margin: variables.default.margin}}>
+      <div style={{display: 'flex', justifyContent: 'space-around', flexFlow: 'row wrap', width:variables.default.width}}>
         <GridList cols={4}>
           <Link to={`/file-manager/hide-hidden/not-sort/`}>
             <ComponentButton backgroundColor={colors.pinkA700}

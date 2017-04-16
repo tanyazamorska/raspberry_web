@@ -1,3 +1,9 @@
+import React from 'react';
+import {Link, browserHistory} from 'react-router';
+import $ from 'jquery';
+import _ from "lodash";
+import {Folder} from './Folder.js';
+import * as variables from '../../variables.js';
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -5,13 +11,8 @@ import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import HadwareArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import HadwareArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
-import React from 'react';
-import {Link, browserHistory} from 'react-router';
-import $ from 'jquery';
-import _ from "lodash";
-import {Folder} from './Folder.js';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import * as variables from '../../variables.js';
+
 
 
 export default class FileManager extends React.Component {
@@ -182,7 +183,7 @@ export default class FileManager extends React.Component {
     });
 
     return (
-      <div style={{margin: variables.default.margin, width: variables.default.width}}>
+      <div style={{width: variables.default.width}}>
         <Table>
           <TableBody displayRowCheckbox={this.state.showCheckboxes = false}>
             <TableRow style={{backgroundColor: theme.palette.accent1Color}}>

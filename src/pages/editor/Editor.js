@@ -17,13 +17,11 @@ export default class Editor extends React.Component {
     <div>
       <AppBar
         showMenuIconButton={false}
-        style={{margin: variables.default.margin,
-          width: variables.default.width,
-          backgroundColor: theme.palette.accent1Color}}
+        style={{width: variables.default.width, backgroundColor: theme.palette.accent1Color}}
         title={this.props.params.splat}
         iconElementRight={<RaisedButton label="Save" style={{margin:"6px 12px"}} />}
       />
-      <div style={{margin: variables.default.margin, width: variables.default.width}}>
+      <div style={{width: variables.default.width}}>
         <AceEditor
           mode="javascript"
           theme="github"
