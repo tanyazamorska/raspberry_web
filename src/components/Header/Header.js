@@ -10,7 +10,7 @@ export default class Header extends React.Component {
         iconElementLeft ={
           <Link to={'/'}>
             <img src="logo.png"
-                 style={{width: 80, height: 80}}/>
+                 style={{width: 50, height: 50}}/>
           </Link>}
          style={{backgroundColor: theme.palette.accent3Color}}
       />
