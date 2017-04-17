@@ -79,7 +79,7 @@ export class Folder extends React.Component {
       }
     };
 
-    const pathToGo = (file) => {
+    const linkToGo = (file) => {
       if (file === 'folder') {
         return (
           <Link
@@ -99,11 +99,10 @@ export class Folder extends React.Component {
       }
     };
 
-
     return (
       <TableRow>
         <TableRowColumn style={{width: '25%'}}>
-          {pathToGo(this.props.kind)}
+          {linkToGo(this.props.kind)}
         </TableRowColumn>
         <TableRowColumn>
 
@@ -130,5 +129,3 @@ export class Folder extends React.Component {
   }
 }
 
-
-// link only folder

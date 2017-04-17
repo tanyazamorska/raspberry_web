@@ -182,6 +182,27 @@ export default class FileManager extends React.Component {
       item.size = item.size || 0;
     });
 
+    // let uploadFunction = () => {
+    //     let data = new FormData();
+    //     let file = $('#upload-file-to-berry')[0].files[0];
+    //     data.append("data", file);
+    //     $.ajax({
+    //       url: 'http://192.168.0.103:7777/api/fs/upload/home/pi/Downloads',
+    //       data: data,
+    //       cache: false,
+    //       contentType: false,
+    //       processData: false,
+    //       type: 'POST',
+    //       success: function(data){
+    //         alert(data);
+    //       }
+    //     });
+    // };
+
+    // let handleChange = () => {
+    //   console.log('text')
+    // };
+
     return (
       <div style={{width: variables.default.width}}>
         <Table>
@@ -201,7 +222,7 @@ export default class FileManager extends React.Component {
 
               </TableRowColumn>
               <TableRowColumn>
-                <TextField hintText="upload file"/>
+                <TextField hintText="upload file" />
               </TableRowColumn>
               <TableRowColumn>
                 <RaisedButton label="Submit"/>
