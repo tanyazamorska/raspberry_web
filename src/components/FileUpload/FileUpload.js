@@ -1,6 +1,6 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-   
+
 const style = {
   border: '10px',
   boxSizing: 'border-box',
@@ -24,6 +24,7 @@ const style = {
   backgroundColor: 'rgb(0, 188, 212)',
   textAlign: 'center'
 };
+
 
 export default class FileUpload extends React.Component {
   render() {
