@@ -9,9 +9,8 @@ import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import * as variables from '../../variables.js';
 
 function onChange(newValue) {
-  console.log('change', newValue);
+  console.log(newValue)
 }
-
 /**
  * reads data from server file
  * @param path - path to file on server
@@ -29,6 +28,7 @@ function getFileContents(path, callback) {
   });
 }
 
+// save(path, "contents a123 123 123 123 ")
 function save(path, contents, callback) {
   $.ajax({
     method: "POST",
@@ -44,18 +44,17 @@ function save(path, contents, callback) {
 }
 
 export default class Editor extends React.Component {
-
-  componentDidMount() {
+  componentWillMount() {
     const self = this
-    const path = "/" + this.props.params.splat
+    self.state = {contents: ""}
+    const path = "/" + this.props.params.splat;
     getFileContents(path, data => {
-      console.log(data);
+      self.setState({contents: data});
     });
-
-    // save("/home/pi/Downloads/123.txt", "hello Tonya");
   }
 
   render() {
+    console.log("render");
     return (
       <div>
         <AppBar
@@ -69,10 +68,11 @@ export default class Editor extends React.Component {
             mode="javascript"
             theme="github"
             onChange={onChange}
-            name="UNIQUE_ID_OF_DIV"
+            name="K-EDITOR"
             editorProps={{$blockScrolling: true}}
             width={variables.default.width}
             fontSize="14px"
+            value={this.state.contents}
           />
         </div>
       </div>

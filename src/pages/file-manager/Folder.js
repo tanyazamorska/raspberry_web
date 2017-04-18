@@ -119,8 +119,7 @@ export class Folder extends React.Component {
             {downloadIcon(this.props.kind)}
           </a>
           <Link
-            to={`/editor/${this.props.name}`}
-            title="editor" target="_blank">
+            to={`/editor${this.props.path}/${this.props.name}`} title="editor" target="_blank">
             {editorIcon(this.props.kind, this.props.size)}
           </Link>
         </TableRowColumn>

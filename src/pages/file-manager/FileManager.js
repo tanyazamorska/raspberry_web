@@ -2,18 +2,15 @@ import React from 'react';
 import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
 import _ from "lodash";
-import {Folder} from './Folder.js';
-import * as variables from '../../variables.js';
 import Checkbox from 'material-ui/Checkbox';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import HadwareArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import HadwareArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
-
-
+import {Folder} from './Folder';
+import * as variables from '../../variables';
+import FileUpload from '../../components/FileUpload/FileUpload';
 
 export default class FileManager extends React.Component {
   constructor(props) {
@@ -205,6 +202,8 @@ export default class FileManager extends React.Component {
 
     return (
       <div style={{width: variables.default.width}}>
+
+
         <Table>
           <TableBody displayRowCheckbox={this.state.showCheckboxes = false}>
             <TableRow style={{backgroundColor: theme.palette.accent1Color}}>
@@ -218,14 +217,8 @@ export default class FileManager extends React.Component {
                   </Link>
                 }
               </TableRowColumn>
-              <TableRowColumn>
-
-              </TableRowColumn>
-              <TableRowColumn>
-                <TextField hintText="upload file" />
-              </TableRowColumn>
-              <TableRowColumn>
-                <RaisedButton label="Submit"/>
+              <TableRowColumn style={{width: '35%'}}>
+                <FileUpload />
               </TableRowColumn>
             </TableRow>
             <TableRow>

@@ -26,7 +26,7 @@ export default class Home extends React.Component {
     return (
       <div style={{width: variables.default.width, marginLeft: '85px'}}>
         <GridList cols={4}>
-          <Link to={`/file-manager/hide-hidden/not-sort/`}>
+          <Link to={`/file-manager/hide-hidden/not-sort/home/pi`}>
             <ComponentButton backgroundColor={colors.pinkA700}
                              alignItems='center'
                              icon={<FileFolder
