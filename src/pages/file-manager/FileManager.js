@@ -218,7 +218,7 @@ export default class FileManager extends React.Component {
                 }
               </TableRowColumn>
               <TableRowColumn style={{width: '35%'}}>
-                <FileUpload />
+                <FileUpload url={'http://192.168.0.103:7777/api/fs/upload' + path} />
               </TableRowColumn>
             </TableRow>
             <TableRow>

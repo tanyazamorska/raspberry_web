@@ -8,43 +8,44 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import * as colors from 'material-ui/styles/colors';
 import * as variables from '../../variables.js';
 
-class ComponentButton extends React.Component {
+const iconStyle = {width: '50%', height: '50%'};
+
+class HomeButton extends React.Component {
   render() {
     return (
-      <FlatButton
-        backgroundColor={this.props.backgroundColor}
-        style={{height: "140px", width: "200px"}}
-        icon={this.props.icon}
-      />
+      <Link to={this.props.to}>
+        <FlatButton
+          backgroundColor={this.props.backgroundColor}
+          style={{height: "140px", width: "200px"}}
+          icon={this.props.icon}
+        />
+      </Link>
     )
   }
 }
 
 export default class Home extends React.Component {
   render() {
-    const iconStyle = {width: '50%', height: '50%'};
+
     return (
       <div style={{width: variables.default.width, marginLeft: '85px'}}>
         <GridList cols={4}>
-          <Link to={`/file-manager/hide-hidden/not-sort/home/pi`}>
-            <ComponentButton backgroundColor={colors.pinkA700}
-                             alignItems='center'
-                             icon={<FileFolder
-                               style={iconStyle}/>}/>
-          </Link>
-          <Link to={`/camera/`}>
-            <ComponentButton backgroundColor={colors.pink900}
-                             icon={<ImageCamera
-                               style={iconStyle}/>}/>
-          </Link>
-          <Link to={`#`}>
-            <ComponentButton backgroundColor={colors.purpleA700}
-                             icon={<ContentAdd/>}/>
-          </Link>
-          <Link to={`#`}>
-            <ComponentButton backgroundColor={colors.deepPurpleA700}
-                             icon={<ContentAdd/>}/>
-          </Link>
+          <HomeButton to={`/file-manager/hide-hidden/not-sort/home/pi`}
+                      backgroundColor={colors.pinkA700}
+                      icon={<FileFolder style={iconStyle}/>}
+          />
+          <HomeButton to={`/camera/`}
+                      backgroundColor={colors.pink900}
+                      icon={<ImageCamera style={iconStyle}/>}
+          />
+          <HomeButton to={`#`}
+                      backgroundColor={colors.purpleA700}
+                      icon={<ContentAdd style={iconStyle}/>}
+          />
+          <HomeButton to={`#`}
+                      backgroundColor={colors.deepPurpleA700}
+                      icon={<ContentAdd style={iconStyle}/>}
+          />
         </GridList>
       </div>
     )

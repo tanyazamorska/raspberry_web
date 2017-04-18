@@ -28,7 +28,7 @@ function getFileContents(path, callback) {
   });
 }
 
-// save(path, "contents a123 123 123 123 ")
+// save(path, "contents a123 123 123 123 ", () => {console.log("saved")})
 function save(path, contents, callback) {
   $.ajax({
     method: "POST",
@@ -54,7 +54,6 @@ export default class Editor extends React.Component {
   }
 
   render() {
-    console.log("render");
     return (
       <div>
         <AppBar
@@ -71,7 +70,7 @@ export default class Editor extends React.Component {
             name="K-EDITOR"
             editorProps={{$blockScrolling: true}}
             width={variables.default.width}
-            fontSize="14px"
+            fontSize="16px"
             value={this.state.contents}
           />
         </div>

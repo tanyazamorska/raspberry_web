@@ -1,39 +1,46 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
-
-const style = {
-  border: '10px',
-  boxSizing: 'border-box',
-  display: 'inline-block',
-  fontFamily: 'Roboto, sansSerif',
-  //-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  cursor: 'pointer',
-  textDecoration: 'none',
-  margin: '0px',
-  padding: '0px',
-  outline: 'none',
-  fontSize: 'inherit',
-  fontWeight: 'inherit',
-  position: 'relative',
-  zIndex: 1,
-  height:  '36px',
-  lineHeight: '36px',
-  width: '100%',
-  bordeRadius: '2px',
-  transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms',
-  backgroundColor: 'rgb(0, 188, 212)',
-  textAlign: 'center'
-};
-
+import $ from 'jquery';
 
 export default class FileUpload extends React.Component {
+
+  onFileSelected(event) {
+    const el = event.target;
+    const file = el.files[0];
+    this.data = new FormData();
+    this.data.append("data", file);
+  }
+
+  onUploadPress() {
+    const self = this;
+    if (this.data) {
+      $.ajax({
+        url: this.props.url,
+        data: this.data,
+        cache: false,
+        contentType: false,
+        processData: false,
+        type: 'POST',
+        success: function(data){
+          alert("file uploaded");
+          if (self.props.onUploaded) {
+            self.props.onUploaded();
+          }
+        }
+      });
+      this.data = null;
+    } else {
+      alert("no file selected");
+    }
+  }
+
+  // make button disabled if no file selected
   render() {
     return (
       <div>
-        <input type="file" style={style}/>
-        <RaisedButton primary={true} label="Upload" />
+        <input type="file" onChange={event => this.onFileSelected(event)} />
+        <RaisedButton primary={true} label="Upload" onClick={event => this.onUploadPress()} />
       </div>
     )
   }
 }
-
