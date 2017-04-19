@@ -8,9 +8,6 @@ import RaisedButton from 'material-ui/RaisedButton';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import * as variables from '../../variables.js';
 
-function onChange(newValue) {
-  console.log(newValue)
-}
 /**
  * reads data from server file
  * @param path - path to file on server
@@ -28,7 +25,6 @@ function getFileContents(path, callback) {
   });
 }
 
-// save(path, "contents a123 123 123 123 ", () => {console.log("saved")})
 function save(path, contents, callback) {
   $.ajax({
     method: "POST",
@@ -45,8 +41,8 @@ function save(path, contents, callback) {
 
 export default class Editor extends React.Component {
   componentWillMount() {
-    const self = this
-    self.state = {contents: ""}
+    const self = this;
+    self.state = {contents: ""};
     const path = "/" + this.props.params.splat;
     getFileContents(path, data => {
       self.setState({contents: data});
@@ -54,13 +50,20 @@ export default class Editor extends React.Component {
   }
 
   render() {
+    const pathSave = '/' + this.props.params.splat;
+
+    let onChange = (newValue) => {
+      this.state.contents = newValue;
+    };
+
     return (
       <div>
         <AppBar
           showMenuIconButton={false}
           style={{width: variables.default.width, backgroundColor: theme.palette.accent1Color}}
           title={this.props.params.splat}
-          iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}/>}
+          iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}
+                                          onClick={() => save(pathSave, this.state.contents, () => {})}/>}
         />
         <div style={{width: variables.default.width}}>
           <AceEditor

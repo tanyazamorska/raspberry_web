@@ -113,7 +113,7 @@ export default class FileManager extends React.Component {
       linksPathArr.unshift(<span key="-1">{actionHome}</span>);
     } else {
       linksPathArr.unshift(<span key="-1">
-        <Link to={`/file-manager/${show}/${sorted}/`}>{actionHome}</Link> /
+        <Link to={`/file-manager/${show}/${sorted}/`}>{actionHome}</Link> /&nbsp;
       </span>);
     }
 
@@ -179,48 +179,26 @@ export default class FileManager extends React.Component {
       item.size = item.size || 0;
     });
 
-    // let uploadFunction = () => {
-    //     let data = new FormData();
-    //     let file = $('#upload-file-to-berry')[0].files[0];
-    //     data.append("data", file);
-    //     $.ajax({
-    //       url: 'http://192.168.0.103:7777/api/fs/upload/home/pi/Downloads',
-    //       data: data,
-    //       cache: false,
-    //       contentType: false,
-    //       processData: false,
-    //       type: 'POST',
-    //       success: function(data){
-    //         alert(data);
-    //       }
-    //     });
-    // };
-
-    // let handleChange = () => {
-    //   console.log('text')
-    // };
-
     return (
       <div style={{width: variables.default.width}}>
-
-
+        <div style={{backgroundColor: theme.palette.accent1Color, display: 'flex'}}>
+          <div>
+            <h4>{linksPathArr}</h4>
+          </div>
+          <div>
+            {
+              <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path === "/" ? '' : path}/`}>
+                <Checkbox label="show hidden files" checked={check} onCheck={() => {
+                }}/>
+              </Link>
+            }
+          </div>
+          <div>
+            <FileUpload url={'http://192.168.0.103:7777/api/fs/upload' + path}/>
+          </div>
+        </div>
         <Table>
           <TableBody displayRowCheckbox={this.state.showCheckboxes = false}>
-            <TableRow style={{backgroundColor: theme.palette.accent1Color}}>
-              <TableRowColumn style={{width: '35%'}}>
-                <h4>{linksPathArr}</h4>
-              </TableRowColumn>
-              <TableRowColumn>
-                {
-                  <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path === "/" ? '' : path}/`}>
-                    <Checkbox label="show hidden files" checked={check} onCheck={() => {}}/>
-                  </Link>
-                }
-              </TableRowColumn>
-              <TableRowColumn style={{width: '35%'}}>
-                <FileUpload url={'http://192.168.0.103:7777/api/fs/upload' + path} />
-              </TableRowColumn>
-            </TableRow>
             <TableRow>
               <TableRowColumn style={{paddingLeft: '75px'}}>
                 <Link to={`/file-manager/${show}/${sorted1}${path === "/" ? '' : path}/`}>
