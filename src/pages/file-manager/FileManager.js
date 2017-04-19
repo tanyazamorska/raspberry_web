@@ -108,7 +108,7 @@ export default class FileManager extends React.Component {
       return el;
     });
 
-    const actionHome = <ActionHome style={{position: 'relative', top: '5px', height: '35px', width: '35px'}}/>;
+    const actionHome = <ActionHome style={{position: 'relative', top: '8px', height: '35px', width: '35px'}}/>;
     if (path === '/') {
       linksPathArr.unshift(<span key="-1">{actionHome}</span>);
     } else {
@@ -181,11 +181,16 @@ export default class FileManager extends React.Component {
 
     return (
       <div style={{width: variables.default.width}}>
-        <div style={{backgroundColor: theme.palette.accent1Color, display: 'flex'}}>
-          <div>
-            <h4>{linksPathArr}</h4>
+        <div style={{backgroundColor: theme.palette.accent1Color,
+          display: 'flex',
+          justifyContent: 'space-baround',
+          alignItems: 'center',
+          flexFlow: 'row wrap'
+          }}>
+          <div style={{width: '45%'}}>
+            <h4 style={{marginTop: '0px', marginLeft: '15px'}}>{linksPathArr}</h4>
           </div>
-          <div>
+          <div style={{width: '20%'}}>
             {
               <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path === "/" ? '' : path}/`}>
                 <Checkbox label="show hidden files" checked={check} onCheck={() => {
@@ -193,7 +198,7 @@ export default class FileManager extends React.Component {
               </Link>
             }
           </div>
-          <div>
+          <div style={{width: '35%'}}>
             <FileUpload url={'http://192.168.0.103:7777/api/fs/upload' + path}/>
           </div>
         </div>
