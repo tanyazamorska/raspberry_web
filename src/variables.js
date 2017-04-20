@@ -1,11 +1,7 @@
 'use strict';
 
-const myStyle = {
-    width: '1150px',
+export default {
+  url: 'http://192.168.0.103:7777/api/fs/'
 };
-
-export default myStyle;
-
-
 
 

@@ -69,7 +69,26 @@ export class Folder extends React.Component {
 
     const editorIcon = (file, size) => {
       if (file === 'file' && size < 1000000) {
-        return <EditorModeEdit />;
+        const nameOfFiles = this.props.name;
+        const positionDot = nameOfFiles.lastIndexOf('.');
+        const fileExtension = nameOfFiles.slice(positionDot + 1);
+        if (positionDot !== -1) {
+          const arrayFilesExtension = ['txt', 'md',  'ahk',  'applescript', 'as', 'au3', 'bat', 'bas', 'cljs','cmd',
+            'coffee', 'duino', 'egg', 'egt', 'erb', 'hta', 'ibi', 'ici', 'ijs', 'ipynb', 'itcl', 'js', 'jsfl', 'lua',
+            'm', 'mrc', 'ncf', 'nuc', 'nud', 'nut', 'php', 'pl', 'pm', 'ps1', 'ps1xml', 'psc1', 'psd1', 'psm1', 'py',
+            'pyc', 'pyo', 'r', 'rb', 'rdp', 'scpt', 'scptd', 'sdl', 'sh', 'syjs', 'sypy', 'tcl', 'vbs', 'xpl', 'ebuild',
+            'ada', 'adb', 'ads', 'asm', 's', 'bas', 'bb', ' bmx', 'c', 'clj', 'cls', 'cob', 'cbl', 'cpp', 'cc', 'cxx',
+            'c', 'cbp', 'cs', 'csproj', 'd', 'dba', 'bpro123', 'e', ' efs', 'egt', 'el', 'for', 'ftn', 'f', 'f77',
+            'f90', 'frm', 'frx', 'fth', 'ged', 'gm6', 'gmd', 'gmk', 'gml', 'h', 'hpp', 'hxx', ' hs', 'i', 'inc', 'java',
+            'l', 'lgt', 'lisp', 'm4', 'ml', 'msqr', 'n', 'nb', 'p', 'pas', 'pp', 'php3', 'php4', 'php5', 'phps', 'phtml',
+            'pisrc', 'piv', 'pli', 'pl1', 'prg', 'pro', 'pol', 'py', 'red', 'reds', 'resx', 'rc', 'rc2', 'rkt', 'rktl',
+            'scala', 'sci', 'sce', 'scm', 'sd7', 'skb', 'skc', 'skd', 'skf', 'skg', 'ski', 'skk', 'skm', 'sko', 'skp',
+            'skq', 'sks', 'skt', 'skz', 'sln', 'spin', 'stk', 'swg', 'tcl', 'vap', 'vb', 'vbg', 'vbp', 'vip', 'vbproj',
+            'vcproj', 'vdproj', 'xpl', 'xq', 'xsl', 'y'];
+          if (arrayFilesExtension.indexOf(fileExtension) !== -1) {
+            return <EditorModeEdit />;
+          }
+        }
       }
     };
 

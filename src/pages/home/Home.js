@@ -6,29 +6,14 @@ import FileFolder from 'material-ui/svg-icons/file/folder';
 import ImageCamera from 'material-ui/svg-icons/image/camera-alt';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import * as colors from 'material-ui/styles/colors';
-import * as variables from '../../variables.js';
+import scssVariables from '../../scssVariables.js';
 
 const iconStyle = {width: '50%', height: '50%'};
 
-class HomeButton extends React.Component {
-  render() {
-    return (
-      <Link to={this.props.to}>
-        <FlatButton
-          backgroundColor={this.props.backgroundColor}
-          style={{height: "140px", width: "200px"}}
-          icon={this.props.icon}
-        />
-      </Link>
-    )
-  }
-}
-
 export default class Home extends React.Component {
   render() {
-
     return (
-      <div style={{width: variables.default.width, marginLeft: '85px'}}>
+      <div style={{width: scssVariables.width, marginLeft: '85px'}}>
         <GridList cols={4}>
           <HomeButton to={`/file-manager/hide-hidden/not-sort/home/pi`}
                       backgroundColor={colors.pinkA700}
@@ -52,3 +37,16 @@ export default class Home extends React.Component {
   }
 }
 
+class HomeButton extends React.Component {
+  render() {
+    return (
+      <Link to={this.props.to}>
+        <FlatButton
+          backgroundColor={this.props.backgroundColor}
+          style={{height: "140px", width: "200px"}}
+          icon={this.props.icon}
+        />
+      </Link>
+    )
+  }
+}

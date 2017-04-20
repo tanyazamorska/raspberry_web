@@ -9,7 +9,8 @@ import HadwareArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import HadwareArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import {Folder} from './Folder';
-import * as variables from '../../variables';
+import variables from '../../variables';
+import scssVariables from '../../scssVariables';
 import FileUpload from '../../components/FileUpload/FileUpload';
 
 export default class FileManager extends React.Component {
@@ -57,7 +58,7 @@ export default class FileManager extends React.Component {
     $.ajax({
       method: "POST",
       crossDomain: true,
-      url: "http://192.168.0.103:7777/api/fs/ls",
+      url: variables.url + "ls",
       data: JSON.stringify({"path": path}),
       contentType: 'application/json',
       complete: function (res) {
@@ -180,12 +181,12 @@ export default class FileManager extends React.Component {
     });
 
     return (
-      <div style={{width: variables.default.width}}>
-        <div style={{backgroundColor: theme.palette.accent1Color,
-          display: 'flex',
-          justifyContent: 'space-baround',
-          alignItems: 'center',
-          flexFlow: 'row wrap'
+      <div style={{width: scssVariables.width}}>
+        <div style={{
+            backgroundColor: theme.palette.accent1Color,
+            display: 'flex',
+            justifyContent: 'space-baround',
+            alignItems: 'center'
           }}>
           <div style={{width: '45%'}}>
             <h4 style={{marginTop: '0px', marginLeft: '15px'}}>{linksPathArr}</h4>
@@ -199,7 +200,11 @@ export default class FileManager extends React.Component {
             }
           </div>
           <div style={{width: '35%'}}>
-            <FileUpload url={'http://192.168.0.103:7777/api/fs/upload' + path}/>
+            <FileUpload
+              url={variables.url + 'upload' + path}
+              onUploaded={() => console.log("Uploaded")}
+              onError={() => console.log("Error")}
+            />
           </div>
         </div>
         <Table>

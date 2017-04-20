@@ -6,7 +6,8 @@ import 'brace/mode/javascript';
 import 'brace/theme/github';
 import RaisedButton from 'material-ui/RaisedButton';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import * as variables from '../../variables.js';
+import scssVariables from '../../scssVariables.js';
+import variables from '../../variables';
 
 /**
  * reads data from server file
@@ -16,7 +17,7 @@ import * as variables from '../../variables.js';
 function getFileContents(path, callback) {
   $.ajax({
     method: "POST",
-    url: "http://192.168.0.103:7777/api/fs/cat",
+    url: variables.url + "/api/fs/cat",
     data: JSON.stringify({"path": path}),
     contentType: 'application/json',
     complete: function (res) {
@@ -28,7 +29,7 @@ function getFileContents(path, callback) {
 function save(path, contents, callback) {
   $.ajax({
     method: "POST",
-    url: "http://192.168.0.103:7777/api/fs/echo",
+    url:  variables.url + "echo",
     data: JSON.stringify({"path": path, "contents": contents}),
     contentType: 'application/json',
     complete: function (res) {
@@ -50,26 +51,23 @@ export default class Editor extends React.Component {
   }
 
   render() {
+    const self = this;
     const pathSave = '/' + this.props.params.splat;
-
-    let onChange = (newValue) => {
-      this.state.contents = newValue;
-    };
 
     return (
       <div>
         <AppBar
           showMenuIconButton={false}
-          style={{width: variables.default.width, backgroundColor: theme.palette.accent1Color}}
+          style={{width: scssVariables.width, backgroundColor: theme.palette.accent1Color}}
           title={this.props.params.splat}
           iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}
                                           onClick={() => save(pathSave, this.state.contents, () => {})}/>}
         />
-        <div style={{width: variables.default.width}}>
+        <div style={{width: scssVariables.width}}>
           <AceEditor
             mode="javascript"
             theme="github"
-            onChange={onChange}
+            onChange={newValue => self.setState({contents: newValue})}
             name="K-EDITOR"
             editorProps={{$blockScrolling: true}}
             width={variables.default.width}

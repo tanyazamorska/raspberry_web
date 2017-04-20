@@ -9,6 +9,7 @@ export default class FileUpload extends React.Component {
     const file = el.files[0];
     this.data = new FormData();
     this.data.append("data", file);
+    this.setState({'selected': false});
   }
 
   onUploadPress() {
@@ -21,8 +22,7 @@ export default class FileUpload extends React.Component {
         contentType: false,
         processData: false,
         type: 'POST',
-        success: function(data){
-          alert("file uploaded");
+        success: function(data) {
           if (self.props.onUploaded) {
             self.props.onUploaded();
           }
@@ -34,12 +34,16 @@ export default class FileUpload extends React.Component {
     }
   }
 
-  // make button disabled if no file selected
+  componentWillMount() {
+    const self = this;
+    self.setState({'selected': true});
+  }
+
   render() {
     return (
       <div>
         <input type="file" onChange={event => this.onFileSelected(event)} />
-        <RaisedButton primary={true} label="Upload" onClick={event => this.onUploadPress()} />
+        <RaisedButton label="Upload" disabled={this.state.selected} onClick={event => this.onUploadPress()} />
       </div>
     )
   }
