@@ -1,9 +1,9 @@
 import React from 'react';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import Header from '../Header/Header.js';
 import Footer from '../Footer/Footer.js';
 import Home from "./../../pages/home/Home.js";
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 
 export default class Layout extends React.Component {
   render() {

@@ -1,12 +1,13 @@
-import './styles.scss';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Router, Route, hashHistory} from 'react-router';
+import injectTapEventPlugin from 'react-tap-event-plugin';
 import Layout from './components/Layout/Layout';
 import FileManager from './pages/file-manager/FileManager.js';
 import Camera from './pages/camera/Camera.js';
 import Editor from './pages/editor/Editor.js';
-import {Router, Route, hashHistory} from 'react-router';
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import './styles.scss';
+
 injectTapEventPlugin();
 
 ReactDOM.render(

@@ -4,7 +4,7 @@ const scssVariables = {
     width: '1150px'
 };
 
-export default  scssVariables;
+export default scssVariables;
 
 
 

@@ -48,11 +48,6 @@ export default class FileManager extends React.Component {
     this.stop();
   }
 
-  /**
-   * fetches data from server and executes `complete` function callback when ready,
-   * finally executes `setState`
-   * @param path - path to folder on raspberry file system
-   */
   requestDataFromServer(path) {
     const self = this;
     $.ajax({
@@ -119,9 +114,6 @@ export default class FileManager extends React.Component {
     }
 
     // method sort of files and folders
-    /**
-     * @param keyInObjToSort - key to sort by in obj
-     */
     let sortItemsBy = (keyInObjToSort) => {
       filesAndFolders = _.sortBy(filesAndFolders, [function (obj) {
         return obj[keyInObjToSort]
@@ -185,7 +177,6 @@ export default class FileManager extends React.Component {
         <div style={{
             backgroundColor: theme.palette.accent1Color,
             display: 'flex',
-            justifyContent: 'space-baround',
             alignItems: 'center'
           }}>
           <div style={{width: '45%'}}>
@@ -202,13 +193,13 @@ export default class FileManager extends React.Component {
           <div style={{width: '35%'}}>
             <FileUpload
               url={variables.url + 'upload' + path}
-              onUploaded={() => console.log("Uploaded")}
+              onUploaded={() => this.requestDataFromServer(path)}
               onError={() => console.log("Error")}
             />
           </div>
         </div>
-        <Table displayRowCheckbox={this.state.showCheckboxes = false}>
-          <TableHeader adjustForCheckbox={this.state.showCheckboxes} displaySelectAll={this.state.showCheckboxes}>
+        <Table>
+          <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
               <TableHeaderColumn style={{paddingLeft: '85px'}}>
                 <Link to={`/file-manager/${show}/${sorted1}${path === "/" ? '' : path}/`}>
@@ -233,25 +224,7 @@ export default class FileManager extends React.Component {
               </TableHeaderColumn>
             </TableRow>
           </TableHeader>
-          <TableBody>
-
-            {/*<TableRow>*/}
-              {/*<TableRowColumn >*/}
-                {/**/}
-              {/*</TableRowColumn>*/}
-              {/*<TableRowColumn>*/}
-
-              {/*</TableRowColumn>*/}
-              {/*<TableRowColumn>*/}
-                {/**/}
-              {/*</TableRowColumn>*/}
-              {/*<TableRowColumn>*/}
-                {/**/}
-              {/*</TableRowColumn>*/}
-              {/*<TableRowColumn>*/}
-                {/**/}
-              {/*</TableRowColumn>*/}
-            {/*</TableRow>*/}
+          <TableBody displayRowCheckbox={false}>
             {
               filesAndFolders.map(el => {
                 return <Folder name={el.name}

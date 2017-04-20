@@ -6,7 +6,7 @@ import 'brace/mode/javascript';
 import 'brace/theme/github';
 import RaisedButton from 'material-ui/RaisedButton';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import scssVariables from '../../scssVariables.js';
+import scssVariables from '../../scssVariables';
 import variables from '../../variables';
 
 /**
@@ -17,7 +17,7 @@ import variables from '../../variables';
 function getFileContents(path, callback) {
   $.ajax({
     method: "POST",
-    url: variables.url + "/api/fs/cat",
+    url: variables.url + "cat",
     data: JSON.stringify({"path": path}),
     contentType: 'application/json',
     complete: function (res) {
@@ -53,7 +53,6 @@ export default class Editor extends React.Component {
   render() {
     const self = this;
     const pathSave = '/' + this.props.params.splat;
-
     return (
       <div>
         <AppBar
@@ -70,7 +69,7 @@ export default class Editor extends React.Component {
             onChange={newValue => self.setState({contents: newValue})}
             name="K-EDITOR"
             editorProps={{$blockScrolling: true}}
-            width={variables.default.width}
+            width={scssVariables.width}
             fontSize="16px"
             value={this.state.contents}
           />

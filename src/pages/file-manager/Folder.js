@@ -7,6 +7,7 @@ import EditorFile from 'material-ui/svg-icons/editor/insert-drive-file';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import FileFileDownload from 'material-ui/svg-icons/file/file-download';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import variables from '../../variables';
 
 export class Folder extends React.Component {
   render() {
@@ -139,7 +140,7 @@ export class Folder extends React.Component {
           {dateModified(this.props.lastModified)}
         </TableRowColumn>
         <TableRowColumn>
-          <a href={`http://192.168.0.103:7777/api/fs/download${this.props.path}/${this.props.name}`}
+          <a href={`${variables.url}download${this.props.path}/${this.props.name}`}
              title="download" target="_blank">
             {downloadIcon(this.props.kind)}
           </a>
