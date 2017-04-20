@@ -9,7 +9,7 @@ export default class FileUpload extends React.Component {
     const file = el.files[0];
     this.data = new FormData();
     this.data.append("data", file);
-    this.setState({'selected': false});
+    file ? this.setState({'selected': false}) : this.setState({'selected':true});
   }
 
   onUploadPress() {
