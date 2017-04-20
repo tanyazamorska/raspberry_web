@@ -3,7 +3,7 @@ import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
 import _ from "lodash";
 import Checkbox from 'material-ui/Checkbox';
-import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
+import {Table, TableBody, TableRow, TableHeaderColumn, TableHeader} from 'material-ui/Table';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import HadwareArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import HadwareArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
@@ -207,31 +207,51 @@ export default class FileManager extends React.Component {
             />
           </div>
         </div>
-        <Table>
-          <TableBody displayRowCheckbox={this.state.showCheckboxes = false}>
+        <Table displayRowCheckbox={this.state.showCheckboxes = false}>
+          <TableHeader adjustForCheckbox={this.state.showCheckboxes} displaySelectAll={this.state.showCheckboxes}>
             <TableRow>
-              <TableRowColumn style={{paddingLeft: '75px'}}>
+              <TableHeaderColumn style={{paddingLeft: '85px'}}>
                 <Link to={`/file-manager/${show}/${sorted1}${path === "/" ? '' : path}/`}>
-                  <span>Name{showArrow}</span>
+                  <span style={{lineHeight: '45px'}}>Name{showArrow}</span>
                 </Link>
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableHeaderColumn>
+              <TableHeaderColumn>
 
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableHeaderColumn>
+              <TableHeaderColumn style={{paddingLeft: '65px'}}>
                 <Link to={`/file-manager/${show}/${sorted2}${path === "/" ? '' : path}/`}>
-                  <span>Size{showArrow1}</span>
+                  <span style={{lineHeight: '45px'}}>Size{showArrow1}</span>
                 </Link>
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableHeaderColumn>
+              <TableHeaderColumn style={{paddingLeft: '50px'}}>
                 <Link to={`/file-manager/${show}/${sorted3}${path === "/" ? '' : path}/`}>
-                  <span>Modified{showArrow2}</span>
+                  <span style={{lineHeight: '45px'}}>Modified{showArrow2}</span>
                 </Link>
-              </TableRowColumn>
-              <TableRowColumn>
+              </TableHeaderColumn>
+              <TableHeaderColumn style={{paddingLeft: '35px'}}>
                 <span>Action</span>
-              </TableRowColumn>
+              </TableHeaderColumn>
             </TableRow>
+          </TableHeader>
+          <TableBody>
+
+            {/*<TableRow>*/}
+              {/*<TableRowColumn >*/}
+                {/**/}
+              {/*</TableRowColumn>*/}
+              {/*<TableRowColumn>*/}
+
+              {/*</TableRowColumn>*/}
+              {/*<TableRowColumn>*/}
+                {/**/}
+              {/*</TableRowColumn>*/}
+              {/*<TableRowColumn>*/}
+                {/**/}
+              {/*</TableRowColumn>*/}
+              {/*<TableRowColumn>*/}
+                {/**/}
+              {/*</TableRowColumn>*/}
+            {/*</TableRow>*/}
             {
               filesAndFolders.map(el => {
                 return <Folder name={el.name}
