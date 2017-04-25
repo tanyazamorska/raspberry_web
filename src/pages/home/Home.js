@@ -4,7 +4,8 @@ import {GridList} from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import ImageCamera from 'material-ui/svg-icons/image/camera-alt';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+import ActionPets from 'material-ui/svg-icons/action/pets';
+import AVlibrarymusic from 'material-ui/svg-icons/av/library-music';
 import * as colors from 'material-ui/styles/colors';
 import scssVariables from '../../scssVariables.js';
 
@@ -25,11 +26,11 @@ export default class Home extends React.Component {
           />
           <HomeButton to={`#`}
                       backgroundColor={colors.purpleA700}
-                      icon={<ContentAdd style={iconStyle}/>}
+                      icon={<AVlibrarymusic style={iconStyle}/>}
           />
           <HomeButton to={`#`}
                       backgroundColor={colors.deepPurpleA700}
-                      icon={<ContentAdd style={iconStyle}/>}
+                      icon={<ActionPets style={iconStyle}/>}
           />
         </GridList>
       </div>
