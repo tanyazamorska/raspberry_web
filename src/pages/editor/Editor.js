@@ -2,12 +2,13 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import AceEditor from 'react-ace';
 import $ from 'jquery';
-import 'brace/mode/javascript';
+import 'brace/mode/markdown';
 import 'brace/theme/github';
 import RaisedButton from 'material-ui/RaisedButton';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import scssVariables from '../../scssVariables';
 import variables from '../../variables';
+import Notification from '../../components/common/Notification/Notification'
 
 /**
  * reads data from server file
@@ -51,6 +52,42 @@ export default class Editor extends React.Component {
   }
 
   render() {
+    const str = this.props.params.splat;
+    const dot = str.lastIndexOf('.');
+    const fileExtn = str.slice(dot + 1);
+    let mode = '';
+    if (fileExtn === 'js') {
+      mode = 'javascript';
+    } else if (fileExtn === 'java') {
+      mode = 'java';
+    } else if (fileExtn === 'sass') {
+      mode = 'sass';
+    } else if (fileExtn === 'py') {
+      mode = 'python';
+    } else if (fileExtn === 'xml') {
+      mode = 'xml';
+    } else if (fileExtn === 'rb') {
+      mode = 'ruby';
+    } else if (fileExtn === 'sass') {
+      mode = 'sass';
+    } else if (fileExtn === 'mysql') {
+      mode = 'mysql';
+    } else if (fileExtn === 'json') {
+      mode = 'json';
+    } else if (fileExtn === 'html') {
+      mode = 'html';
+    } else if (fileExtn === 'coffee') {
+      mode = 'coffee';
+    } else if (fileExtn === 'css') {
+      mode = 'css';
+    } else if (fileExtn === 'handlebars') {
+      mode = 'handlebars';
+    } else if (fileExtn === 'cs') {
+      mode = 'csharp';
+    } else {
+      mode = 'markdown';
+    }
+
     const self = this;
     const pathSave = '/' + this.props.params.splat;
     return (
@@ -62,9 +99,10 @@ export default class Editor extends React.Component {
           iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}
                                           onClick={() => save(pathSave, this.state.contents, () => {})}/>}
         />
+        {<Notification/>}
         <div style={{width: scssVariables.width}}>
           <AceEditor
-            mode="javascript"
+            mode={mode}
             theme="github"
             onChange={newValue => self.setState({contents: newValue})}
             name="K-EDITOR"
