@@ -8,6 +8,7 @@ import ActionHome from 'material-ui/svg-icons/action/home';
 import HadwareArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import HadwareArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import Toggle from 'material-ui/Toggle';
 import {Folder} from './Folder';
 import variables from '../../variables';
 import scssVariables from '../../scssVariables';
@@ -80,13 +81,12 @@ export default class FileManager extends React.Component {
 
     //
     let show;
-    let check;
+    let toggle = false;
     if (this.props.params.hideHidden === "hide-hidden") {
       show = "hide-hidden";
-      check = false;
     } else {
       show = "show-hidden";
-      check = true;
+      toggle = true;
     }
     const reverseShow = (show === "show-hidden") ? "hide-hidden" : "show-hidden";
 
@@ -185,8 +185,10 @@ export default class FileManager extends React.Component {
           <div style={{width: '20%'}}>
             {
               <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path === "/" ? '' : path}/`}>
-                <Checkbox label="show hidden files" checked={check} onCheck={() => {
-                }}/>
+                <Toggle label="show hidden files"  labelPosition="right" defaultToggled={toggle} onToggle={() => {}}/>
+
+
+
               </Link>
             }
           </div>
