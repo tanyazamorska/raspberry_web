@@ -2,6 +2,19 @@ import React from 'react';
 import AppBar from 'material-ui/AppBar';
 import AceEditor from 'react-ace';
 import $ from 'jquery';
+import 'brace/mode/javascript';
+import 'brace/mode/java';
+import 'brace/mode/sass';
+import 'brace/mode/python';
+import 'brace/mode/xml';
+import 'brace/mode/mysql';
+import 'brace/mode/json';
+import 'brace/mode/html';
+import 'brace/mode/coffee';
+import 'brace/mode/css';
+import 'brace/mode/handlebars';
+import 'brace/mode/csharp';
+import 'brace/mode/golang';
 import 'brace/mode/markdown';
 import 'brace/theme/github';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -39,6 +52,9 @@ function save(path, contents, callback) {
       }
     }
   });
+  return function() {
+   console.log('click')
+  }
 }
 
 export default class Editor extends React.Component {
@@ -49,6 +65,16 @@ export default class Editor extends React.Component {
     getFileContents(path, data => {
       self.setState({contents: data});
     });
+
+    window.a = Notification;
+  }
+
+  showNotification() {
+    this.setState({isNotificationVisible: true})
+  }
+
+  hideNotification() {
+    this.setState({isNotificationVisible: false})
   }
 
   render() {
@@ -68,8 +94,6 @@ export default class Editor extends React.Component {
       mode = 'xml';
     } else if (fileExtn === 'rb') {
       mode = 'ruby';
-    } else if (fileExtn === 'sass') {
-      mode = 'sass';
     } else if (fileExtn === 'mysql') {
       mode = 'mysql';
     } else if (fileExtn === 'json') {
@@ -84,10 +108,11 @@ export default class Editor extends React.Component {
       mode = 'handlebars';
     } else if (fileExtn === 'cs') {
       mode = 'csharp';
+    } else if (fileExtn === 'golang') {
+      mode = 'go';
     } else {
       mode = 'markdown';
     }
-
     const self = this;
     const pathSave = '/' + this.props.params.splat;
     return (
@@ -97,9 +122,14 @@ export default class Editor extends React.Component {
           style={{width: scssVariables.width, backgroundColor: theme.palette.accent1Color}}
           title={this.props.params.splat}
           iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}
-                                          onClick={() => save(pathSave, this.state.contents, () => {})}/>}
+                                          onClick={() => save(pathSave, this.state.contents, () => {
+                                            self.showNotification();
+                                            setTimeout(() => {
+                                              self.hideNotification()
+                                            }, 3000)
+                                          })}/>}
         />
-        {<Notification/>}
+        <Notification isVisible={this.state.isNotificationVisible}/>
         <div style={{width: scssVariables.width}}>
           <AceEditor
             mode={mode}

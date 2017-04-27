@@ -91,7 +91,7 @@ export class Folder extends React.Component {
             'pisrc', 'piv', 'pli', 'pl1', 'prg', 'pro', 'pol', 'py', 'red', 'reds', 'resx', 'rc', 'rc2', 'rkt', 'rktl',
             'scala', 'sci', 'sce', 'scm', 'sd7', 'skb', 'skc', 'skd', 'skf', 'skg', 'ski', 'skk', 'skm', 'sko', 'skp',
             'skq', 'sks', 'skt', 'skz', 'sln', 'spin', 'stk', 'swg', 'tcl', 'vap', 'vb', 'vbg', 'vbp', 'vip', 'vbproj',
-            'vcproj', 'vdproj', 'xpl', 'xq', 'xsl', 'y'];
+            'vcproj', 'vdproj', 'xpl', 'xq', 'xsl', 'y', 'css', 'html', 'sass', 'mysql', 'json', 'handlebars', 'go'];
           if (arrayFilesExtension.indexOf(fileExtension) !== -1) {
             return <EditorModeEdit />;
           }

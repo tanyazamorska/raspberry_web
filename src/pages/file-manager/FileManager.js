@@ -28,7 +28,8 @@ export default class FileManager extends React.Component {
       }, 0);
     };
 
-    let prevPath = self.props.routeParams.splat;
+    let prevPath = self.props.params.splat;
+    prevPath = (prevPath[prevPath.length-1] !== '/') ? prevPath + '/' : prevPath;
     this.stop = browserHistory.listen(location => {
       if (location.hash.indexOf("#/file-manager/") === -1) {
         return;
@@ -184,10 +185,7 @@ export default class FileManager extends React.Component {
           <div style={{width: '20%'}}>
             {
               <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path === "/" ? '' : path}/`}>
-                <Toggle label="show hidden files"  labelPosition="right" defaultToggled={toggle} onToggle={() => {}}/>
-
-
-
+                <Toggle label="show hidden files" labelPosition="right" defaultToggled={toggle} onToggle={() => {}}/>
               </Link>
             }
           </div>

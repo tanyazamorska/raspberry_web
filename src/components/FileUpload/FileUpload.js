@@ -34,7 +34,7 @@ export default class FileUpload extends React.Component {
       });
       this.data = null;
     } else {
-      NotificationManager.success('Success message', 'Title here');
+      console.log(123)
     }
   }
 
