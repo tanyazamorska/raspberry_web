@@ -43,7 +43,7 @@ function getFileContents(path, callback) {
 function save(path, contents, callback) {
   $.ajax({
     method: "POST",
-    url:  variables.url + "echo",
+    url: variables.url + "echo",
     data: JSON.stringify({"path": path, "contents": contents}),
     contentType: 'application/json',
     complete: function (res) {
@@ -52,9 +52,6 @@ function save(path, contents, callback) {
       }
     }
   });
-  return function() {
-   console.log('click')
-  }
 }
 
 export default class Editor extends React.Component {
@@ -65,50 +62,40 @@ export default class Editor extends React.Component {
     getFileContents(path, data => {
       self.setState({contents: data});
     });
-
-    window.a = Notification;
-  }
-
-  showNotification() {
-    this.setState({isNotificationVisible: true})
-  }
-
-  hideNotification() {
-    this.setState({isNotificationVisible: false})
   }
 
   render() {
     const str = this.props.params.splat;
     const dot = str.lastIndexOf('.');
-    const fileExtn = str.slice(dot + 1);
+    const fileExtension = str.slice(dot + 1);
     let mode = '';
-    if (fileExtn === 'js') {
+    if (fileExtension === 'js') {
       mode = 'javascript';
-    } else if (fileExtn === 'java') {
+    } else if (fileExtension === 'java') {
       mode = 'java';
-    } else if (fileExtn === 'sass') {
+    } else if (fileExtension === 'sass') {
       mode = 'sass';
-    } else if (fileExtn === 'py') {
+    } else if (fileExtension === 'py') {
       mode = 'python';
-    } else if (fileExtn === 'xml') {
+    } else if (fileExtension === 'xml') {
       mode = 'xml';
-    } else if (fileExtn === 'rb') {
+    } else if (fileExtension === 'rb') {
       mode = 'ruby';
-    } else if (fileExtn === 'mysql') {
+    } else if (fileExtension === 'mysql') {
       mode = 'mysql';
-    } else if (fileExtn === 'json') {
+    } else if (fileExtension === 'json') {
       mode = 'json';
-    } else if (fileExtn === 'html') {
+    } else if (fileExtension === 'html') {
       mode = 'html';
-    } else if (fileExtn === 'coffee') {
+    } else if (fileExtension === 'coffee') {
       mode = 'coffee';
-    } else if (fileExtn === 'css') {
+    } else if (fileExtension === 'css') {
       mode = 'css';
-    } else if (fileExtn === 'handlebars') {
+    } else if (fileExtension === 'handlebars') {
       mode = 'handlebars';
-    } else if (fileExtn === 'cs') {
+    } else if (fileExtension === 'cs') {
       mode = 'csharp';
-    } else if (fileExtn === 'golang') {
+    } else if (fileExtension === 'golang') {
       mode = 'go';
     } else {
       mode = 'markdown';
@@ -117,19 +104,16 @@ export default class Editor extends React.Component {
     const pathSave = '/' + this.props.params.splat;
     return (
       <div>
+        <Notification/>
         <AppBar
           showMenuIconButton={false}
           style={{width: scssVariables.width, backgroundColor: theme.palette.accent1Color}}
           title={this.props.params.splat}
           iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}
                                           onClick={() => save(pathSave, this.state.contents, () => {
-                                            self.showNotification();
-                                            setTimeout(() => {
-                                              self.hideNotification()
-                                            }, 3000)
-                                          })}/>}
+                                           Notification.show({text: "File Saved"})})
+                                          }/>}
         />
-        <Notification isVisible={this.state.isNotificationVisible}/>
         <div style={{width: scssVariables.width}}>
           <AceEditor
             mode={mode}
@@ -146,4 +130,5 @@ export default class Editor extends React.Component {
     )
   }
 }
+
 

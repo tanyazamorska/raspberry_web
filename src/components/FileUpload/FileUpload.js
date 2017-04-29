@@ -1,6 +1,7 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import $ from 'jquery';
+import Notification from '../../components/common/Notification/Notification'
 
 export default class FileUpload extends React.Component {
 
@@ -28,13 +29,15 @@ export default class FileUpload extends React.Component {
         type: 'POST',
         success: function(data) {
           if (self.props.onUploaded) {
+            self.showNotification();
+            setTimeout(() => {
+              self.hideNotification()
+            }, 3000);
             self.props.onUploaded();
           }
         }
       });
       this.data = null;
-    } else {
-      console.log(123)
     }
   }
 
@@ -42,13 +45,32 @@ export default class FileUpload extends React.Component {
     const self = this;
     self.setState({'uploadButtonDisabled': true});
   }
+  showNotification() {
+    this.setState({isNotificationVisible: true})
+  }
+
+  hideNotification() {
+    this.setState({isNotificationVisible: false})
+  }
 
   render() {
     return (
       <div>
         <input type="file" onChange={event => this.onFileSelected(event)} />
-        <RaisedButton label="Upload" disabled={this.state.uploadButtonDisabled} onClick={event => this.onUploadPress()} />
+        <RaisedButton label="Upload"
+                      disabled={this.state.uploadButtonDisabled}
+                      onClick={event => this.onUploadPress()}
+        />
+        <Notification
+          isVisible={this.state.isNotificationVisible}
+          text="File Uploaded"
+          position="top-right"
+          level="success"
+        />
       </div>
     )
   }
 }
+
+
+

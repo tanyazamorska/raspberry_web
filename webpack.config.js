@@ -13,7 +13,7 @@ module.exports = {
 		'react-hot-loader/patch',
 		'./src/index.js' // your app's entry point
 	],
-	devtool: 'source-map',
+	devtool: 'cheap-module-eval-source-map', //'source-map',
 	output: {
 		publicPath: '/',
 		path: path.join(__dirname, 'public'),
