@@ -102,6 +102,7 @@ export default class Editor extends React.Component {
     }
     const self = this;
     const pathSave = '/' + this.props.params.splat;
+
     return (
       <div>
         <Notification/>
@@ -111,7 +112,7 @@ export default class Editor extends React.Component {
           title={this.props.params.splat}
           iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}
                                           onClick={() => save(pathSave, this.state.contents, () => {
-                                           Notification.show({text: "File Saved"})})
+                                           Notification.show({level: "error", text: 'File Saved'})})
                                           }/>}
         />
         <div style={{width: scssVariables.width}}>

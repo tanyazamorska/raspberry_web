@@ -5,14 +5,21 @@ import * as colors from 'material-ui/styles/colors';
 let notificationThis = null;
 
 export default class Notification extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
     notificationThis = this;
-    this.setState({isNotificationVisible: true});
-    console.log('componentDidMount ' + notificationThis)
+    this.state = {isVisible: false};
+  };
+
+  showNotification() {
+    this.setState({isVisible: true})
+  }
+
+  hideNotification() {
+    this.setState({isVisible: false})
   }
 
   render() {
-    console.log('render ' + this)
     const level = this.props.level || 'success';
     const levelMap = {
       success: colors.green300,
@@ -32,7 +39,7 @@ export default class Notification extends React.Component {
       boxShadow: '1px 2px 4px rgba(0, 0, 0, .5)',
       textAlign: 'center',
       zIndex: 10000,
-      opacity: this.props.isVisible ? 1 : 0
+      opacity: this.state.isVisible ? 1 : 0
     };
 
     const position = this.props.position || 'top-right';
@@ -66,27 +73,27 @@ export default class Notification extends React.Component {
     } else {
       throw `Notification error. received unsupported property position: ${this.props.position}`;
     }
+    let text = 'x';
+
+    Notification.show = (props) => {
+      notificationThis.props = props;
+      props.level = this.props.level || 'success';
+      props.position = this.props.position || 'top-right';
+      props.isVisible = this.showNotification();
+      props.duration = setTimeout(() => {this.hideNotification()},3000);
+      console.log(props);
+    };
 
     return (
         <div style={styles}>
-          <h3 style={{lineHeight: '10px', color: theme.palette.canvasColor}}>{this.props.text}</h3>
+          <h3 style={{lineHeight: '10px', color: theme.palette.canvasColor}}>{text}</h3>
         </div>
     )
   }
 }
 
-Notification.show = function (props) {
-  console.log('Notification show func')
-notificationThis.props = props;
-  props.level = props.level || "success";
-  props.position = props.position || "top-right";
-  props.isVisible = true;
-  props.duration = 3000;
-  setTimeout(() => {
-  console.log(123)
-  },props.duration);
-  console.log(notificationThis);
-};
+
+
 
 // setTimeout(() => {
 //   self.hideNotification()
