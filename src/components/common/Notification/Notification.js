@@ -1,5 +1,5 @@
 import React from 'react';
-import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MyTheme from '../../../MyTheme';
 import * as colors from 'material-ui/styles/colors';
 
 let notificationThis = null;
@@ -22,9 +22,9 @@ export default class Notification extends React.Component {
   render() {
     const level = this.props.level || 'success';
     const levelMap = {
-      success: colors.green300,
+      success: MyTheme.palette.accent1Color,
       warning: colors.orange300,
-      error: colors.red400
+      error: colors.redA200
     };
     let backgroundColor = levelMap[level];
     if (!backgroundColor) {
@@ -81,18 +81,16 @@ export default class Notification extends React.Component {
       props.position = this.props.position || 'top-right';
       props.isVisible = this.showNotification();
       props.duration = setTimeout(() => {this.hideNotification()},3000);
-      console.log(props);
+      //console.log(props);
     };
 
     return (
         <div style={styles}>
-          <h3 style={{lineHeight: '10px', color: theme.palette.canvasColor}}>{text}</h3>
+          <h3 style={{lineHeight: '10px', color: MyTheme.palette.alternateTextColor}}>{text}</h3>
         </div>
     )
   }
 }
-
-
 
 
 // setTimeout(() => {

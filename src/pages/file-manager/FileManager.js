@@ -6,7 +6,7 @@ import {Table, TableBody, TableRow, TableHeaderColumn, TableHeader} from 'materi
 import ActionHome from 'material-ui/svg-icons/action/home';
 import HadwareArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';
 import HadwareArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
-import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MyTheme from '../../MyTheme';
 import Toggle from 'material-ui/Toggle';
 import {Folder} from './Folder';
 import variables from '../../variables';
@@ -175,7 +175,7 @@ export default class FileManager extends React.Component {
     return (
       <div style={{width: scssVariables.width}}>
         <div style={{
-            backgroundColor: theme.palette.accent1Color,
+            backgroundColor: MyTheme.palette.primary2Color,
             display: 'flex',
             alignItems: 'center'
           }}>

@@ -18,7 +18,7 @@ import 'brace/mode/golang';
 import 'brace/mode/markdown';
 import 'brace/theme/github';
 import RaisedButton from 'material-ui/RaisedButton';
-import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MyTheme from '../../MyTheme';
 import scssVariables from '../../scssVariables';
 import variables from '../../variables';
 import Notification from '../../components/common/Notification/Notification'
@@ -108,7 +108,7 @@ export default class Editor extends React.Component {
         <Notification/>
         <AppBar
           showMenuIconButton={false}
-          style={{width: scssVariables.width, backgroundColor: theme.palette.accent1Color}}
+          style={{width: scssVariables.width, backgroundColor: MyTheme.palette.primary2Color}}
           title={this.props.params.splat}
           iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}
                                           onClick={() => save(pathSave, this.state.contents, () => {

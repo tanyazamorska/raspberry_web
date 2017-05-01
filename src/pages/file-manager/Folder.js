@@ -6,7 +6,7 @@ import FileFolder from 'material-ui/svg-icons/file/folder';
 import EditorFile from 'material-ui/svg-icons/editor/insert-drive-file';
 import EditorModeEdit from 'material-ui/svg-icons/editor/mode-edit';
 import FileFileDownload from 'material-ui/svg-icons/file/file-download';
-import theme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import MyTheme from '../../MyTheme';
 import variables from '../../variables';
 
 export class Folder extends React.Component {
@@ -14,10 +14,10 @@ export class Folder extends React.Component {
     let additionalClass = null;
     if (this.props.kind === 'folder') {
       additionalClass = <FileFolder
-        style={{height: '44px', width: '44px', marginRight: '20px', color: theme.palette.accent3Color}}/>;
+        style={{height: '44px', width: '44px', marginRight: '20px', color: MyTheme.palette.accent3Color}}/>;
     } else {
       additionalClass = <EditorFile
-        style={{height: '44px', width: '44px', marginRight: '20px', color: theme.palette.borderColor}}/>;
+        style={{height: '44px', width: '44px', marginRight: '20px', color: MyTheme.palette.borderColor}}/>;
     }
 
     const dateModified = (modified) => {

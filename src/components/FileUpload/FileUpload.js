@@ -1,7 +1,7 @@
 import React from 'react';
 import RaisedButton from 'material-ui/RaisedButton';
 import $ from 'jquery';
-import Notification from '../../components/common/Notification/Notification'
+import Notification from '../../components/common/Notification/Notification';
 
 export default class FileUpload extends React.Component {
 
