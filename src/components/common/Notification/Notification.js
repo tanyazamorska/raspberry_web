@@ -19,6 +19,21 @@ export default class Notification extends React.Component {
     this.setState({isVisible: false})
   }
 
+  componentDidMount() {
+    Notification.show = (props) => {
+      notificationThis.props = props = {
+        level: this.state.level,
+        isVisible: this.showNotification(),
+        duration: setTimeout(() => {
+          this.hideNotification()
+        }, 3000)
+      };
+      console.log(notificationThis.props);
+      console.log(notificationThis);
+      return props;
+    };
+  }
+
   render() {
     const level = this.props.level || 'success';
     const levelMap = {
@@ -75,15 +90,6 @@ export default class Notification extends React.Component {
     }
     let text = 'x';
 
-    Notification.show = (props) => {
-      notificationThis.props = props;
-      props.level = this.props.level || 'success';
-      props.position = this.props.position || 'top-right';
-      props.isVisible = this.showNotification();
-      props.duration = setTimeout(() => {this.hideNotification()},3000);
-      //console.log(props);
-    };
-
     return (
         <div style={styles}>
           <h3 style={{lineHeight: '10px', color: MyTheme.palette.alternateTextColor}}>{text}</h3>
@@ -92,10 +98,6 @@ export default class Notification extends React.Component {
   }
 }
 
-
-// setTimeout(() => {
-//   self.hideNotification()
-// }, 3000)
 
 // Notification.show({
 //   text: "File Saved",     // required

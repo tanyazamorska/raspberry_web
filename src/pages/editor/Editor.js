@@ -105,14 +105,14 @@ export default class Editor extends React.Component {
 
     return (
       <div>
-        <Notification/>
+        <Notification />
         <AppBar
           showMenuIconButton={false}
           style={{width: scssVariables.width, backgroundColor: MyTheme.palette.primary2Color}}
           title={this.props.params.splat}
           iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}
                                           onClick={() => save(pathSave, this.state.contents, () => {
-                                           Notification.show({level: "error", text: 'File Saved'})})
+                                           Notification.show({level: "error"})})
                                           }/>}
         />
         <div style={{width: scssVariables.width}}>
