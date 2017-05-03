@@ -29,7 +29,6 @@ export default class Notification extends React.Component {
         }, 3000)
       };
       console.log(notificationThis.props);
-      console.log(notificationThis);
       return props;
     };
   }
