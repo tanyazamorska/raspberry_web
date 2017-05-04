@@ -70,7 +70,7 @@ export default class Editor extends React.Component {
     save(
       pathSave,
       this.state.contents,
-      () => Notification.show({level: "error"})
+      () => Notification.show({text: 'File Saved'})
     )
   }
 

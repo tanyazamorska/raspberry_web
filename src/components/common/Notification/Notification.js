@@ -11,7 +11,9 @@ export default class Notification extends React.Component {
     this.state = {
       isVisible: false,
       props: {
-        level: this.props.level
+        level: null,
+        position: null,
+        text: ''
       }
     };
   };
@@ -25,7 +27,7 @@ export default class Notification extends React.Component {
   }
 
   render() {
-    const level = this.props.level || 'success';
+    const level = this.state.props.level || 'success';
     const levelMap = {
       success: MyTheme.palette.accent1Color,
       warning: colors.orange300,
@@ -47,7 +49,7 @@ export default class Notification extends React.Component {
       opacity: this.state.isVisible ? 1 : 0
     };
 
-    const position = this.props.position || 'top-right';
+    const position = this.state.props.position || 'top-right';
     if (position === 'top-left') {
       styles.top = '20px';
       styles.left = '30px';
@@ -76,36 +78,24 @@ export default class Notification extends React.Component {
       styles.bottom = '20px';
       styles.right = '30px';
     } else {
-      throw `Notification error. received unsupported property position: ${this.props.position}`;
+      throw `Notification error. received unsupported property position: ${this.state.props.position}`;
     }
-    let text = 'x';
 
     Notification.show = (config) => {
-      notificationThis.state.props = {
-        level: config.level || 'success',
-        position: config.position || 'top-right',
-        isVisible: this.showNotification(),
-        duration: setTimeout(() => {
-          this.hideNotification()
-        }, 3000)
-      };
-
-      console.log(notificationThis);
+      notificationThis.state.props.text = config.text;
+      notificationThis.state.props.level = config.level || "success";
+      notificationThis.state.props.position = config.position || 'top-right';
+      notificationThis.state.props.isVisible = this.showNotification();
+      notificationThis.state.props.duration = setTimeout(() => {
+        this.hideNotification();
+            }, 3000)
     };
 
-    console.log(notificationThis);
     return (
         <div style={styles}>
-          <h3 style={{lineHeight: '10px', color: MyTheme.palette.alternateTextColor}}>{text}</h3>
+          <h3 style={{lineHeight: '10px', color: MyTheme.palette.alternateTextColor}}>{this.state.props.text}</h3>
         </div>
     )
   }
 }
 
-
-// Notification.show({
-//   text: "File Saved",     // required
-//   level: "success",       // optional. default success
-//   position: "top-right",  // optional. default "top-right"
-//   duration: 3000          // optional
-// });
