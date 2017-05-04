@@ -29,10 +29,7 @@ export default class FileUpload extends React.Component {
         type: 'POST',
         success: function(data) {
           if (self.props.onUploaded) {
-            self.showNotification();
-            setTimeout(() => {
-              self.hideNotification()
-            }, 3000);
+           Notification.show({text: 'File Uploaded'});
             self.props.onUploaded();
           }
         }
@@ -45,13 +42,6 @@ export default class FileUpload extends React.Component {
     const self = this;
     self.setState({'uploadButtonDisabled': true});
   }
-  showNotification() {
-    this.setState({isNotificationVisible: true})
-  }
-
-  hideNotification() {
-    this.setState({isNotificationVisible: false})
-  }
 
   render() {
     return (
@@ -60,12 +50,6 @@ export default class FileUpload extends React.Component {
         <RaisedButton label="Upload"
                       disabled={this.state.uploadButtonDisabled}
                       onClick={event => this.onUploadPress()}
-        />
-        <Notification
-          isVisible={this.state.isNotificationVisible}
-          text="File Uploaded"
-          position="top-right"
-          level="success"
         />
       </div>
     )

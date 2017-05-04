@@ -5,6 +5,7 @@ import MyTheme from '../../MyTheme';
 import Header from '../Header/Header.js';
 import Footer from '../Footer/Footer.js';
 import Home from "./../../pages/home/Home.js";
+import Notification from '../../components/common/Notification/Notification'
 
 export default class Layout extends React.Component {
   render() {
@@ -12,6 +13,7 @@ export default class Layout extends React.Component {
       <MuiThemeProvider muiTheme={getMuiTheme(MyTheme)}>
         <div style={{backgroundColor: MyTheme.palette.canvasColor}}>
           <Header />
+          <Notification/>
           <div style={{height: 70}}></div>
           <div style={{minHeight: 350,
             paddingBottom: 50,

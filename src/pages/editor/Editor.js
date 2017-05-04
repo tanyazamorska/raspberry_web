@@ -21,7 +21,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import MyTheme from '../../MyTheme';
 import scssVariables from '../../scssVariables';
 import variables from '../../variables';
-import Notification from '../../components/common/Notification/Notification'
+import Notification from '../../components/common/Notification/Notification';
+
 
 /**
  * reads data from server file
@@ -114,7 +115,6 @@ export default class Editor extends React.Component {
 
     return (
       <div>
-        <Notification/>
         <AppBar
           showMenuIconButton={false}
           style={{width: scssVariables.width, backgroundColor: MyTheme.palette.primary2Color}}

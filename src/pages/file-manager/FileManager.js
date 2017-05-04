@@ -12,6 +12,7 @@ import {Folder} from './Folder';
 import variables from '../../variables';
 import scssVariables from '../../scssVariables';
 import FileUpload from '../../components/FileUpload/FileUpload';
+import Error from '../../components/common/Error';
 
 export default class FileManager extends React.Component {
   constructor(props) {
@@ -60,8 +61,9 @@ export default class FileManager extends React.Component {
       complete: function (res) {
         const state = res.responseJSON;
         self.setState(state);
-      }
-    });
+      },
+      error: () => Error.show()
+    })
   }
 
   render() {
@@ -179,6 +181,7 @@ export default class FileManager extends React.Component {
             display: 'flex',
             alignItems: 'center'
           }}>
+          <Error/>
           <div style={{width: '45%'}}>
             <h4 style={{marginTop: '0px', marginLeft: '15px'}}>{linksPathArr}</h4>
           </div>
