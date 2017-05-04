@@ -35,7 +35,7 @@ function getFileContents(path, callback) {
     data: JSON.stringify({"path": path}),
     contentType: 'application/json',
     complete: function (res) {
-      callback(res.responseJSON);
+      callback(res.responseText);
     }
   });
 }
@@ -62,6 +62,16 @@ export default class Editor extends React.Component {
     getFileContents(path, data => {
       self.setState({contents: data});
     });
+  }
+
+  onSaveClick() {
+    const pathSave = '/' + this.props.params.splat;
+
+    save(
+      pathSave,
+      this.state.contents,
+      () => Notification.show({level: "error"})
+    )
   }
 
   render() {
@@ -101,19 +111,16 @@ export default class Editor extends React.Component {
       mode = 'markdown';
     }
     const self = this;
-    const pathSave = '/' + this.props.params.splat;
 
     return (
       <div>
-        <Notification />
+        <Notification/>
         <AppBar
           showMenuIconButton={false}
           style={{width: scssVariables.width, backgroundColor: MyTheme.palette.primary2Color}}
           title={this.props.params.splat}
           iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}
-                                          onClick={() => save(pathSave, this.state.contents, () => {
-                                           Notification.show({level: "error"})})
-                                          }/>}
+                                          onClick={() => this.onSaveClick()}/>}
         />
         <div style={{width: scssVariables.width}}>
           <AceEditor
@@ -131,5 +138,3 @@ export default class Editor extends React.Component {
     )
   }
 }
-
-

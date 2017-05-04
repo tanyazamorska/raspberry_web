@@ -8,29 +8,20 @@ export default class Notification extends React.Component {
   constructor(props) {
     super(props);
     notificationThis = this;
-    this.state = {isVisible: false};
+    this.state = {
+      isVisible: false,
+      props: {
+        level: this.props.level
+      }
+    };
   };
 
   showNotification() {
-    this.setState({isVisible: true})
+    this.setState({isVisible: true});
   }
 
   hideNotification() {
-    this.setState({isVisible: false})
-  }
-
-  componentDidMount() {
-    Notification.show = (props) => {
-      notificationThis.props = props = {
-        level: this.state.level,
-        isVisible: this.showNotification(),
-        duration: setTimeout(() => {
-          this.hideNotification()
-        }, 3000)
-      };
-      console.log(notificationThis.props);
-      return props;
-    };
+    this.setState({isVisible: false});
   }
 
   render() {
@@ -89,6 +80,20 @@ export default class Notification extends React.Component {
     }
     let text = 'x';
 
+    Notification.show = (config) => {
+      notificationThis.state.props = {
+        level: config.level || 'success',
+        position: config.position || 'top-right',
+        isVisible: this.showNotification(),
+        duration: setTimeout(() => {
+          this.hideNotification()
+        }, 3000)
+      };
+
+      console.log(notificationThis);
+    };
+
+    console.log(notificationThis);
     return (
         <div style={styles}>
           <h3 style={{lineHeight: '10px', color: MyTheme.palette.alternateTextColor}}>{text}</h3>
