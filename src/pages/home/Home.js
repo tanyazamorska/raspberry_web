@@ -26,7 +26,7 @@ export default class Home extends React.Component {
           />
           <HomeButton to={`#`}
                       backgroundColor={MyTheme.palette.primary1Color}
-                      icon={<AVlibrarymusic style={iconStyle}/>}
+                      icon={<img src="icon.ico" style={{width: '70px', height: '60px', border: '5px solid black'}}/>}
           />
           <HomeButton to={`#`}
                       backgroundColor={MyTheme.palette.accent1Color}

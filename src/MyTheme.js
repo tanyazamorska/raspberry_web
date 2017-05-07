@@ -36,7 +36,9 @@ exports.default = {
     clockCircleColor: (0, _colorManipulator.fade)(_colors.darkBlack, 0.07),
     shadowColor: _colors.fullBlack
   }
-}; /**
+};
+
+/**
  * NB: If you update this file, please also update `docs/src/app/customization/Themes.js`
  */
 

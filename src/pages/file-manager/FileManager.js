@@ -12,7 +12,7 @@ import {Folder} from './Folder';
 import variables from '../../variables';
 import scssVariables from '../../scssVariables';
 import FileUpload from '../../components/FileUpload/FileUpload';
-import Error from '../../components/common/Error';
+import Error from '../../components/common/Error/Error';
 
 export default class FileManager extends React.Component {
   constructor(props) {

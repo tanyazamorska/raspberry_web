@@ -1,6 +1,6 @@
 import React from 'react';
-import MyTheme from '../../MyTheme';
-import scssVariables from '../../scssVariables';
+import MyTheme from '../../../MyTheme';
+import scssVariables from '../../../scssVariables';
 
 let errorThis = null;
 
