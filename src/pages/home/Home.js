@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import ImageCamera from 'material-ui/svg-icons/image/camera-alt';
 import ActionPets from 'material-ui/svg-icons/action/pets';
-import AVlibrarymusic from 'material-ui/svg-icons/av/library-music';
 import MyTheme from '../../MyTheme';
 import scssVariables from '../../scssVariables.js';
 
@@ -24,7 +23,7 @@ export default class Home extends React.Component {
                       backgroundColor={MyTheme.palette.primary2Color}
                       icon={<ImageCamera style={iconStyle}/>}
           />
-          <HomeButton to={`#`}
+          <HomeButton to={`/sensors/`}
                       backgroundColor={MyTheme.palette.primary1Color}
                       icon={<img src="icon.ico" style={{width: '70px', height: '60px', border: '5px solid black'}}/>}
           />
