@@ -4,7 +4,6 @@ import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import scssVariables from '../../scssVariables';
 import MyTheme from '../../MyTheme';
 
-
 export default class Sensors extends React.Component {
 
   constructor(props) {
@@ -29,7 +28,7 @@ export default class Sensors extends React.Component {
       [41, 42, 43, 44, 45, 46, 47, 48],
       [51, 52, 53, 54, 55, 56, 57, 58],
       [61, 62, 63, 64, 65, 66, 67, 68],
-      [71, 72, 73, 74, 75, 76, 77, 100],
+      [71, 72, 73, 74, 75, 76, 77, 78],
     ];
 
     return (
@@ -80,7 +79,7 @@ export default class Sensors extends React.Component {
                         </TableRowColumn>
                       </TableRow>
                     )
-                })
+                  })
                 }
               </TableBody>
             </Table>
