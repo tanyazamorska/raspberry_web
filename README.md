@@ -15,3 +15,7 @@ npm run dev
 npm run build
 ```
 
+### execute before push to git
+```
+npm run lint
+```

@@ -20,24 +20,24 @@ export default class FileManager extends React.Component {
     const self = this;
     self.state = {
       filesAndFolders: [],
-      path: ""
+      path: ``
     };
 
     const requestDataFromServerWithHack = () => {
       setTimeout(() => {
-        self.requestDataFromServer("/" + self.props.params.splat);
+        self.requestDataFromServer(`/` + self.props.params.splat);
       }, 0);
     };
 
     let prevPath = self.props.params.splat;
-    prevPath = (prevPath[prevPath.length-1] !== '/') ? prevPath + '/' : prevPath;
+    prevPath = (prevPath[prevPath.length-1] !== `/`) ? prevPath + `/` : prevPath;
     this.stop = browserHistory.listen(location => {
-      if (location.hash.indexOf("#/file-manager/") === -1) {
+      if (location.hash.indexOf(`#/file-manager/`) === -1) {
         return;
       }
-      let arrPath = location.hash.split("/");
+      const arrPath = location.hash.split(`/`);
       arrPath.splice(0, 4);
-      let path = arrPath.join('/');
+      const path = arrPath.join(`/`);
       if (prevPath !== path) {
         requestDataFromServerWithHack();
       }
@@ -53,17 +53,17 @@ export default class FileManager extends React.Component {
   requestDataFromServer(path) {
     const self = this;
     $.ajax({
-      method: "POST",
+      method: `POST`,
       crossDomain: true,
-      url: variables.url + "ls",
-      data: JSON.stringify({"path": path}),
-      contentType: 'application/json',
+      url: variables.url + `ls`,
+      data: JSON.stringify({'path': path}),
+      contentType: `application/json`,
       complete: function (res) {
         const state = res.responseJSON;
         self.setState(state);
       },
       error: () => Error.show()
-    })
+    });
   }
 
   render() {
@@ -71,9 +71,9 @@ export default class FileManager extends React.Component {
 
     // filter hidden files and folders
     let filesAndFolders;
-    if (this.props.params.hideHidden === "hide-hidden") {
+    if (this.props.params.hideHidden === `hide-hidden`) {
       filesAndFolders = this.state.filesAndFolders.filter((obj) => {
-        if (obj.name.charAt(0) !== '.' || obj.name === '..') {
+        if (obj.name.charAt(0) !== `.` || obj.name === `..`) {
           return obj;
         }
       });
@@ -84,21 +84,21 @@ export default class FileManager extends React.Component {
     //
     let show;
     let toggle = false;
-    if (this.props.params.hideHidden === "hide-hidden") {
-      show = "hide-hidden";
+    if (this.props.params.hideHidden === `hide-hidden`) {
+      show = `hide-hidden`;
     } else {
-      show = "show-hidden";
+      show = `show-hidden`;
       toggle = true;
     }
-    const reverseShow = (show === "show-hidden") ? "hide-hidden" : "show-hidden";
+    const reverseShow = (show === `show-hidden`) ? `hide-hidden` : `show-hidden`;
 
     // show path as links
-    const arr = path.split('/');
+    const arr = path.split(`/`);
     arr.shift();
-    let href = '';
-    let sorted = this.props.params.sortBy;
+    let href = ``;
+    const sorted = this.props.params.sortBy;
     const linksPathArr = arr.map((item, i) => {
-      href = href + '/' + item;
+      href = href + `/` + item;
       let el = <span key={i}><Link to={`/file-manager/${show}/${sorted}${href}/`}>{item}</Link> / </span>;
       if (i === arr.length - 1) {
         el = <span key={i}>{item} / </span>;
@@ -106,66 +106,66 @@ export default class FileManager extends React.Component {
       return el;
     });
 
-    const actionHome = <ActionHome style={{position: 'relative', top: '8px', height: '35px', width: '35px'}}/>;
-    if (path === '/') {
-      linksPathArr.unshift(<span key="-1">{actionHome}</span>);
+    const actionHome = <ActionHome style={{position: `relative`, top: `8px`, height: `35px`, width: `35px`}}/>;
+    if (path === `/`) {
+      linksPathArr.unshift(<span key='-1'>{actionHome}</span>);
     } else {
-      linksPathArr.unshift(<span key="-1">
+      linksPathArr.unshift(<span key='-1'>
         <Link to={`/file-manager/${show}/${sorted}/`}>{actionHome}</Link> /&nbsp;
       </span>);
     }
 
     // method sort of files and folders
-    let sortItemsBy = (keyInObjToSort) => {
+    const sortItemsBy = (keyInObjToSort) => {
       filesAndFolders = _.sortBy(filesAndFolders, [function (obj) {
-        return obj[keyInObjToSort]
+        return obj[keyInObjToSort];
       }]);
     };
 
-    let reverseSortItemsBy = (keyInObjToSort) => {
+    const reverseSortItemsBy = (keyInObjToSort) => {
       const sorted = _.sortBy(filesAndFolders, [function (obj) {
-        return obj[keyInObjToSort]
+        return obj[keyInObjToSort];
       }]);
       filesAndFolders = _.reverse(sorted);
     };
 
     let showArrow, showArrow1, showArrow2;
-    let spanArrowUp = <span style={{position: 'relative', top: '9px'}}><HadwareArrowUp /></span>;
-    let spanArrowDown = <span style={{position: 'relative', top: '9px'}}><HadwareArrowDown /></span>;
-    let sorted1 = "sort-name-asc";
-    let sorted2 = "sort-size-asc";
-    let sorted3 = "sort-modified-asc";
+    const spanArrowUp = <span style={{position: `relative`, top: `9px`}}><HadwareArrowUp /></span>;
+    const spanArrowDown = <span style={{position: `relative`, top: `9px`}}><HadwareArrowDown /></span>;
+    let sorted1 = `sort-name-asc`;
+    let sorted2 = `sort-size-asc`;
+    let sorted3 = `sort-modified-asc`;
     if (sorted === `sort-name-asc`) {
       showArrow = spanArrowUp;
       sorted1 = `sort-name-desc`;
-      sortItemsBy('name');
+      sortItemsBy(`name`);
     } else if (sorted === `sort-name-desc`) {
       showArrow = spanArrowDown;
       sorted1 = `sort-name-asc`;
-      reverseSortItemsBy('name');
-    } else if (sorted === "sort-size-asc") {
+      reverseSortItemsBy(`name`);
+    } else if (sorted === `sort-size-asc`) {
       showArrow1 = spanArrowUp;
-      sorted2 = "sort-size-desc";
-      sortItemsBy("size");
-    } else if (sorted === "sort-size-desc") {
+      sorted2 = `sort-size-desc`;
+      sortItemsBy(`size`);
+    } else if (sorted === `sort-size-desc`) {
       showArrow1 = spanArrowDown;
-      sorted2 = "sort-size-asc";
-      reverseSortItemsBy("size");
-    } else if (sorted === "sort-modified-asc") {
+      sorted2 = `sort-size-asc`;
+      reverseSortItemsBy(`size`);
+    } else if (sorted === `sort-modified-asc`) {
       showArrow2 = spanArrowUp;
-      sorted3 = "sort-modified-desc";
-      sortItemsBy("lastModified");
-    } else if (sorted === "sort-modified-desc") {
+      sorted3 = `sort-modified-desc`;
+      sortItemsBy(`lastModified`);
+    } else if (sorted === `sort-modified-desc`) {
       showArrow2 = spanArrowDown;
-      sorted3 = "sort-modified-asc";
-      reverseSortItemsBy("lastModified");
+      sorted3 = `sort-modified-asc`;
+      reverseSortItemsBy(`lastModified`);
     }
 
-    if (path !== "/" && path !== "") {
+    if (path !== `/` && path !== ``) {
       filesAndFolders = _.filter(filesAndFolders, function (obj) {
-        return obj.name !== ".."
+        return obj.name !== `..`;
       });
-      filesAndFolders.unshift({"name": "..", "kind": "folder"});
+      filesAndFolders.unshift({'name': `..`, 'kind': `folder`});
     }
 
     filesAndFolders.forEach(function (item, key) {
@@ -177,51 +177,50 @@ export default class FileManager extends React.Component {
     return (
       <div style={{width: scssVariables.width}}>
         <div style={{
-            backgroundColor: MyTheme.palette.primary2Color,
-            display: 'flex',
-            alignItems: 'center'
-          }}>
+          backgroundColor: MyTheme.palette.primary2Color,
+          display: `flex`,
+          alignItems: `center`
+        }}>
           <Error/>
-          <div style={{width: '45%'}}>
-            <h4 style={{marginTop: '0px', marginLeft: '15px'}}>{linksPathArr}</h4>
+          <div style={{width: `45%`}}>
+            <h4 style={{marginTop: `0px`, marginLeft: `15px`}}>{linksPathArr}</h4>
           </div>
-          <div style={{width: '20%'}}>
+          <div style={{width: `20%`}}>
             {
-              <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path === "/" ? '' : path}/`}>
-                <Toggle label="show hidden files" labelPosition="right" defaultToggled={toggle} onToggle={() => {}}/>
+              <Link to={`/file-manager/${reverseShow}/${this.props.params.sortBy}${path === `/` ? `` : path}/`}>
+                <Toggle label='show hidden files' labelPosition='right' defaultToggled={toggle} onToggle={() => {}}/>
               </Link>
             }
           </div>
-          <div style={{width: '35%'}}>
+          <div style={{width: `35%`}}>
             <FileUpload
-              url={variables.url + 'upload' + path}
+              url={variables.url + `upload` + path}
               onUploaded={() => this.requestDataFromServer(path)}
-              onError={() => console.log("Error")}
             />
           </div>
         </div>
         <Table>
           <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
             <TableRow>
-              <TableHeaderColumn style={{paddingLeft: '85px'}}>
-                <Link to={`/file-manager/${show}/${sorted1}${path === "/" ? '' : path}/`}>
-                  <span style={{lineHeight: '45px'}}>Name{showArrow}</span>
+              <TableHeaderColumn style={{paddingLeft: `85px`}}>
+                <Link to={`/file-manager/${show}/${sorted1}${path === `/` ? `` : path}/`}>
+                  <span style={{lineHeight: `45px`}}>Name{showArrow}</span>
                 </Link>
               </TableHeaderColumn>
               <TableHeaderColumn>
 
               </TableHeaderColumn>
-              <TableHeaderColumn style={{paddingLeft: '65px'}}>
-                <Link to={`/file-manager/${show}/${sorted2}${path === "/" ? '' : path}/`}>
-                  <span style={{lineHeight: '45px'}}>Size{showArrow1}</span>
+              <TableHeaderColumn style={{paddingLeft: `65px`}}>
+                <Link to={`/file-manager/${show}/${sorted2}${path === `/` ? `` : path}/`}>
+                  <span style={{lineHeight: `45px`}}>Size{showArrow1}</span>
                 </Link>
               </TableHeaderColumn>
-              <TableHeaderColumn style={{paddingLeft: '50px'}}>
-                <Link to={`/file-manager/${show}/${sorted3}${path === "/" ? '' : path}/`}>
-                  <span style={{lineHeight: '45px'}}>Modified{showArrow2}</span>
+              <TableHeaderColumn style={{paddingLeft: `50px`}}>
+                <Link to={`/file-manager/${show}/${sorted3}${path === `/` ? `` : path}/`}>
+                  <span style={{lineHeight: `45px`}}>Modified{showArrow2}</span>
                 </Link>
               </TableHeaderColumn>
-              <TableHeaderColumn style={{paddingLeft: '35px'}}>
+              <TableHeaderColumn style={{paddingLeft: `35px`}}>
                 <span>Action</span>
               </TableHeaderColumn>
             </TableRow>
@@ -236,12 +235,13 @@ export default class FileManager extends React.Component {
                                lastModified={el.lastModified}
                                size={el.size}
                                hideHidden={this.props.params.hideHidden}
-                               sortBy={this.props.params.sortBy}/>
+                               sortBy={this.props.params.sortBy}
+                />;
               })
             }
           </TableBody>
         </Table>
       </div>
-    )
+    );
   }
 }

@@ -20,6 +20,6 @@ ReactDOM.render(
       <Route path="/editor/*" component={Editor} />
     </Route>
   </Router>,
-  document.getElementById('app')
+  document.getElementById(`app`)
 );
 

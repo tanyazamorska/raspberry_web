@@ -31,10 +31,10 @@ import Notification from '../../components/common/Notification/Notification';
  */
 function getFileContents(path, callback) {
   $.ajax({
-    method: "POST",
-    url: variables.url + "cat",
-    data: JSON.stringify({"path": path}),
-    contentType: 'application/json',
+    method: `POST`,
+    url: variables.url + `cat`,
+    data: JSON.stringify({'path': path}),
+    contentType: `application/json`,
     complete: function (res) {
       callback(res.responseText);
     }
@@ -43,10 +43,10 @@ function getFileContents(path, callback) {
 
 function save(path, contents, callback) {
   $.ajax({
-    method: "POST",
-    url: variables.url + "echo",
-    data: JSON.stringify({"path": path, "contents": contents}),
-    contentType: 'application/json',
+    method: `POST`,
+    url: variables.url + `echo`,
+    data: JSON.stringify({'path': path, 'contents': contents}),
+    contentType: `application/json`,
     complete: function (res) {
       if (callback) {
         callback(res.responseJSON);
@@ -57,59 +57,57 @@ function save(path, contents, callback) {
 
 export default class Editor extends React.Component {
   componentWillMount() {
-    const self = this;
-    self.state = {contents: ""};
-    const path = "/" + this.props.params.splat;
+    this.state = {contents: ``};
+    const path = `/` + this.props.params.splat;
     getFileContents(path, data => {
-      self.setState({contents: data});
+      this.setState({contents: data});
     });
   }
 
   onSaveClick() {
-    const pathSave = '/' + this.props.params.splat;
-
+    const pathSave = `/` + this.props.params.splat;
     save(
       pathSave,
       this.state.contents,
-      () => Notification.show({text: 'File Saved'})
-    )
+      () => Notification.show({text: `File Saved`})
+    );
   }
 
   render() {
     const str = this.props.params.splat;
-    const dot = str.lastIndexOf('.');
-    const fileExtension = str.slice(dot + 1);
-    let mode = '';
-    if (fileExtension === 'js') {
-      mode = 'javascript';
-    } else if (fileExtension === 'java') {
-      mode = 'java';
-    } else if (fileExtension === 'sass') {
-      mode = 'sass';
-    } else if (fileExtension === 'py') {
-      mode = 'python';
-    } else if (fileExtension === 'xml') {
-      mode = 'xml';
-    } else if (fileExtension === 'rb') {
-      mode = 'ruby';
-    } else if (fileExtension === 'mysql') {
-      mode = 'mysql';
-    } else if (fileExtension === 'json') {
-      mode = 'json';
-    } else if (fileExtension === 'html') {
-      mode = 'html';
-    } else if (fileExtension === 'coffee') {
-      mode = 'coffee';
-    } else if (fileExtension === 'css') {
-      mode = 'css';
-    } else if (fileExtension === 'handlebars') {
-      mode = 'handlebars';
-    } else if (fileExtension === 'cs') {
-      mode = 'csharp';
-    } else if (fileExtension === 'golang') {
-      mode = 'go';
+    const dotPosition = str.lastIndexOf(`.`);
+    const fileExtension = str.slice(dotPosition + 1);
+    let mode = ``;
+    if (fileExtension === `js`) {
+      mode = `javascript`;
+    } else if (fileExtension === `java`) {
+      mode = `java`;
+    } else if (fileExtension === `sass`) {
+      mode = `sass`;
+    } else if (fileExtension === `py`) {
+      mode = `python`;
+    } else if (fileExtension === `xml`) {
+      mode = `xml`;
+    } else if (fileExtension === `rb`) {
+      mode = `ruby`;
+    } else if (fileExtension === `mysql`) {
+      mode = `mysql`;
+    } else if (fileExtension === `json`) {
+      mode = `json`;
+    } else if (fileExtension === `html`) {
+      mode = `html`;
+    } else if (fileExtension === `coffee`) {
+      mode = `coffee`;
+    } else if (fileExtension === `css`) {
+      mode = `css`;
+    } else if (fileExtension === `handlebars`) {
+      mode = `handlebars`;
+    } else if (fileExtension === `cs`) {
+      mode = `csharp`;
+    } else if (fileExtension === `golang`) {
+      mode = `go`;
     } else {
-      mode = 'markdown';
+      mode = `markdown`;
     }
     const self = this;
 
@@ -119,22 +117,22 @@ export default class Editor extends React.Component {
           showMenuIconButton={false}
           style={{width: scssVariables.width, backgroundColor: MyTheme.palette.primary2Color}}
           title={this.props.params.splat}
-          iconElementRight={<RaisedButton label="Save" style={{margin: "6px 12px"}}
+          iconElementRight={<RaisedButton label='Save' style={{margin: `6px 12px`}}
                                           onClick={() => this.onSaveClick()}/>}
         />
         <div style={{width: scssVariables.width}}>
           <AceEditor
             mode={mode}
-            theme="github"
+            theme='github'
             onChange={newValue => self.setState({contents: newValue})}
-            name="K-EDITOR"
+            name='K-EDITOR'
             editorProps={{$blockScrolling: true}}
             width={scssVariables.width}
-            fontSize="16px"
+            fontSize='16px'
             value={this.state.contents}
           />
         </div>
       </div>
-    )
+    );
   }
 }

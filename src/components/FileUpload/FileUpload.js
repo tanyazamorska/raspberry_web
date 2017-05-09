@@ -11,7 +11,7 @@ export default class FileUpload extends React.Component {
     if (file) {
       this.setState({'uploadButtonDisabled': false});
       this.data = new FormData();
-      this.data.append("data", file);
+      this.data.append(`data`, file);
     } else {
       this.setState({'uploadButtonDisabled':true});
     }
@@ -26,10 +26,10 @@ export default class FileUpload extends React.Component {
         cache: false,
         contentType: false,
         processData: false,
-        type: 'POST',
-        success: function(data) {
+        type: `POST`,
+        success: function() {
           if (self.props.onUploaded) {
-           Notification.show({text: 'File Uploaded'});
+            Notification.show({text: `File Uploaded`});
             self.props.onUploaded();
           }
         }
@@ -49,10 +49,10 @@ export default class FileUpload extends React.Component {
         <input type="file" onChange={event => this.onFileSelected(event)} />
         <RaisedButton label="Upload"
                       disabled={this.state.uploadButtonDisabled}
-                      onClick={event => this.onUploadPress()}
+                      onClick={event => this.onUploadPress(event)}
         />
       </div>
-    )
+    );
   }
 }
 

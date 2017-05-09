@@ -8,12 +8,12 @@ import ActionPets from 'material-ui/svg-icons/action/pets';
 import MyTheme from '../../MyTheme';
 import scssVariables from '../../scssVariables.js';
 
-const iconStyle = {width: '50%', height: '50%'};
+const iconStyle = {width: `50%`, height: `50%`};
 
 export default class Home extends React.Component {
   render() {
     return (
-      <div style={{width: scssVariables.width, marginLeft: '85px'}}>
+      <div style={{width: scssVariables.width, marginLeft: `85px`}}>
         <GridList cols={4}>
           <HomeButton to={`/file-manager/hide-hidden/not-sort/home/pi`}
                       backgroundColor={MyTheme.palette.primary3Color}
@@ -25,7 +25,7 @@ export default class Home extends React.Component {
           />
           <HomeButton to={`/sensors/`}
                       backgroundColor={MyTheme.palette.primary1Color}
-                      icon={<img src="icon.ico" style={{width: '70px', height: '60px', border: '5px solid black'}}/>}
+                      icon={<img src='icon.ico' style={{width: `70px`, height: `60px`, border: `5px solid black`}}/>}
           />
           <HomeButton to={`#`}
                       backgroundColor={MyTheme.palette.accent1Color}
@@ -33,7 +33,7 @@ export default class Home extends React.Component {
           />
         </GridList>
       </div>
-    )
+    );
   }
 }
 
@@ -43,10 +43,10 @@ class HomeButton extends React.Component {
       <Link to={this.props.to}>
         <FlatButton
           backgroundColor={this.props.backgroundColor}
-          style={{height: "140px", width: "200px"}}
+          style={{height: `140px`, width: `200px`}}
           icon={this.props.icon}
         />
       </Link>
-    )
+    );
   }
 }

@@ -1,23 +1,12 @@
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
 import * as _colors from 'material-ui/styles/colors';
 import * as _colorManipulator from 'material-ui/utils/colorManipulator';
 import * as _spacing from 'material-ui/styles/spacing';
-let _spacing2 = _interopRequireDefault(_spacing);
+const _spacing2 = _interopRequireDefault(_spacing);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-/**
- *  Light Theme is the default theme used in material-ui. It is guaranteed to
- *  have all theme variables needed for every component. Variables not defined
- *  in a custom theme will default to these values.
- */
-exports.default = {
+export default {
   spacing: _spacing2.default,
-  fontFamily: 'Roboto, sans-serif',
+  fontFamily: `Roboto, sans-serif`,
   borderRadius: 2,
   palette: {
     primary1Color: _colors.purple500,
@@ -37,8 +26,3 @@ exports.default = {
     shadowColor: _colors.fullBlack
   }
 };
-
-/**
- * NB: If you update this file, please also update `docs/src/app/customization/Themes.js`
- */
-

@@ -2,19 +2,24 @@ import React from 'react';
 import MyTheme from '../../../MyTheme';
 import * as colors from 'material-ui/styles/colors';
 
-let notificationThis = null;
+let instance = null;
+const defaultCfg = {
+  level: "success",
+  position: "top-right",
+  text: "",
+  duration: 3000
+};
 
 export default class Notification extends React.Component {
   constructor(props) {
     super(props);
-    notificationThis = this;
+    instance = this;
     this.state = {
       isVisible: false,
-      props: {
-        level: null,
-        position: null,
-        text: ''
-      }
+      level: defaultCfg.level,
+      position: defaultCfg.position,
+      text: defaultCfg.text,
+      duration: defaultCfg.duration
     };
   };
 
@@ -26,13 +31,15 @@ export default class Notification extends React.Component {
     this.setState({isVisible: false});
   }
 
+  levelMap = {
+    success: MyTheme.palette.accent1Color,
+    warning: colors.orange300,
+    error: colors.redA200
+  };
+
   render() {
-    const level = this.state.props.level || 'success';
-    const levelMap = {
-      success: MyTheme.palette.accent1Color,
-      warning: colors.orange300,
-      error: colors.redA200
-    };
+    const level = this.state.level;
+    const levelMap = this.levelMap;
     let backgroundColor = levelMap[level];
     if (!backgroundColor) {
       throw "Notification error: attribute level should be one of ['success', 'warning', 'error']";
@@ -49,7 +56,7 @@ export default class Notification extends React.Component {
       opacity: this.state.isVisible ? 1 : 0
     };
 
-    const position = this.state.props.position || 'top-right';
+    const position = this.state.position;
     if (position === 'top-left') {
       styles.top = '20px';
       styles.left = '30px';
@@ -78,24 +85,25 @@ export default class Notification extends React.Component {
       styles.bottom = '20px';
       styles.right = '30px';
     } else {
-      throw `Notification error. received unsupported property position: ${this.state.props.position}`;
+      throw `Notification error. Received unsupported property position: ${this.state.position}`;
     }
 
-    Notification.show = (config) => {
-      notificationThis.state.props.text = config.text;
-      notificationThis.state.props.level = config.level || "success";
-      notificationThis.state.props.position = config.position || 'top-right';
-      notificationThis.state.props.isVisible = this.showNotification();
-      notificationThis.state.props.duration = setTimeout(() => {
-        this.hideNotification();
-            }, 3000)
-    };
-
     return (
-        <div style={styles}>
-          <h3 style={{lineHeight: '10px', color: MyTheme.palette.alternateTextColor}}>{this.state.props.text}</h3>
-        </div>
-    )
+      <div style={styles}>
+        <h3 style={{lineHeight: '10px', color: MyTheme.palette.alternateTextColor}}>{this.state.text}</h3>
+      </div>
+    );
+  }
+
+  static show(config) {
+    instance.state.text = config.text || defaultCfg.text;
+    instance.state.level = config.level || defaultCfg.level;
+    instance.state.position = config.position || defaultCfg.position;
+    instance.state.duration = config.duration || defaultCfg.duration;
+
+    instance.showNotification();
+    setTimeout(() => {
+      instance.hideNotification();
+    }, instance.state.duration);
   }
 }
-

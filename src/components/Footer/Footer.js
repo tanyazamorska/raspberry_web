@@ -7,11 +7,11 @@ export default class Footer extends React.Component {
       <footer style={{
         backgroundColor: MyTheme.palette.shadowColor,
         color: MyTheme.palette.alternateTextColor,
-        padding: '50px 0',
+        padding: `50px 0`,
       }} >
-        <p style={{textAlign: 'center'}} >Copyright © 2017 Kitty House. All rights reserved.</p>
+        <p style={{textAlign: `center`}} >Copyright © 2017 Kitty House. All rights reserved.</p>
       </footer>
-    )
+    );
   }
 }
 
