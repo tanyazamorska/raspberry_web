@@ -140,14 +140,16 @@ export class Folder extends React.Component {
           {dateModified(this.props.lastModified)}
         </TableRowColumn>
         <TableRowColumn>
-          <a href={`${variables.url}download${this.props.path}/${this.props.name}`}
-             title='download' target='_blank'>
-            {downloadIcon(this.props.kind)}
-          </a>
-          <Link
-            to={`/editor${this.props.path}/${this.props.name}`} title='editor' target='_blank'>
-            {editorIcon(this.props.kind, this.props.size)}
-          </Link>
+          {
+            this.props.kind === `file` ? <a href={`${variables.url}download${this.props.path}/${this.props.name}`}
+                                            title='download' target='_blank'>{downloadIcon(this.props.kind)}
+            </a> : null
+          }
+          {
+            this.props.kind === `file` ? <Link to={`/editor${this.props.path}/${this.props.name}`} title='editor'
+                                               target='_blank'>{editorIcon(this.props.kind, this.props.size)}
+            </Link> : null
+          }
         </TableRowColumn>
       </TableRow>
     );
