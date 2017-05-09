@@ -10,7 +10,7 @@ export default class Error extends React.Component {
     instance = this;
     this.state = {
       isVisible: false,
-      text: ''
+      text: ``
     };
   }
 
@@ -31,7 +31,7 @@ export default class Error extends React.Component {
     );
   }
   static show(config) {
-    instance.state.text = config.text || defaultCfg.text;
+    instance.state.text = config.text || ``;
     instance.setState({isVisible: true});
   }
 }

@@ -16,7 +16,7 @@ ReactDOM.render(
     <Route path="/" component={Layout} >
       <Route path="/file-manager/:hideHidden/:sortBy/*" component={FileManager} />
       <Route path="/camera/" component={Camera} />
-      <Route path="/sensors/" component={Sensors} />
+      <Route path="/sensors/:tabs" component={Sensors} />
       <Route path="/editor/*" component={Editor} />
     </Route>
   </Router>,

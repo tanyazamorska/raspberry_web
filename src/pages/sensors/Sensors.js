@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link, browserHistory} from 'react-router';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import scssVariables from '../../scssVariables';
@@ -31,60 +32,65 @@ export default class Sensors extends React.Component {
       [71, 72, 73, 74, 75, 76, 77, 78],
     ];
 
+    function handleActive(tab) {
+      browserHistory.push(tab.props['data-route']);
+    }
+
+
     return (
       <div style={{width: scssVariables.width}}>
         <Tabs value={this.state.value} onChange={this.handleChange}>
-          <Tab label="Manual" value="a">
-            <div style={{height: '40px'}}> </div>
-            <Table>
-              <TableBody displayRowCheckbox={false} style={{border: `1px solid ${MyTheme.palette.borderColor}`}}>
-                {
-                  matrix.map((el) => {
-                    return (
-                      <TableRow>
-                        <TableRowColumn style={{
-                          border: `1px solid ${MyTheme.palette.borderColor}`,
-                          paddingLeft: '44px',
-                          height: '58px'
+          <Tab label='Manual' value="a" data-route='#/sensors/manual' onActive={handleActive}>
+          <div style={{height: '40px'}}> </div>
+          <Table>
+            <TableBody displayRowCheckbox={false} style={{border: `1px solid ${MyTheme.palette.borderColor}`}}>
+              {
+                matrix.map((el) => {
+                  return (
+                    <TableRow>
+                      <TableRowColumn style={{
+                        border: `1px solid ${MyTheme.palette.borderColor}`,
+                        paddingLeft: '44px',
+                        height: '58px'
+                      }}>
+                        <div style={{
+                          borderRadius: '25px',
+                          backgroundColor: MyTheme.palette.borderColor,
+                          width: '50px',
+                          height: '50px'
                         }}>
-                          <div style={{
-                            borderRadius: '25px',
-                            backgroundColor: MyTheme.palette.borderColor,
-                            width: '50px',
-                            height: '50px'
-                          }}>
-                            {el[0]}
-                          </div>
-                        </TableRowColumn>
-                        <TableRowColumn>
-                          {el[1]}
-                        </TableRowColumn>
-                        <TableRowColumn>
-                          {el[2]}
-                        </TableRowColumn>
-                        <TableRowColumn>
-                          {el[3]}
-                        </TableRowColumn>
-                        <TableRowColumn>
-                          {el[4]}
-                        </TableRowColumn>
-                        <TableRowColumn>
-                          {el[5]}
-                        </TableRowColumn>
-                        <TableRowColumn>
-                          {el[6]}
-                        </TableRowColumn>
-                        <TableRowColumn>
-                          {el[7]}
-                        </TableRowColumn>
-                      </TableRow>
-                    )
-                  })
-                }
-              </TableBody>
-            </Table>
-          </Tab>
-          <Tab label="Tab B" value="b">
+                          {el[0]}
+                        </div>
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {el[1]}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {el[2]}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {el[3]}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {el[4]}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {el[5]}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {el[6]}
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        {el[7]}
+                      </TableRowColumn>
+                    </TableRow>
+                  )
+                })
+              }
+            </TableBody>
+          </Table>
+        </Tab>
+          <Tab label='TAB B' value="b" data-route='#/sensors/tabB' onActive={handleActive}>
           </Tab>
         </Tabs>
       </div>
