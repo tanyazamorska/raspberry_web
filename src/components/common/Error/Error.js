@@ -8,7 +8,10 @@ export default class Error extends React.Component {
   constructor(props) {
     super(props);
     instance = this;
-    this.state = {isVisible: false};
+    this.state = {
+      isVisible: false,
+      text: ''
+    };
   }
 
   render() {
@@ -24,10 +27,11 @@ export default class Error extends React.Component {
     };
 
     return (
-      <div style={styles}>ERROR: CONNECTION REFUSED</div>
+      <div style={styles}>{this.state.text}</div>
     );
   }
-  static show() {
+  static show(config) {
+    instance.state.text = config.text || defaultCfg.text;
     instance.setState({isVisible: true});
   }
 }

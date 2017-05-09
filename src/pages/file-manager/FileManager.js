@@ -62,7 +62,7 @@ export default class FileManager extends React.Component {
         const state = res.responseJSON;
         self.setState(state);
       },
-      error: () => Error.show()
+      error: () => Error.show({text: 'ERROR: CONNECTION REFUSED'})
     });
   }
 
