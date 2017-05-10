@@ -25,7 +25,7 @@ export default class Home extends React.Component {
           />
           <HomeButton to={`/sensors/manual`}
                       backgroundColor={MyTheme.palette.primary1Color}
-                      icon={<img src='icon.ico' style={{width: `70px`, height: `60px`, border: `5px solid black`}}/>}
+                      icon={<img src='icon.svg' style={{width: `120px`, height: `160px`}}/>}
           />
           <HomeButton to={`#`}
                       backgroundColor={MyTheme.palette.accent1Color}
