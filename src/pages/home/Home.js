@@ -23,7 +23,7 @@ export default class Home extends React.Component {
                       backgroundColor={MyTheme.palette.primary2Color}
                       icon={<ImageCamera style={iconStyle}/>}
           />
-          <HomeButton to={`/led-matrix/manual`}
+          <HomeButton to={`/led-matrix/manual/`}
                       backgroundColor={MyTheme.palette.primary1Color}
                       icon={<img src='icon.svg' style={{width: `120px`, height: `160px`}}/>}
           />

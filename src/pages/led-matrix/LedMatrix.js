@@ -53,7 +53,7 @@ export default class LedMatrix extends React.Component {
     return (
       <div style={{width: scssVariables.width}}>
         <Tabs value={this.state.value} onChange={this.handleChange}>
-          <Tab label='Manual' value='a' data-route='#/led-matrix/manual' onActive={handleActive}>
+          <Tab label='Manual' value='a' data-route='#/led-matrix/manual/' onActive={handleActive}>
           <div style={{height: `40px`}}> </div>
           <Table>
             <TableBody displayRowCheckbox={false} style={{border: `1px solid ${MyTheme.palette.borderColor}`}}>
@@ -75,7 +75,7 @@ export default class LedMatrix extends React.Component {
             </TableBody>
           </Table>
         </Tab>
-          <Tab label='TAB B' value='b' data-route='#/led-matrix/tabB' onActive={handleActive}>
+          <Tab label='TAB B' value='b' data-route='#/led-matrix/tabB/' onActive={handleActive}>
           </Tab>
         </Tabs>
       </div>
