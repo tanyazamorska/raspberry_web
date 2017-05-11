@@ -69,15 +69,22 @@ export class Folder extends React.Component {
     };
 
     const editorIcon = (file, size) => {
+      const linkToEditor = (
+        <Link to={`/editor${this.props.path}/${this.props.name}`}
+              title='editor'
+              target='_blank'><EditorModeEdit />
+        </Link>
+      );
+
       if (file === `file` && size < 100000) {
         const nameOfFiles = this.props.name;
         const positionDot = nameOfFiles.lastIndexOf(`.`);
         const fileExtension = nameOfFiles.slice(positionDot + 1);
         if (nameOfFiles.charAt(0) === `.`) {
-          return <EditorModeEdit />;
+          return linkToEditor;
         }
         else if (positionDot === -1) {
-          return <EditorModeEdit />;
+          return linkToEditor;
         }
         else if (positionDot !== -1) {
           const arrayFilesExtension = [`txt`, `md`,  `ahk`,  `applescript`, `as`, `au3`, `bat`, `bas`, `cljs`,`cmd`,
@@ -93,7 +100,7 @@ export class Folder extends React.Component {
             `skq`, `sks`, `skt`, `skz`, `sln`, `spin`, `stk`, `swg`, `tcl`, `vap`, `vb`, `vbg`, `vbp`, `vip`, `vbproj`,
             `vcproj`, `vdproj`, `xpl`, `xq`, `xsl`, `y`, `css`, `html`, `sass`, `mysql`, `json`, `handlebars`, `go`];
           if (arrayFilesExtension.indexOf(fileExtension) !== -1) {
-            return <EditorModeEdit />;
+            return linkToEditor;
           }
         }
       }
@@ -146,9 +153,7 @@ export class Folder extends React.Component {
             </a> : null
           }
           {
-            this.props.kind === `file` ? <Link to={`/editor${this.props.path}/${this.props.name}`} title='editor'
-                                               target='_blank'>{editorIcon(this.props.kind, this.props.size)}
-            </Link> : null
+            editorIcon(this.props.kind, this.props.size)
           }
         </TableRowColumn>
       </TableRow>
