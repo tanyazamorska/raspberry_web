@@ -14,8 +14,6 @@ export default class Layout extends React.Component {
       <MuiThemeProvider muiTheme={getMuiTheme(MyTheme)}>
         <div style={{backgroundColor: MyTheme.palette.canvasColor}}>
           <Header />
-          <Notification/>
-          <Error/>
           <div style={{height: 70}}></div>
           <div style={{minHeight: 350,
             paddingBottom: 50,
@@ -25,6 +23,8 @@ export default class Layout extends React.Component {
             {this.props.children || <Home/>}
           </div>
           <Footer />
+          <Notification/>
+          <Error/>
         </div>
       </MuiThemeProvider>
     );

@@ -220,7 +220,7 @@ export default class FileManager extends React.Component {
                   <span style={{lineHeight: `45px`}}>Modified{showArrow2}</span>
                 </Link>
               </TableHeaderColumn>
-              <TableHeaderColumn style={{paddingLeft: `35px`, color: MyTheme.palette.pickerHeaderColor}}>
+              <TableHeaderColumn style={{paddingLeft: `35px`}}>
                <span>Action</span>
               </TableHeaderColumn>
             </TableRow>
