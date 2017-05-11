@@ -58,13 +58,12 @@ export default class LedMatrix extends React.Component {
           <Table>
             <TableBody displayRowCheckbox={false} style={{border: `1px solid ${MyTheme.palette.borderColor}`}}>
               {
-                matrix.map((row) => {
-                  return <TableRow>
+                matrix.map((row, i) => {
+                  return <TableRow key={i}>
                     {
-                      row.map(cell => (
-                        <TableRowColumn style={style.tableColumn}>
+                      row.map((cell, index) => (
+                        <TableRowColumn style={style.tableColumn} key={i + `` + index}>
                           <div style={style.itemCircle}>
-                            {cell}
                           </div>
                         </TableRowColumn>
                       ))
