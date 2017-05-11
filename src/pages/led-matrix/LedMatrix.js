@@ -55,25 +55,24 @@ class ManualTable extends React.Component {
     ];
 
     return (
-      <div>
-        <div style={{height: `40px`}}> </div>
-        <Table>
+      <div style={{marginTop: `35px`, width: `350px`}}>
+        <Table style={{width: `300px`}}>
           <TableBody displayRowCheckbox={false} style={{border: `1px solid ${MyTheme.palette.borderColor}`}}>
             {
               matrix.map((row, i) => {
-                return <TableRow key={i}>
+                return <TableRow key={i} style={{border: `0px`, height: `25px`}}>
                   {
                     row.map((cell, index) => (
                       <TableRowColumn key={i + `` + index} style={{
-                        border: `1px solid ${MyTheme.palette.borderColor}`,
-                        paddingLeft: `44px`,
-                        height: `58px`
+                        backgroundColor: MyTheme.palette.textColor,
+                        paddingLeft: `8px`,
+                        height: `25px`,
                       }}>
                         <div style={{
                           borderRadius: `25px`,
                           backgroundColor: MyTheme.palette.borderColor,
-                          width: `50px`,
-                          height: `50px`
+                          width: `25px`,
+                          height: `25px`
                         }}>
                         </div>
                       </TableRowColumn>
@@ -85,6 +84,6 @@ class ManualTable extends React.Component {
           </TableBody>
         </Table>
       </div>
-    )
+    );
   }
 }
