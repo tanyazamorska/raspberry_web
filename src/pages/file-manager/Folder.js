@@ -82,11 +82,9 @@ export class Folder extends React.Component {
         const fileExtension = nameOfFiles.slice(positionDot + 1);
         if (nameOfFiles.charAt(0) === `.`) {
           return linkToEditor;
-        }
-        else if (positionDot === -1) {
+        } else if (positionDot === -1) {
           return linkToEditor;
-        }
-        else if (positionDot !== -1) {
+        } else if (positionDot !== -1) {
           const arrayFilesExtension = [`txt`, `md`,  `ahk`,  `applescript`, `as`, `au3`, `bat`, `bas`, `cljs`,`cmd`,
             `coffee`, `duino`, `egg`, `egt`, `erb`, `hta`, `ibi`, `ici`, `ijs`, `ipynb`, `itcl`, `js`, `jsfl`, `lua`,
             `m`, `mrc`, `ncf`, `nuc`, `nud`, `nut`, `php`, `pl`, `pm`, `ps1`, `ps1xml`, `psc1`, `psd1`, `psm1`, `py`,
