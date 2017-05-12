@@ -1,6 +1,8 @@
 import React from 'react';
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
+import * as _colors from 'material-ui/styles/colors';
 import MyTheme from '../../MyTheme';
+
 
 export default class Manual extends React.Component {
   render() {
@@ -16,34 +18,36 @@ export default class Manual extends React.Component {
     ];
 
     return (
-      <div style={{marginTop: `35px`, width: `350px`}}>
-        <Table style={{width: `300px`}}>
-          <TableBody displayRowCheckbox={false} style={{border: `1px solid ${MyTheme.palette.borderColor}`}}>
-            {
-              matrix.map((row, rowI) => {
-                return <TableRow key={rowI} style={{border: `0px`, height: `25px`}}>
-                  {
-                    row.map((cell, cellI) => (
-                      <TableRowColumn key={`${rowI}${cellI}`} style={{
-                        backgroundColor: MyTheme.palette.textColor,
-                        paddingLeft: `8px`,
-                        height: `25px`,
-                      }}>
-                        <div style={{
-                          borderRadius: `25px`,
-                          backgroundColor: MyTheme.palette.borderColor,
-                          width: `25px`,
-                          height: `25px`
+      <div style={{marginTop: `35px`, display: `flex`, justifyContent: `center`}}>
+        <div style={{width: `380px`, margin: `auto`}}>
+          <Table style={{width: `380px`, border: `5px solid ${MyTheme.palette.textColor}`}}>
+            <TableBody displayRowCheckbox={false}>
+              {
+                matrix.map((row, rowI) => {
+                  return <TableRow key={rowI} style={{border: `0px`}}>
+                    {
+                      row.map((cell, cellI) => (
+                        <TableRowColumn key={`${rowI}${cellI}`} style={{
+                          backgroundColor: MyTheme.palette.textColor,
+                          paddingLeft: `4.5px`,
                         }}>
-                        </div>
-                      </TableRowColumn>
-                    ))
-                  }
-                </TableRow>;
-              })
-            }
-          </TableBody>
-        </Table>
+                          <div style={{
+                            borderRadius: `35px`,
+                            backgroundColor: _colors.grey600,
+                            width: `35px`,
+                            height: `35px`
+                          }}>
+                          </div>
+                        </TableRowColumn>
+                      ))
+                    }
+                  </TableRow>;
+                })
+              }
+            </TableBody>
+          </Table>
+        </div>
+        <div style={{width: `575px`}}></div>
       </div>
     );
   }
