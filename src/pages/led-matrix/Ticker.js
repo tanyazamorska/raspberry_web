@@ -41,7 +41,7 @@ class ChooseSpeed extends React.Component {
   render() {
     return (
       <SelectField
-        floatingLabelText='Choose speed'
+        floatingLabelText='Select speed'
         value={this.state.value}
         onChange={this.handleChange}
       >

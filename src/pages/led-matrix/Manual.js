@@ -2,6 +2,7 @@ import React from 'react';
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import * as _colors from 'material-ui/styles/colors';
 import MyTheme from '../../MyTheme';
+import Hint from '../../components/common/Hint/Hint';
 
 
 export default class Manual extends React.Component {
@@ -47,7 +48,9 @@ export default class Manual extends React.Component {
             </TableBody>
           </Table>
         </div>
-        <div style={{width: `575px`}}></div>
+        <div style={{width: `575px`}}>
+          <Hint text='Click on the circle!'/>
+        </div>
       </div>
     );
   }
