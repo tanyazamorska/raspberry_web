@@ -16,14 +16,15 @@ export default class Manual extends React.Component {
         [false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false],
         [false, false, false, false, false, false, false, false],
-        [false, false, false, false, false, false, true, true]
+        [false, false, false, false, false, false, false, false]
       ]
     };
   }
 
   clickMe = (cellI, rowI) => {
-    this.state.matrix[rowI][cellI] = !this.state.matrix[rowI][cellI];
-    return this.state.matrix;
+    const newMatrix = this.state.matrix;
+    newMatrix[rowI][cellI] = !newMatrix[rowI][cellI];
+    this.setState({matrix: newMatrix});
   };
 
   render() {
