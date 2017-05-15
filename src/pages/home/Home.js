@@ -27,7 +27,7 @@ export default class Home extends React.Component {
                       backgroundColor={MyTheme.palette.primary1Color}
                       icon={<img src='icon.svg' style={{width: `120px`, height: `170px`}}/>}
           />
-          <HomeButton to={`#`}
+          <HomeButton to={`/GPIO/`}
                       backgroundColor={MyTheme.palette.accent1Color}
                       icon={<ActionPets style={iconStyle}/>}
           />

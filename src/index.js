@@ -4,6 +4,7 @@ import {Router, Route, hashHistory} from 'react-router';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import Layout from './components/Layout/Layout';
 import FileManager from './pages/file-manager/FileManager.js';
+import GPIO from './pages/gpio/GPIO.js';
 import Camera from './pages/camera/Camera.js';
 import Editor from './pages/editor/Editor.js';
 import LedMatrix from './pages/led-matrix/LedMatrix.js';
@@ -23,6 +24,7 @@ ReactDOM.render(
         <Route path="ticker/" component={Ticker}/>
       </Route>
       <Route path="editor/*" component={Editor} />
+      <Route path="GPIO/" component={GPIO} />
     </Route>
   </Router>,
   document.getElementById(`app`)
