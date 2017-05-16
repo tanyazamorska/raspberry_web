@@ -4,7 +4,6 @@ import {GridList} from 'material-ui/GridList';
 import FlatButton from 'material-ui/FlatButton';
 import FileFolder from 'material-ui/svg-icons/file/folder';
 import ImageCamera from 'material-ui/svg-icons/image/camera-alt';
-import ActionPets from 'material-ui/svg-icons/action/pets';
 import MyTheme from '../../MyTheme';
 import scssVariables from '../../scssVariables.js';
 
@@ -25,11 +24,11 @@ export default class Home extends React.Component {
           />
           <HomeButton to={`/led-matrix/manual/`}
                       backgroundColor={MyTheme.palette.primary1Color}
-                      icon={<img src='icon.svg' style={{width: `120px`, height: `170px`}}/>}
+                      icon={<img src='icon.svg' style={{width: `95px`, height: `150px`}}/>}
           />
           <HomeButton to={`/GPIO/`}
                       backgroundColor={MyTheme.palette.accent1Color}
-                      icon={<ActionPets style={iconStyle}/>}
+                      icon={<img src='gpio.svg' style={{width: `95px`, height: `150px`}}/>}
           />
         </GridList>
       </div>
