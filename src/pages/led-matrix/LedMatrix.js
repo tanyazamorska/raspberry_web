@@ -2,7 +2,6 @@ import React from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import scssVariables from '../../scssVariables';
 
-
 export default class LedMatrix extends React.Component {
   render() {
     return (

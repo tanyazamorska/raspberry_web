@@ -21,7 +21,7 @@ export default class Manual extends React.Component {
     };
   }
 
-  clickMe = (cellI, rowI) => {
+  clickMe = (rowI, cellI) => {
     const newMatrix = this.state.matrix;
     newMatrix[rowI][cellI] = !newMatrix[rowI][cellI];
     this.setState({matrix: newMatrix});
@@ -54,8 +54,8 @@ export default class Manual extends React.Component {
                             backgroundColor:  colorCell,
                             width: `35px`,
                             height: `35px`,
-                            boxShadow: `0px 0px 10px ${colorCell}`
-                          }} onClick={() => this.clickMe(cellI, rowI)}>
+                            boxShadow: `0px 0px 10px ${colorCell},0px 0px 10px ${colorCell},0px 0px 10px ${colorCell}`
+                          }} onClick={() => this.clickMe(rowI, cellI)}>
                           </div>
                         </TableRowColumn>
                         );

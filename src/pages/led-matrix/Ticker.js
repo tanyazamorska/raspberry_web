@@ -3,6 +3,7 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import _ from 'lodash';
 
 export default class Ticker extends React.Component {
   render() {
@@ -24,10 +25,8 @@ export default class Ticker extends React.Component {
   }
 }
 
-const items = [];
-for (let i = 1; i <= 10; i++ ) {
-  items.push(<MenuItem value={i} key={i} primaryText={`Speed ${i}`} />);
-}
+
+const items = _.range(1, 11).map(item => <MenuItem value={item} key={item} primaryText={`Speed ${item}`} />);
 
 class ChooseSpeed extends React.Component {
   state = {

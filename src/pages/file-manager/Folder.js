@@ -10,20 +10,23 @@ import MyTheme from '../../MyTheme';
 import variables from '../../variables';
 
 export class Folder extends React.Component {
-  setSizeOfFile = (size, kind) => {
+  getSizeOfFile(size, kind) {
+    let res = ``;
     if (kind === `file`) {
-      if (size < 1000) {
-        size = size + ` B`;
-      } else if (size > 1000 && size < 99999) {
-        size = (size / 1000).toFixed(1) + ` kB`;
-      } else if (size < 1000000000) {
-        size = (size / 1000000).toFixed(1) + ` MB`;
+      if (size <= 1000) {
+        res = size + ` B`;
+      } else if (size <= 100000) {
+        res = (size / 1000).toFixed(1) + ` kB`;
+      } else if (size <= 1000000000) {
+        res = (size / 1000000).toFixed(1) + ` MB`;
+      } else {
+        res = (size / 1000000000).toFixed(1) + ` GB`;
       }
     } else {
-      size = `-`;
+      res = `-`;
     }
-    return size;
-  };
+    return res;
+  }
 
   dateModified = (modified) => {
     const date = moment(modified);
@@ -89,7 +92,11 @@ export class Folder extends React.Component {
           `vcproj`, `vdproj`, `xpl`, `xq`, `xsl`, `y`, `css`, `html`, `sass`, `mysql`, `json`, `handlebars`, `go`];
         if (arrayFilesExtension.indexOf(fileExtension) !== -1) {
           return linkToEditor;
+        } else {
+          return ``;
         }
+      } else {
+        return ``;
       }
     }
   };
@@ -139,7 +146,7 @@ export class Folder extends React.Component {
 
         </TableRowColumn>
         <TableRowColumn>
-          {this.setSizeOfFile(this.props.size, this.props.kind)}
+          {this.getSizeOfFile(this.props.size, this.props.kind)}
         </TableRowColumn>
         <TableRowColumn>
           {this.dateModified(this.props.lastModified)}
@@ -150,9 +157,7 @@ export class Folder extends React.Component {
                                             title='download' target='_blank'>{this.downloadIcon(this.props.kind)}
             </a> : null
           }
-          {
-            this.editorIcon(this.props.kind, this.props.size)
-          }
+          {this.editorIcon(this.props.kind, this.props.size)}
         </TableRowColumn>
       </TableRow>
     );
