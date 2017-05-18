@@ -21,6 +21,18 @@ export default class Manual extends React.Component {
     };
   }
 
+
+  // const m = [
+  //   "00010000",
+  //   "00010000",
+  //   "00110000",
+  //   "00010000",
+  //   "00010000",
+  //   "00010000",
+  //   "00010000",
+  //   "00111000"
+  // ]
+
   clickMe = (rowI, cellI) => {
     const newMatrix = this.state.matrix;
     newMatrix[rowI][cellI] = !newMatrix[rowI][cellI];

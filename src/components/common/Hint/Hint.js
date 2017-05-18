@@ -6,8 +6,8 @@ export default class Hint extends React.Component {
     return (
       <div>
         <div style={{
-          width: `205px`,
-          padding: `20px`,
+          width: `245px`,
+          paddingBottom: `25px`,
           backgroundColor: MyTheme.palette.accent1Color,
           borderRadius: `10px`,
           textAlign: `center`,
@@ -22,8 +22,8 @@ export default class Hint extends React.Component {
             borderRight: `20px solid ${MyTheme.palette.accent1Color}`,
             position: `relative`,
             display: `inline-block`,
-            left: `-190px`,
-            top: `13px`
+            left: `-187px`,
+            top: `20px`
           }}>
           </div>
         </div>
