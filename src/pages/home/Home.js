@@ -7,8 +7,6 @@ import ImageCamera from 'material-ui/svg-icons/image/camera-alt';
 import MyTheme from '../../MyTheme';
 import scssVariables from '../../scssVariables.js';
 
-const iconStyle = {width: `50%`, height: `50%`};
-
 export default class Home extends React.Component {
   render() {
     return (
@@ -16,19 +14,19 @@ export default class Home extends React.Component {
         <GridList cols={4}>
           <HomeButton to={`/file-manager/hide-hidden/not-sort/home/pi`}
                       backgroundColor={MyTheme.palette.primary3Color}
-                      icon={<FileFolder style={iconStyle}/>}
+                      icon={<FileFolder style={{width: `60%`, height: `105px`}}/>}
           />
           <HomeButton to={`/camera/`}
                       backgroundColor={MyTheme.palette.primary2Color}
-                      icon={<ImageCamera style={iconStyle}/>}
+                      icon={<ImageCamera style={{width: `60%`, height: `105px`}}/>}
           />
           <HomeButton to={`/led-matrix/manual/`}
                       backgroundColor={MyTheme.palette.primary1Color}
-                      icon={<img src='icon.svg' style={{width: `95px`}}/>}
+                      icon={<img src='icon.svg' style={{width: `100%`, height: `130px`}}/>}
           />
           <HomeButton to={`/GPIO/`}
                       backgroundColor={MyTheme.palette.accent1Color}
-                      icon={<img src='gpio.svg' style={{width: `95px`, height: `150px`}}/>}
+                      icon={<img src='gpio.svg' style={{width: `100%`, height: `130px`}}/>}
           />
         </GridList>
       </div>
