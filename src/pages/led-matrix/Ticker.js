@@ -16,10 +16,12 @@ export default class Ticker extends React.Component {
           fullWidth={true}
           type='text'
         />
-        <RaisedButton label="Send" secondary={true} />
+        <RaisedButton label='Send' secondary={true} />
         <div style={{height: `50px`}}>
         </div>
-       <ChooseSpeed/>
+       <SelectSpeed/>
+        <br/>
+       <SelectDirection/>
       </div>
     );
   }
@@ -28,7 +30,7 @@ export default class Ticker extends React.Component {
 
 const items = _.range(1, 11).map(item => <MenuItem value={item} key={item} primaryText={`Speed ${item}`} />);
 
-class ChooseSpeed extends React.Component {
+class SelectSpeed extends React.Component {
   state = {
     value: 1,
   };
@@ -42,9 +44,32 @@ class ChooseSpeed extends React.Component {
       <SelectField
         floatingLabelText='Select speed'
         value={this.state.value}
-        onChange={this.handleChange}
-      >
+        onChange={this.handleChange}>
         {items}
+      </SelectField>
+    );
+  }
+}
+
+class SelectDirection extends React.Component {
+  state = {
+    value: 1,
+  };
+
+  handleChange = (event, index, value) => {
+    this.setState({value});
+  };
+  render() {
+    return (
+      <SelectField
+        floatingLabelText='Select direction'
+        value={this.state.value}
+        onChange={this.handleChange}>
+        <MenuItem value={1} primaryText='Non' />
+        <MenuItem value={2} primaryText='Lef-Right' />
+        <MenuItem value={3} primaryText='Right-Left' />
+        <MenuItem value={4} primaryText='Top-Bottom' />
+        <MenuItem value={5} primaryText='Bottom-Top' />
       </SelectField>
     );
   }
