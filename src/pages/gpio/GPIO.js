@@ -4,254 +4,258 @@ import * as _colors from 'material-ui/styles/colors';
 import scssVariables from '../../scssVariables';
 import MyTheme from '../../MyTheme';
 
-const tabGpioLeft = [
+const tabGpio = [
   {
     'gpio': null,
     'name': `3.3 VDC`,
     'desc': `Power`,
-    'backgroundColor': MyTheme.palette.accent3Color
-  },
-  {
+    'backgroundColor': MyTheme.palette.accent3Color,
+    'number': 1
+  }, {
     'gpio': 8,
     'name': `GPIO 8`,
     'desc': `SDA1 (12C)`,
-    'backgroundColor': _colors.lightBlue500
-  },
-  {
+    'backgroundColor': _colors.lightBlue500,
+    'number': 3
+  }, {
     'gpio': 9,
     'name': `GPIO 9`,
     'desc': `SCL1 (12C)`,
-    'backgroundColor': _colors.lightBlue500
-  },
-  {
+    'backgroundColor': _colors.lightBlue500,
+    'number': 5
+  }, {
     'gpio': 7,
     'name': `GPIO 7`,
     'desc': `GPCLKO`,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 7
+  }, {
     'gpio': null,
     'name': `Ground`,
     'desc': ``,
-    'backgroundColor': MyTheme.palette.textColor
-  },
-  {
+    'backgroundColor': MyTheme.palette.textColor,
+    'number': 9
+  }, {
     'gpio': 0,
     'name': `GPIO 0`,
     'desc': ``,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 11
+  }, {
     'gpio': 2,
     'name': `GPIO 2`,
     'desc': ``,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 13
+  }, {
     'gpio': 3,
     'name': `GPIO 3`,
     'desc': ``,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 15
+  }, {
     'gpio': null,
     'name': `3.3 VDC`,
     'desc': `Power`,
-    'backgroundColor': _colors.amber500
-
-  },
-  {
+    'backgroundColor': _colors.amber500,
+    'number': 17
+  }, {
     'gpio': 12,
     'name': `GPIO 12`,
     'desc': `MOSI(SPI)`,
-    'backgroundColor': _colors.purpleA400
-  },
-  {
+    'backgroundColor': _colors.purpleA400,
+    'number': 19
+  }, {
     'gpio': 13,
     'name': `GPIO 13`,
     'desc': `MISO (SPI)`,
-    'backgroundColor': _colors.purpleA400
-  },
-  {
+    'backgroundColor': _colors.purpleA400,
+    'number': 21
+  }, {
     'gpio': 14,
     'name': `GPIO 14`,
     'desc': `SCLK(SPI)`,
-    'backgroundColor': _colors.purpleA400
-  },
-  {
+    'backgroundColor': _colors.purpleA400,
+    'number': 23
+  }, {
     'gpio': null,
     'name': `Ground`,
     'desc': ``,
-    'backgroundColor': MyTheme.palette.textColor
-  },
-  {
+    'backgroundColor': MyTheme.palette.textColor,
+    'number': 25
+  }, {
     'gpio': 30,
     'name': `SDAO`,
     'desc': `(12C EEPROM)`,
-    'backgroundColor': _colors.yellowA200
-
-  },
-  {
+    'backgroundColor': _colors.yellowA200,
+    'number': 27
+  }, {
     'gpio': 21,
     'name': `GPIO 21`,
     'desc': `GPCLK1`,
-    'backgroundColor': _colors.green800
+    'backgroundColor': _colors.green800,
+    'number': 29
   }, {
     'gpio': 22,
     'name': `GPIO 22`,
     'desc': `GPCLK2`,
-    'backgroundColor': _colors.green800
+    'backgroundColor': _colors.green800,
+    'number': 31
   }, {
     'gpio': 23,
     'name': `GPIO 23`,
     'desc': `PWM1`,
-    'backgroundColor': _colors.green800
+    'backgroundColor': _colors.green800,
+    'number': 33
   }, {
     'gpio': 24,
     'name': `GPIO 24`,
     'desc': `PCM_FS/PWM1`,
-    'backgroundColor': _colors.green800
+    'backgroundColor': _colors.green800,
+    'number': 35
   }, {
     'gpio': 25,
     'name': `GPIO 25`,
     'desc': ``,
-    'backgroundColor': _colors.green800
+    'backgroundColor': _colors.green800,
+    'number': 37
   }, {
     'gpio': null,
     'name': `Ground`,
     'desc': ``,
-    'backgroundColor': MyTheme.palette.textColor
-  }
-];
-
-const tabGpioRight = [
-  {
+    'backgroundColor': MyTheme.palette.textColor,
+    'number': 39
+  }, {
     'gpio': null,
     'name': `5.0 VDC`,
     'desc': `Power`,
-    'backgroundColor': _colors.redA700
-  },
-  {
+    'backgroundColor': _colors.redA700,
+    'number': 2
+  }, {
     'gpio': null,
     'name': `5.0 VDC`,
     'desc': `Power`,
-    'backgroundColor': _colors.redA700
-  },
-  {
+    'backgroundColor': _colors.redA700,
+    'number': 4
+  }, {
     'gpio': null,
     'name': `Ground`,
     'desc': ``,
-    'backgroundColor': MyTheme.palette.textColor
-  },
-  {
+    'backgroundColor': MyTheme.palette.textColor,
+    'number': 6
+  }, {
     'gpio': 15,
     'name': `GPIO 15`,
     'desc': `TxD(UART)`,
-    'backgroundColor': _colors.indigo700
-  },
-  {
+    'backgroundColor': _colors.indigo700,
+    'number': 8
+  }, {
     'gpio': 16,
     'name': `GPIO 16`,
     'desc': `RxD(UART)`,
-    'backgroundColor': _colors.indigo700
-  },
-  {
+    'backgroundColor': _colors.indigo700,
+    'number': 10
+  }, {
     'gpio': 1,
     'name': `GPIO 1`,
     'desc': `PCM_CLK/PWMO`,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 12
+  }, {
     'gpio': null,
     'name': `Ground`,
     'desc': ``,
-    'backgroundColor': MyTheme.palette.canvasColor
-  },
-  {
+    'backgroundColor': MyTheme.palette.canvasColor,
+    'number': 14
+  }, {
     'gpio': 4,
     'name': `GPIO 4`,
     'desc': ``,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 16
+  }, {
     'gpio': 5,
     'name': `GPIO 5`,
     'desc': ``,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 18
+  }, {
     'gpio': null,
     'name': `Ground`,
     'desc': ``,
-    'backgroundColor': MyTheme.palette.textColor
-  },
-  {
+    'backgroundColor': MyTheme.palette.textColor,
+    'number': 20
+  }, {
     'gpio': 6,
     'name': `GPIO 6`,
     'desc': ``,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 22
+  }, {
     'gpio': 10,
     'name': `GPIO 10`,
     'desc': `(SPI)`,
-    'backgroundColor': _colors.purpleA400
-  },
-  {
+    'backgroundColor': _colors.purpleA400,
+    'number': 24
+  }, {
     'gpio': 11,
     'name': `GPIO 11`,
     'desc': `CE1(SPI)`,
-    'backgroundColor': _colors.purpleA400
-  },
-  {
+    'backgroundColor': _colors.purpleA400,
+    'number': 26
+  }, {
     'gpio': 31,
     'name': `SCL0`,
     'desc': `(12C ID EEPROM)`,
-    'backgroundColor': _colors.yellowA200
-  },
-  {
+    'backgroundColor': _colors.yellowA200,
+    'number': 28
+  }, {
     'gpio': null,
     'name': `Ground`,
     'desc': ``,
-    'backgroundColor': MyTheme.palette.textColor
-  },
-  {
+    'backgroundColor': MyTheme.palette.textColor,
+    'number': 30
+  }, {
     'gpio': 26,
     'name': `GPIO 26`,
     'desc': `PWMO`,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 32
+  }, {
     'gpio': null,
     'name': `Ground`,
     'desc': ``,
-    'backgroundColor': MyTheme.palette.textColor
-  },
-  {
+    'backgroundColor': MyTheme.palette.textColor,
+    'number': 34
+  }, {
     'gpio': 27,
     'name': `GPIO 27`,
     'desc': ``,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 36
+  }, {
     'gpio': 28,
     'name': `GPIO 28`,
     'desc': `PCM_DIN`,
-    'backgroundColor': _colors.green800
-  },
-  {
+    'backgroundColor': _colors.green800,
+    'number': 38
+  }, {
     'gpio': 29,
     'name': `GPIO 29`,
     'desc': `PCM_DOUT`,
-    'backgroundColor': _colors.green800
-  },
+    'backgroundColor': _colors.green800,
+    'number': 40
+  }
 ];
 
 export default class GPIO extends React.Component {
   render() {
     return (
       <div style={{width: scssVariables.width}}>
-        <div style={{width: `40%`, margin: `auto`}}>
+        <div style={{width: `45%`, margin: `auto`}}>
+          <h3 style={{textAlign: `center`}}>
+            Raspberry Pi 3 Model B (J8 Header)
+          </h3>
           <div style={{
             width: `49%`,
             float: `left`,
@@ -275,41 +279,58 @@ export default class GPIO extends React.Component {
               </TableHeader>
               <TableBody displayRowCheckbox={false}>
                 {
-                  tabGpioLeft.map((el, key) => {
-                    return (
-                      <TableRow key={key} style={{height: `58px`}}>
-                        <TableRowColumn key={{key}}>
-                          <h2>{el.gpio}</h2>
-                        </TableRowColumn>
-                        <TableRowColumn key={key} style={{paddingLeft: `0`, height: `51px`}}>
-                          <div>{el.name}</div>
-                          <div>{el.desc}</div>
-                        </TableRowColumn>
-                        <TableRowColumn
-                          style={{width: `17%`, padding: 0, backgroundColor: MyTheme.palette.borderColor}}>
-                          <div style={{
-                            width: `30px`,
-                            height: `30px`,
-                            borderRadius: `25px`,
-                            border: `1px solid ${MyTheme.palette.textColor}`,
-                            margin: `auto`,
-                            backgroundColor: el.backgroundColor,
-                          }}>
+                  tabGpio.map((el, key) => {
+                    let borderRadius = null;
+                    if (el.number === 1) {
+                      borderRadius = `0`;
+                    } else {
+                      borderRadius = `25px`;
+                    }
+                    if (el.number % 2 === 1) {
+                      return (
+                        <TableRow key={key} style={{height: `58px`}}>
+                          <TableRowColumn key={{key}}>
+                            <h2>{el.gpio}</h2>
+                          </TableRowColumn>
+                          <TableRowColumn key={key} style={{paddingLeft: `0`, height: `51px`}}>
+                            <div>{el.name}</div>
+                            <div>{el.desc}</div>
                             <div style={{
-                              width: `16px`,
-                              height: `16px`,
-                              borderRadius: `25px`,
-                              border: `1px solid ${MyTheme.palette.textColor}`,
+                              display: `inline-block`,
                               position: `relative`,
-                              top: `6px`,
-                              left: `6px`,
-                              backgroundColor: MyTheme.palette.canvasColor,
+                              left: `92px`,
+                              top: `-14px`,
+                              transform: `rotate(270deg)`
                             }}>
+                              <b>{el.number}</b>
                             </div>
-                          </div>
-                        </TableRowColumn>
-                      </TableRow>
-                    );
+                          </TableRowColumn>
+                          <TableRowColumn
+                            style={{width: `16%`, padding: 0, backgroundColor: MyTheme.palette.borderColor}}>
+                            <div style={{
+                              width: `30px`,
+                              height: `30px`,
+                              borderRadius: borderRadius,
+                              border: `1px solid ${MyTheme.palette.textColor}`,
+                              margin: `auto`,
+                              backgroundColor: el.backgroundColor,
+                            }}>
+                              <div style={{
+                                width: `16px`,
+                                height: `16px`,
+                                borderRadius: `25px`,
+                                border: `1px solid ${MyTheme.palette.textColor}`,
+                                position: `relative`,
+                                top: `6px`,
+                                left: `6px`,
+                                backgroundColor: MyTheme.palette.canvasColor,
+                              }}>
+                              </div>
+                            </div>
+                          </TableRowColumn>
+                        </TableRow>
+                      );
+                    }
                   })
                 }
               </TableBody>
@@ -338,41 +359,52 @@ export default class GPIO extends React.Component {
               </TableHeader>
               <TableBody displayRowCheckbox={false}>
                 {
-                  tabGpioRight.map((el, key) => {
-                    return (
-                      <TableRow key={key} style={{height: `58px`}}>
-                        <TableRowColumn
-                          style={{width: `17%`, padding: 0, backgroundColor: MyTheme.palette.borderColor}}>
-                          <div style={{
-                            width: `30px`,
-                            height: `30px`,
-                            borderRadius: `25px`,
-                            border: `1px solid ${MyTheme.palette.textColor}`,
-                            margin: `auto`,
-                            backgroundColor: el.backgroundColor,
-                          }}>
+                  tabGpio.map((el, key) => {
+                    if (el.number % 2 === 0) {
+                      return (
+                        <TableRow key={key} style={{height: `58px`}}>
+                          <TableRowColumn
+                            style={{width: `16%`, padding: 0, backgroundColor: MyTheme.palette.borderColor}}>
                             <div style={{
-                              width: `16px`,
-                              height: `16px`,
+                              width: `30px`,
+                              height: `30px`,
                               borderRadius: `25px`,
                               border: `1px solid ${MyTheme.palette.textColor}`,
-                              position: `relative`,
-                              top: `6px`,
-                              left: `6px`,
-                              backgroundColor: MyTheme.palette.canvasColor,
+                              margin: `auto`,
+                              backgroundColor: el.backgroundColor,
                             }}>
+                              <div style={{
+                                width: `16px`,
+                                height: `16px`,
+                                borderRadius: `25px`,
+                                border: `1px solid ${MyTheme.palette.textColor}`,
+                                position: `relative`,
+                                top: `6px`,
+                                left: `6px`,
+                                backgroundColor: MyTheme.palette.canvasColor,
+                              }}>
+                              </div>
                             </div>
-                          </div>
-                        </TableRowColumn>`
-                        <TableRowColumn key={key} style={{textAlign: `right`}}>
-                          <div>{el.name}</div>
-                          <div>{el.desc}</div>
-                        </TableRowColumn>
-                        <TableRowColumn key={key} style={{paddingLeft: `54px`}}>
-                          <h2>{el.gpio}</h2>
-                        </TableRowColumn>
-                      </TableRow>
-                    );
+                          </TableRowColumn>`
+                          <TableRowColumn key={key} style={{textAlign: `right`}}>
+                            <div>{el.name}</div>
+                            <div>{el.desc}</div>
+                            <div style={{
+                              display: `inline-block`,
+                              position: `relative`,
+                              left: `-70px`,
+                              top: `-14px`,
+                              transform: `rotate(90deg)`
+                            }}>
+                              <b>{el.number}</b>
+                            </div>
+                          </TableRowColumn>
+                          <TableRowColumn key={key} style={{paddingLeft: `54px`}}>
+                            <h2>{el.gpio}</h2>
+                          </TableRowColumn>
+                        </TableRow>
+                      );
+                    }
                   })
                 }
               </TableBody>
