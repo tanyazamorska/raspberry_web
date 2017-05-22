@@ -11,6 +11,9 @@ export default class Hint extends React.Component {
           backgroundColor: MyTheme.palette.accent1Color,
           borderRadius: `10px`,
           textAlign: `center`,
+          position: `relative`,
+          top: this.props.top,
+          left: this.props.left
         }}
         >
           {this.props.text}
@@ -19,10 +22,10 @@ export default class Hint extends React.Component {
             height: `0px`,
             borderTop: `20px solid transparent`,
             borderBottom: `20px solid transparent`,
-            borderRight: `20px solid ${MyTheme.palette.accent1Color}`,
+            borderLeft: `20px solid ${MyTheme.palette.accent1Color}`,
             position: `relative`,
             display: `inline-block`,
-            left: `-187px`,
+            left: `66px`,
             top: `20px`
           }}>
           </div>

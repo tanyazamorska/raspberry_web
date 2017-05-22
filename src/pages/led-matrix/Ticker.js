@@ -3,38 +3,39 @@ import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import {GridList} from 'material-ui/GridList';
 import _ from 'lodash';
+import scssVariables from '../../scssVariables';
+import LedTable from './LedTable.js';
 
 export default class Ticker extends React.Component {
   render() {
     return (
-      <div>
-        <div style={{height: `30px`}}>
-        </div>
-        <TextField
-          hintText='Ticker'
-          fullWidth={true}
-          type='text'
-        />
-        <RaisedButton label='Send' secondary={true} />
-        <div style={{height: `50px`}}>
-        </div>
-       <SelectSpeed/>
-        <br/>
-       <SelectDirection/>
+      <div style={{width: scssVariables.width, paddingTop: `50px`}}>
+        <GridList cols={2} cellHeight={450}>
+          <div>
+            <TextField hintText='Ticker' fullWidth={true} type='text'/>
+            <RaisedButton label='Send' secondary={true}/>
+            <div style={{height: `50px`}}></div>
+            <SelectSpeed/>
+            <div style={{height: `50px`}}></div>
+            <SelectDirection/>
+          </div>
+          <div>
+            <LedTable/>
+          </div>
+        </GridList>
       </div>
     );
   }
 }
 
-
-const items = _.range(1, 11).map(item => <MenuItem value={item} key={item} primaryText={`Speed ${item}`} />);
+const items = _.range(1, 11).map(item => <MenuItem value={item} key={item} primaryText={`Speed ${item}`}/>);
 
 class SelectSpeed extends React.Component {
   state = {
     value: 1,
   };
-
   handleChange = (event, index, value) => {
     this.setState({value});
   };
@@ -51,25 +52,26 @@ class SelectSpeed extends React.Component {
   }
 }
 
+
 class SelectDirection extends React.Component {
   state = {
     value: 1,
   };
-
   handleChange = (event, index, value) => {
     this.setState({value});
   };
+
   render() {
     return (
       <SelectField
         floatingLabelText='Select direction'
         value={this.state.value}
         onChange={this.handleChange}>
-        <MenuItem value={1} primaryText='Non' />
-        <MenuItem value={2} primaryText='Lef-Right' />
-        <MenuItem value={3} primaryText='Right-Left' />
-        <MenuItem value={4} primaryText='Top-Bottom' />
-        <MenuItem value={5} primaryText='Bottom-Top' />
+        <MenuItem value={1} primaryText='Non'/>
+        <MenuItem value={2} primaryText='Lef-Right'/>
+        <MenuItem value={3} primaryText='Right-Left'/>
+        <MenuItem value={4} primaryText='Top-Bottom'/>
+        <MenuItem value={5} primaryText='Bottom-Top'/>
       </SelectField>
     );
   }
