@@ -20,11 +20,13 @@ export default class LedTable extends React.Component {
     };
   }
 
-  clickMe = (rowI, cellI) => {
+  onLedClick = (rowI, cellI) => {
     const newMatrix = this.state.matrix;
     newMatrix[rowI][cellI] = !newMatrix[rowI][cellI];
     this.setState({matrix: newMatrix});
   };
+
+
 
   render() {
     return (
@@ -46,14 +48,15 @@ export default class LedTable extends React.Component {
                       }
                       return (
                         <TableRowColumn key={`${rowI}${cellI}`}
-                                        style={{backgroundColor: MyTheme.palette.textColor, paddingLeft: `7px`}}>
+                                        style={{backgroundColor: MyTheme.palette.textColor, paddingLeft: `7px`}}
+                        >
                           <div style={{
                             borderRadius: `35px`,
                             backgroundColor: colorCell,
                             width: `35px`,
                             height: `35px`,
                             boxShadow: boxShadow,
-                          }} onClick={() => this.clickMe(rowI, cellI)}>
+                          }} onClick={() => this.onLedClick(rowI, cellI)}>
                           </div>
                         </TableRowColumn>
                       );
