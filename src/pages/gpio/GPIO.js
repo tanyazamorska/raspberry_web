@@ -252,7 +252,7 @@ export default class GPIO extends React.Component {
   render() {
     return (
       <div style={{width: scssVariables.width}}>
-        <div style={{width: `45%`, margin: `auto`}}>
+        <div style={{width: `50%`, margin: `auto`}}>
           <h3 style={{textAlign: `center`}}>
             Raspberry Pi 3 Model B (J8 Header)
           </h3>

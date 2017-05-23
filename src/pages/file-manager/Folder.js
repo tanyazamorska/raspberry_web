@@ -34,10 +34,10 @@ export class Folder extends React.Component {
     const month = date.format(`MMMM`); // May
     const year = date.format(`YYYY`); // 2015
     let lastModified = null; // 'YYYY.MM.DD hh:mm a'
-    //console.log(month + ' ' + day)
 
-    if (moment().format(`DD`) === day && moment().format(`MMMM`) === month) {
+    if (moment().format(`DD`) === day && moment().format(`MMMM`) === month && moment().format(`YYYY`) === year) {
       lastModified = date.format(`hh:mm a`);
+
       if (this.props.name === `..`) {
         lastModified = `-`;
       }
@@ -110,7 +110,6 @@ export class Folder extends React.Component {
   };
 
   render() {
-    //console.log(this.props.lastModified)
     let additionalClass = null;
     if (this.props.kind === `folder`) {
       additionalClass = <FileFolder

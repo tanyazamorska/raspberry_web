@@ -9,8 +9,27 @@ export default class Manual extends React.Component {
     return (
       <div style={{width: scssVariables.width, paddingTop: `50px`}}>
         <GridList cols={2} cellHeight={450}>
-          <GridTile containerElement={<Hint text='Click on the circle!' top='40px' left='300px'/>}/>
-          <GridTile containerElement={<LedTable/>}/>
+          <GridTile>
+            <div style={{textAlign: `right`, backgroundColor: `grey`}}>
+              <Hint arrow-direction='right' style={{color: `red`}} >Connect Led Matrix</Hint>
+              <div>
+                <div style={{display: `inline-block`, padding: `20px`, backgroundColor: `#a4a4a4`, marginBottom: `10px`}}>
+                  Connect Led Matrix
+                </div>
+              </div>
+              <div>
+                <div style={{display: `inline-block`, padding: `20px`, backgroundColor: `#a4a4a4`, marginBottom: `10px`}}>
+                  Click any led
+                </div>
+              </div>
+              <div>
+                <div style={{display: `inline-block`, padding: `20px`, backgroundColor: `#a4a4a4`, marginBottom: `10px`}}>
+                  real lead-matrix should have same state as virtual
+                </div>
+              </div>
+            </div>
+          </GridTile>
+          <GridTile><LedTable/></GridTile>
         </GridList>
       </div>
     );

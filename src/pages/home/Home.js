@@ -22,7 +22,7 @@ export default class Home extends React.Component {
           />
           <HomeButton to={`/led-matrix/manual/`}
                       backgroundColor={MyTheme.palette.primary1Color}
-                      icon={<img src='icon.svg' style={{width: `100%`, height: `130px`}}/>}
+                      icon={<img src='led-matrix.svg' style={{width: `100%`, height: `130px`}}/>}
           />
           <HomeButton to={`/GPIO/`}
                       backgroundColor={MyTheme.palette.accent1Color}
