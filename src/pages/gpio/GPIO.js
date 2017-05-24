@@ -12,6 +12,12 @@ const tabGpio = [
     'backgroundColor': MyTheme.palette.accent3Color,
     'number': 1
   }, {
+    'gpio': null,
+    'name': `5.0 VDC`,
+    'desc': `Power`,
+    'backgroundColor': _colors.redA700,
+    'number': 2
+  },{
     'gpio': 8,
     'name': `GPIO 8`,
     'desc': `SDA1 (12C)`,
@@ -125,12 +131,6 @@ const tabGpio = [
     'desc': ``,
     'backgroundColor': MyTheme.palette.textColor,
     'number': 39
-  }, {
-    'gpio': null,
-    'name': `5.0 VDC`,
-    'desc': `Power`,
-    'backgroundColor': _colors.redA700,
-    'number': 2
   }, {
     'gpio': null,
     'name': `5.0 VDC`,
@@ -256,162 +256,127 @@ export default class GPIO extends React.Component {
           <h3 style={{textAlign: `center`}}>
             Raspberry Pi 3 Model B (J8 Header)
           </h3>
-          <div style={{
-            width: `49%`,
-            float: `left`,
-            borderLeft: `1px solid ${MyTheme.palette.borderColor}`,
-            borderBottom: `1px solid ${MyTheme.palette.borderColor}`,
-            borderTop: `1px solid ${MyTheme.palette.borderColor}`
-          }}>
-            <Table>
-              <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-                <TableRow>
-                  <TableHeaderColumn style={{color: MyTheme.palette.textColor}}>
-                    GPIO#
-                  </TableHeaderColumn>
-                  <TableHeaderColumn style={{color: MyTheme.palette.textColor}}>
-                    NAME
-                  </TableHeaderColumn>
-                  <TableHeaderColumn>
+          <Table>
+            <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
+              <TableRow>
+                <TableHeaderColumn style={{color: MyTheme.palette.textColor}}>
+                  GPIO#
+                </TableHeaderColumn>
+                <TableHeaderColumn style={{color: MyTheme.palette.textColor}}>
+                  NAME
+                </TableHeaderColumn>
+                <TableHeaderColumn>
 
-                  </TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false}>
-                {
-                  tabGpio.map((el, key) => {
-                    let borderRadius = null;
-                    if (el.number === 1) {
-                      borderRadius = `0`;
-                    } else {
-                      borderRadius = `25px`;
-                    }
-                    if (el.number % 2 === 1) {
-                      return (
-                        <TableRow key={key} style={{height: `58px`}}>
-                          <TableRowColumn key={{key}}>
-                            <h2>{el.gpio}</h2>
-                          </TableRowColumn>
-                          <TableRowColumn key={key} style={{paddingLeft: `0`, height: `51px`}}>
-                            <div>{el.name}</div>
-                            <div>{el.desc}</div>
-                            <div style={{
-                              display: `inline-block`,
-                              position: `relative`,
-                              left: `92px`,
-                              top: `-14px`,
-                              transform: `rotate(270deg)`
-                            }}>
-                              <b>{el.number}</b>
-                            </div>
-                          </TableRowColumn>
-                          <TableRowColumn
-                            style={{width: `16%`, padding: 0, backgroundColor: MyTheme.palette.borderColor}}>
-                            <div style={{
-                              width: `30px`,
-                              height: `30px`,
-                              borderRadius: borderRadius,
-                              border: `1px solid ${MyTheme.palette.textColor}`,
-                              margin: `auto`,
-                              backgroundColor: el.backgroundColor,
-                            }}>
-                              <div style={{
-                                width: `16px`,
-                                height: `16px`,
-                                borderRadius: `25px`,
-                                border: `1px solid ${MyTheme.palette.textColor}`,
-                                position: `relative`,
-                                top: `6px`,
-                                left: `6px`,
-                                backgroundColor: MyTheme.palette.canvasColor,
-                              }}>
-                              </div>
-                            </div>
-                          </TableRowColumn>
-                        </TableRow>
-                      );
-                    }
-                  })
-                }
-              </TableBody>
-            </Table>
-          </div>
-          <div style={{
-            width: `50%`,
-            float: `left`,
-            borderRight: `1px solid ${MyTheme.palette.borderColor}`,
-            borderBottom: `1px solid ${MyTheme.palette.borderColor}`,
-            borderTop: `1px solid ${MyTheme.palette.borderColor}`
-          }}>
-            <Table>
-              <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
-                <TableRow>
-                  <TableHeaderColumn>
-
-                  </TableHeaderColumn>
-                  <TableHeaderColumn style={{paddingLeft: 0, color: MyTheme.palette.textColor}}>
-                    NAME
-                  </TableHeaderColumn>
-                  <TableHeaderColumn style={{color: MyTheme.palette.textColor}}>
-                    GPIO#
-                  </TableHeaderColumn>
-                </TableRow>
-              </TableHeader>
-              <TableBody displayRowCheckbox={false}>
-                {
-                  tabGpio.map((el, key) => {
-                    if (el.number % 2 === 0) {
-                      return (
-                        <TableRow key={key} style={{height: `58px`}}>
-                          <TableRowColumn
-                            style={{width: `16%`, padding: 0, backgroundColor: MyTheme.palette.borderColor}}>
-                            <div style={{
-                              width: `30px`,
-                              height: `30px`,
-                              borderRadius: `25px`,
-                              border: `1px solid ${MyTheme.palette.textColor}`,
-                              margin: `auto`,
-                              backgroundColor: el.backgroundColor,
-                            }}>
-                              <div style={{
-                                width: `16px`,
-                                height: `16px`,
-                                borderRadius: `25px`,
-                                border: `1px solid ${MyTheme.palette.textColor}`,
-                                position: `relative`,
-                                top: `6px`,
-                                left: `6px`,
-                                backgroundColor: MyTheme.palette.canvasColor,
-                              }}>
-                              </div>
-                            </div>
-                          </TableRowColumn>`
-                          <TableRowColumn key={key} style={{textAlign: `right`}}>
-                            <div>{el.name}</div>
-                            <div>{el.desc}</div>
-                            <div style={{
-                              display: `inline-block`,
-                              position: `relative`,
-                              left: `-70px`,
-                              top: `-14px`,
-                              transform: `rotate(90deg)`
-                            }}>
-                              <b>{el.number}</b>
-                            </div>
-                          </TableRowColumn>
-                          <TableRowColumn key={key} style={{paddingLeft: `54px`}}>
-                            <h2>{el.gpio}</h2>
-                          </TableRowColumn>
-                        </TableRow>
-                      );
-                    }
-                  })
-                }
-              </TableBody>
-            </Table>
-          </div>
+                </TableHeaderColumn>
+                <TableHeaderColumn style={{color: MyTheme.palette.textColor}}>
+                  NAME
+                </TableHeaderColumn>
+                <TableHeaderColumn style={{color: MyTheme.palette.textColor}}>
+                  GPIO#
+                </TableHeaderColumn>
+              </TableRow>
+            </TableHeader>
+            <TableBody displayRowCheckbox={false}>
+              {
+                tabGpio.map((el, key) => {
+                  let borderRadius = null;
+                  if (el.number === 1) {
+                    borderRadius = `0`;
+                  } else {
+                    borderRadius = `25px`;
+                  }
+                  return (
+                    <TableRow key={key}>
+                      <TableRowColumn key={{key}}>
+                        <h2>{el.number % 2 === 1 ? el.gpio : 0}</h2>
+                      </TableRowColumn>
+                      <TableRowColumn key={key}>
+                        <div>{el.number % 2 === 1 ? el.name : 0}</div>
+                        <div>{el.number % 2 === 1 ? el.desc : 0}</div>
+                        <div style={{
+                          display: `inline-block`,
+                          position: `relative`,
+                          left: `92px`,
+                          top: `-14px`,
+                          transform: `rotate(270deg)`
+                        }}>
+                          <b>{el.number % 2 === 1 ? el.number : 0}</b>
+                        </div>
+                      </TableRowColumn>
+                      <TableRowColumn
+                        style={{width: `16%`, padding: 0, backgroundColor: MyTheme.palette.borderColor}}>
+                        <div style={{
+                          width: `30px`,
+                          height: `30px`,
+                          borderRadius: borderRadius,
+                          border: `1px solid ${MyTheme.palette.textColor}`,
+                          margin: `auto`,
+                          backgroundColor: el.number % 2 === 1 ? el.backgroundColor : 0,
+                          float: `left`
+                        }}>
+                          <div style={{
+                            width: `16px`,
+                            height: `16px`,
+                            borderRadius: `25px`,
+                            border: `1px solid ${MyTheme.palette.textColor}`,
+                            position: `relative`,
+                            top: `6px`,
+                            left: `6px`,
+                            backgroundColor: MyTheme.palette.canvasColor,
+                          }}>
+                          </div>
+                        </div>
+                        <div style={{
+                          width: `30px`,
+                          height: `30px`,
+                          borderRadius: `25px`,
+                          border: `1px solid ${MyTheme.palette.textColor}`,
+                          margin: `auto`,
+                          backgroundColor: `red`,
+                          float: `left`
+                        }}>
+                          <div style={{
+                            width: `16px`,
+                            height: `16px`,
+                            borderRadius: `25px`,
+                            border: `1px solid ${MyTheme.palette.textColor}`,
+                            position: `relative`,
+                            top: `6px`,
+                            left: `6px`,
+                            backgroundColor: MyTheme.palette.canvasColor,
+                          }}>
+                          </div>
+                        </div>
+                      </TableRowColumn>
+                      <TableRowColumn key={key}>
+                        <div>{el.number % 2 === 0 ? el.name : 0}</div>
+                        <div>{el.number % 2 === 0 ? el.desc : 0}</div>
+                        <div style={{
+                          display: `inline-block`,
+                          position: `relative`,
+                          left: `-70px`,
+                          top: `-14px`,
+                          transform: `rotate(90deg)`
+                        }}>
+                          <b>{el.number % 2 === 0 ? el.number : 0}</b>
+                        </div>
+                      </TableRowColumn>
+                      <TableRowColumn key={key}>
+                        <h2>{el.number % 2 === 0 ? el.gpio : 0}</h2>
+                      </TableRowColumn>
+                    </TableRow>
+                  )
+                })
+              }
+              }
+            </TableBody>
+          </Table>
         </div>
       </div>
     );
   }
 }
+
+
+
+
