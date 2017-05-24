@@ -13,7 +13,8 @@ export default class Ticker extends React.Component {
     super(props);
     this.state = {
       speed: 1,
-      direction: 1
+      direction: `Non`,
+      text: null
     };
   }
 
@@ -43,17 +44,17 @@ export default class Ticker extends React.Component {
         floatingLabelText='Select direction'
         value={this.state.direction}
         onChange={this.directionChange}>
-        <MenuItem value={1} primaryText='Non'/>
-        <MenuItem value={2} primaryText='Lef-Right'/>
-        <MenuItem value={3} primaryText='Right-Left'/>
-        <MenuItem value={4} primaryText='Top-Bottom'/>
-        <MenuItem value={5} primaryText='Bottom-Top'/>
+        <MenuItem value={`Non`} primaryText='Non'/>
+        <MenuItem value={`Lef-Right`} primaryText='Lef-Right'/>
+        <MenuItem value={`Right-Left`} primaryText='Right-Left'/>
+        <MenuItem value={`Top-Bottom`} primaryText='Top-Bottom'/>
+        <MenuItem value={`Bottom-Top`} primaryText='Bottom-Top'/>
       </SelectField>
     );
   };
 
-  onClick = () => {
-    //console.log(this)
+  onClickSaveButton = () => {
+    console.log(this.state)
   };
 
   render() {
@@ -62,10 +63,10 @@ export default class Ticker extends React.Component {
         <GridList cols={2} cellHeight={450}>
           <div>
             <div style={{marginBottom: `50px`}}>
-              <TextField hintText='Ticker' fullWidth={true} type='text'/>
+              <TextField hintText='Ticker' onChange={(event, newValue) => {this.setState({text: newValue})}} fullWidth={true} type='text'/>
               <RaisedButton label='Send'
                             secondary={true}
-                            onTouchTap={() => this.onClick()}
+                            onTouchTap={(newValue) => this.onClickSaveButton()}
                             style={{position: `relative`, left: `485px`}}/>
             </div>
             <div style={{marginBottom: `50px`}}>
