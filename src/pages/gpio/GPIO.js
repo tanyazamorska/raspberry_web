@@ -248,6 +248,13 @@ const tabGpio = [
   }
 ];
 
+const newArr = [];
+for (let el = 0; el <= tabGpio.length; el++) {
+  let first = el++;
+  newArr.push([tabGpio[first], tabGpio[el]]);
+}
+console.log(newArr)
+
 export default class GPIO extends React.Component {
   render() {
     return (
@@ -278,9 +285,9 @@ export default class GPIO extends React.Component {
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
               {
-                tabGpio.map((el, key) => {
+                newArr.map((el, key) => {
                   let borderRadius = null;
-                  if (el.number === 1) {
+                  if (el[0][`number`] === 1) {
                     borderRadius = `0`;
                   } else {
                     borderRadius = `25px`;
@@ -288,30 +295,30 @@ export default class GPIO extends React.Component {
                   return (
                     <TableRow key={key}>
                       <TableRowColumn key={{key}}>
-                        <h2>{el.number % 2 === 1 ? el.gpio : 0}</h2>
+                        <h2>{el[0][`gpio`]}</h2>
                       </TableRowColumn>
-                      <TableRowColumn key={key}>
-                        <div>{el.number % 2 === 1 ? el.name : 0}</div>
-                        <div>{el.number % 2 === 1 ? el.desc : 0}</div>
+                      <TableRowColumn key={key} style={{paddingLeft: 0}}>
+                        <div>{el[0][`name`]}</div>
+                        <div>{el[0][`desc`]}</div>
                         <div style={{
                           display: `inline-block`,
                           position: `relative`,
-                          left: `92px`,
+                          left: `105px`,
                           top: `-14px`,
                           transform: `rotate(270deg)`
                         }}>
-                          <b>{el.number % 2 === 1 ? el.number : 0}</b>
+                          <b>{el[0][`number`]}</b>
                         </div>
                       </TableRowColumn>
                       <TableRowColumn
-                        style={{width: `16%`, padding: 0, backgroundColor: MyTheme.palette.borderColor}}>
+                        style={{width: `16%`, padding: `0 0 0 5px`, backgroundColor: MyTheme.palette.borderColor}}>
                         <div style={{
                           width: `30px`,
                           height: `30px`,
                           borderRadius: borderRadius,
                           border: `1px solid ${MyTheme.palette.textColor}`,
-                          margin: `auto`,
-                          backgroundColor: el.number % 2 === 1 ? el.backgroundColor : 0,
+                          margin: `5px`,
+                          backgroundColor: el[0][`backgroundColor`],
                           float: `left`
                         }}>
                           <div style={{
@@ -331,8 +338,8 @@ export default class GPIO extends React.Component {
                           height: `30px`,
                           borderRadius: `25px`,
                           border: `1px solid ${MyTheme.palette.textColor}`,
-                          margin: `auto`,
-                          backgroundColor: `red`,
+                          margin: `5px`,
+                          backgroundColor: el[1][`backgroundColor`],
                           float: `left`
                         }}>
                           <div style={{
@@ -348,26 +355,25 @@ export default class GPIO extends React.Component {
                           </div>
                         </div>
                       </TableRowColumn>
-                      <TableRowColumn key={key}>
-                        <div>{el.number % 2 === 0 ? el.name : 0}</div>
-                        <div>{el.number % 2 === 0 ? el.desc : 0}</div>
+                      <TableRowColumn key={key} style={{paddingLeft: `44px`}}>
+                        <div>{el[1][`name`]}</div>
+                        <div>{el[1][`desc`]}</div>
                         <div style={{
                           display: `inline-block`,
                           position: `relative`,
-                          left: `-70px`,
+                          left: `-38px`,
                           top: `-14px`,
                           transform: `rotate(90deg)`
                         }}>
-                          <b>{el.number % 2 === 0 ? el.number : 0}</b>
+                          <b>{el[1][`number`]}</b>
                         </div>
                       </TableRowColumn>
                       <TableRowColumn key={key}>
-                        <h2>{el.number % 2 === 0 ? el.gpio : 0}</h2>
+                        <h2>{el[1][`gpio`]}</h2>
                       </TableRowColumn>
                     </TableRow>
                   )
                 })
-              }
               }
             </TableBody>
           </Table>
@@ -376,6 +382,8 @@ export default class GPIO extends React.Component {
     );
   }
 }
+
+
 
 
 

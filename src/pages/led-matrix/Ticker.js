@@ -63,7 +63,9 @@ export default class Ticker extends React.Component {
         <GridList cols={2} cellHeight={450}>
           <div>
             <div style={{marginBottom: `50px`}}>
-              <TextField hintText='Ticker' onChange={(event, newValue) => {this.setState({text: newValue})}} fullWidth={true} type='text'/>
+              <TextField hintText='Ticker'
+                         onChange={(event, newValue) => {this.setState({text: newValue})}}
+                         fullWidth={true} type='text'/>
               <RaisedButton label='Send'
                             secondary={true}
                             onTouchTap={(newValue) => this.onClickSaveButton()}
