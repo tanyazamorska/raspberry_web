@@ -22,12 +22,9 @@ export default class LedTable extends React.Component {
   }
 
   onLedClick = (rowI, cellI) => {
-    if (_.isFunction(this.props.onLedClick)) {
+    if (_.isFunction(this.props.onLedClick)) { // true or false
       this.props.onLedClick(this.state, rowI, cellI);
     }
-    // const newMatrix = this.state.matrix;
-    // newMatrix[rowI][cellI] = !newMatrix[rowI][cellI];
-    // this.setState({matrix: newMatrix});
   };
 
   render() {

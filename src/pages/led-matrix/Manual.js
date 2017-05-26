@@ -7,7 +7,9 @@ import Hint from '../../components/common/Hint/Hint';
 export default class Manual extends React.Component {
 
   onLedClick = (ledState, rowI, cellI) => {
-    console.log(`hello`);
+    const newMatrix = ledState.matrix;
+    newMatrix[rowI][cellI] = !newMatrix[rowI][cellI];
+    this.setState({matrix: newMatrix});
   };
 
   render() {
