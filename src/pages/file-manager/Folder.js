@@ -165,4 +165,3 @@ export class Folder extends React.Component {
     );
   }
 }
-
