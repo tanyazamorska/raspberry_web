@@ -8,13 +8,18 @@ import _ from 'lodash';
 import scssVariables from '../../scssVariables';
 import LedTable from './LedTable.js';
 
+//const topLeft = `Top-Left`;
+// const formGroupStyle = {
+//   marginBottom: `50px`
+// };
+
 export default class Ticker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       speed: 1,
-      direction: `Non`,
-      text: null
+      direction: `None`,
+      text: ``
     };
   }
 
@@ -44,8 +49,8 @@ export default class Ticker extends React.Component {
         floatingLabelText='Select direction'
         value={this.state.direction}
         onChange={this.directionChange}>
-        <MenuItem value={`Non`} primaryText='Non'/>
-        <MenuItem value={`Lef-Right`} primaryText='Lef-Right'/>
+        <MenuItem value={`None`} primaryText='None'/>
+        <MenuItem value={`Left-Right`} primaryText='Left-Right'/>
         <MenuItem value={`Right-Left`} primaryText='Right-Left'/>
         <MenuItem value={`Top-Bottom`} primaryText='Top-Bottom'/>
         <MenuItem value={`Bottom-Top`} primaryText='Bottom-Top'/>
@@ -54,22 +59,22 @@ export default class Ticker extends React.Component {
   };
 
   onClickSaveButton = () => {
-    console.log(this.state)
+    //console.log(this.state);
   };
 
   render() {
     return (
-      <div style={{width: scssVariables.width, paddingTop: `50px`}}>
+      <div style={{width: scssVariables.width}}>
         <GridList cols={2} cellHeight={450}>
           <div>
             <div style={{marginBottom: `50px`}}>
-              <TextField hintText='Ticker'
-                         onChange={(event, newValue) => {this.setState({text: newValue})}}
+              <TextField hintText='Type something'
+                         onChange={(event, newValue) => {this.setState({text: newValue});}}
                          fullWidth={true} type='text'/>
               <RaisedButton label='Send'
                             secondary={true}
-                            onTouchTap={(newValue) => this.onClickSaveButton()}
-                            style={{position: `relative`, left: `485px`}}/>
+                            onTouchTap={() => this.onClickSaveButton()}
+                            style={{float: `right`}}/>
             </div>
             <div style={{marginBottom: `50px`}}>
               {this.SelectSpeed()}

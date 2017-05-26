@@ -6,7 +6,7 @@ export default class LedMatrix extends React.Component {
   render() {
     return (
       <div style={{width: scssVariables.width}}>
-        <Tabs>
+        <Tabs style={{marginBottom: `70px`}}>
           <Tab label='Manual' onActive={() => this.props.router.push(`/led-matrix/manual/`)}>
           </Tab>
           <Tab label='Ticker' onActive={() => this.props.router.push(`/led-matrix/ticker/`)}>

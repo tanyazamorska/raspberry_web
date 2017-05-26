@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link, browserHistory} from 'react-router';
 import $ from 'jquery';
-import _ from "lodash";
+import _ from 'lodash';
 import {Table, TableBody, TableRow, TableHeaderColumn, TableHeader} from 'material-ui/Table';
 import ActionHome from 'material-ui/svg-icons/action/home';
 import HadwareArrowUp from 'material-ui/svg-icons/hardware/keyboard-arrow-up';

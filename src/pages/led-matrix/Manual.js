@@ -5,16 +5,21 @@ import scssVariables from '../../scssVariables';
 import Hint from '../../components/common/Hint/Hint';
 
 export default class Manual extends React.Component {
+
+  onLedClick = (ledState, rowI, cellI) => {
+    console.log(`hello`);
+  };
+
   render() {
     return (
-      <div style={{width: scssVariables.width, paddingTop: `50px`}}>
+      <div style={{width: scssVariables.width}}>
         <GridList cols={2} cellHeight={450}>
           <GridTile>
-            <div style={{textAlign: `right`, padding: `35px`}}>
+            <div style={{textAlign: `right`}}>
               <Hint arrowDirection='right'>Click here!</Hint>
             </div>
           </GridTile>
-          <GridTile><LedTable/></GridTile>
+          <GridTile><LedTable onLedClick={this.onLedClick}/></GridTile>
         </GridList>
       </div>
     );

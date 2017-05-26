@@ -2,25 +2,28 @@ import React from 'react';
 import MyTheme from '../../../MyTheme';
 
 export default class Hint extends React.Component {
-  styles = {
+  arrowStyles = {
     borderTop: `15px solid transparent`,
     borderBottom: `15px solid transparent`,
     position: `absolute`,
     bottom: `7px`
   };
 
+  positionAroundBorder = `15px solid ${MyTheme.palette.accent1Color}`;
+
   render() {
-    const positionAroundBorder = `15px solid ${MyTheme.palette.accent1Color}`;
     if (this.props.arrowDirection === `right`) {
-      this.styles.borderLeft = positionAroundBorder;
-      this.styles.right = `-10px`;
+      this.arrowStyles.borderLeft = this.positionAroundBorder;
+      this.arrowStyles.right = `-10px`;
     } else if (this.props.arrowDirection === `left`) {
-      this.styles.borderRight = positionAroundBorder;
-      this.styles.left = `-10px`;
+      this.arrowStyles.borderRight = this.positionAroundBorder;
+      this.arrowStyles.left = `-10px`;
+    } else {
+      throw `Hint error: attribute 'arrowDirection' should be one of ['left', 'right']`;
     }
 
     return (
-      <div>
+      <div style={{padding: `0 35px 0 35px`}}>
         <div style={{
           display: `inline-block`,
           padding: `20px`,
@@ -30,7 +33,7 @@ export default class Hint extends React.Component {
           position: `relative`,
         }}>
           {this.props.children}
-          <div style={this.styles}>
+          <div style={this.arrowStyles}>
           </div>
         </div>
       </div>

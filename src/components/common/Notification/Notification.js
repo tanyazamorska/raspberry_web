@@ -42,7 +42,7 @@ export default class Notification extends React.Component {
     const levelMap = this.levelMap;
     const backgroundColor = levelMap[level];
     if (!backgroundColor) {
-      throw `Notification error: attribute level should be one of ['success', 'warning', 'error']`;
+      throw `Notification error: attribute 'level' should be one of ['success', 'warning', 'error']`;
     }
 
     const styles = {

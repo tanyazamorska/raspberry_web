@@ -1,6 +1,7 @@
 import React from 'react';
 import {Table, TableBody, TableRow, TableRowColumn} from 'material-ui/Table';
 import * as _colors from 'material-ui/styles/colors';
+import _ from 'lodash';
 import MyTheme from '../../MyTheme';
 
 export default class LedTable extends React.Component {
@@ -21,16 +22,17 @@ export default class LedTable extends React.Component {
   }
 
   onLedClick = (rowI, cellI) => {
-    const newMatrix = this.state.matrix;
-    newMatrix[rowI][cellI] = !newMatrix[rowI][cellI];
-    this.setState({matrix: newMatrix});
+    if (_.isFunction(this.props.onLedClick)) {
+      this.props.onLedClick(this.state, rowI, cellI);
+    }
+    // const newMatrix = this.state.matrix;
+    // newMatrix[rowI][cellI] = !newMatrix[rowI][cellI];
+    // this.setState({matrix: newMatrix});
   };
-
-
 
   render() {
     return (
-      <div style={{marginTop: `35px`, display: `flex`, justifyContent: `center`}}>
+      <div style={{display: `flex`, justifyContent: `center`}}>
         <Table style={{width: `70%`, margin: `auto`}}>
           <TableBody displayRowCheckbox={false}>
             {
