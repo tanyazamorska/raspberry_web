@@ -8,17 +8,24 @@ import _ from 'lodash';
 import scssVariables from '../../scssVariables';
 import LedTable from './LedTable.js';
 
-//const topLeft = `Top-Left`;
-// const formGroupStyle = {
-//   marginBottom: `50px`
-// };
+const None = `None`;
+const leftRight = `Left-Right`;
+const rightLeft = `Right-Left`;
+const topBottom = `Top-Bottom`;
+const bottomTop = `Bottom-Top`;
+
+const formGroupStyle = {
+  marginBottom: {
+    marginBottom: `50px`
+  }
+};
 
 export default class Ticker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       speed: 1,
-      direction: `None`,
+      direction: None,
       text: ``
     };
   }
@@ -49,11 +56,11 @@ export default class Ticker extends React.Component {
         floatingLabelText='Select direction'
         value={this.state.direction}
         onChange={this.directionChange}>
-        <MenuItem value={`None`} primaryText='None'/>
-        <MenuItem value={`Left-Right`} primaryText='Left-Right'/>
-        <MenuItem value={`Right-Left`} primaryText='Right-Left'/>
-        <MenuItem value={`Top-Bottom`} primaryText='Top-Bottom'/>
-        <MenuItem value={`Bottom-Top`} primaryText='Bottom-Top'/>
+        <MenuItem value={None} primaryText={None}/>
+        <MenuItem value={leftRight} primaryText={leftRight}/>
+        <MenuItem value={rightLeft} primaryText={rightLeft}/>
+        <MenuItem value={topBottom} primaryText={topBottom}/>
+        <MenuItem value={bottomTop} primaryText={bottomTop}/>
       </SelectField>
     );
   };
@@ -67,19 +74,21 @@ export default class Ticker extends React.Component {
       <div style={{width: scssVariables.width}}>
         <GridList cols={2} cellHeight={450}>
           <div>
-            <div style={{marginBottom: `50px`}}>
+            <div style={formGroupStyle.marginBottom}>
               <TextField hintText='Type something'
-                         onChange={(event, newValue) => {this.setState({text: newValue});}}
+                         onChange={(event, newValue) => {
+                           this.setState({text: newValue});
+                         }}
                          fullWidth={true} type='text'/>
               <RaisedButton label='Send'
                             secondary={true}
                             onTouchTap={() => this.onClickSaveButton()}
                             style={{float: `right`}}/>
             </div>
-            <div style={{marginBottom: `50px`}}>
+            <div style={formGroupStyle.marginBottom}>
               {this.SelectSpeed()}
             </div>
-            <div style={{marginBottom: `50px`}}>
+            <div style={formGroupStyle.marginBottom}>
               {this.SelectDirection()}
             </div>
           </div>
