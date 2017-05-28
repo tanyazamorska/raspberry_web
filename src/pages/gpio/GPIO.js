@@ -49,7 +49,7 @@ export default class GPIO extends React.Component {
                   }
                   return (
                     <TableRow key={key}>
-                      <TableRowColumn key={{key}} style={{textAlign: `left`, width: `25px`}}>
+                      <TableRowColumn key={{key}} style={{textAlign: `left`, width: `19px`}}>
                         <h2>{left[`gpio`]}</h2>
                       </TableRowColumn>
                       <TableRowColumn key={key} style={{textAlign: `left`, width: `100px`}}>
@@ -58,7 +58,7 @@ export default class GPIO extends React.Component {
                         <div style={{
                           display: `inline-block`,
                           position: `relative`,
-                          left: `120px`,
+                          left: `125px`,
                           bottom: `7px`,
                           transform: `rotate(270deg)`
                         }}>
@@ -123,7 +123,7 @@ export default class GPIO extends React.Component {
                           <b>{right[`number`]}</b>
                         </div>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{textAlign: `right`, width: `15px`}}>
+                      <TableRowColumn key={key} style={{textAlign: `right`, width: `21px`}}>
                         <h2>{right[`gpio`]}</h2>
                       </TableRowColumn>
                     </TableRow>
