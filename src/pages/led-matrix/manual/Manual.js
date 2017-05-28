@@ -1,8 +1,8 @@
 import React from 'react';
 import {GridList, GridTile} from 'material-ui/GridList';
-import LedTable from './LedTable.js';
-import scssVariables from '../../scssVariables';
-import Hint from '../../components/common/Hint/Hint';
+import LedTable from './../LedTable.js';
+import scssVariables from '../../../scssVariables';
+import Hint from '../../../components/common/Hint/Hint';
 
 export default class Manual extends React.Component {
 

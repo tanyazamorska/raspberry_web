@@ -8,8 +8,8 @@ import GPIO from './pages/gpio/GPIO.js';
 import Camera from './pages/camera/Camera.js';
 import Editor from './pages/editor/Editor.js';
 import LedMatrix from './pages/led-matrix/LedMatrix.js';
-import Manual from './pages/led-matrix/Manual.js';
-import Ticker from './pages/led-matrix/Ticker.js';
+import Manual from './pages/led-matrix/manual/Manual.js';
+import Ticker from './pages/led-matrix/ticker/Ticker.js';
 import './styles.scss';
 
 injectTapEventPlugin();

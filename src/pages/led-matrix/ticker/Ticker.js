@@ -5,8 +5,8 @@ import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import {GridList} from 'material-ui/GridList';
 import _ from 'lodash';
-import scssVariables from '../../scssVariables';
-import LedTable from './LedTable.js';
+import scssVariables from '../../../scssVariables';
+import LedTable from './../LedTable.js';
 
 const None = `None`;
 const leftRight = `Left-Right`;
