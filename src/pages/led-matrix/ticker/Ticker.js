@@ -4,6 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
 import {GridList} from 'material-ui/GridList';
+import Toggle from 'material-ui/Toggle';
 import _ from 'lodash';
 import scssVariables from '../../../scssVariables';
 import LedTable from './../LedTable.js';
@@ -26,7 +27,8 @@ export default class Ticker extends React.Component {
     this.state = {
       speed: 1,
       direction: None,
-      text: ``
+      text: ``,
+      repeat: false
     };
   }
 
@@ -74,6 +76,10 @@ export default class Ticker extends React.Component {
     //console.log(this.matrixThis);
   };
 
+  onChecked = () => {
+    this.state.repeat = !this.state.repeat;
+  };
+
   render() {
     return (
       <div style={{width: scssVariables.width}}>
@@ -96,9 +102,12 @@ export default class Ticker extends React.Component {
             <div style={formGroupStyle.marginBottom}>
               {this.SelectDirection()}
             </div>
+            <div style={formGroupStyle.marginBottom}>
+              <Toggle label='repeat' labelPosition='right' onToggle={() => this.onChecked()}/>
+            </div>
           </div>
           <div>
-            <LedTable ref={(matrixThis) => this.matrixThis = matrixThis} />
+            <LedTable ref={(matrixThis) => this.matrixThis = matrixThis}/>
           </div>
         </GridList>
       </div>
