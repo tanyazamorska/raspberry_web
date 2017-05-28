@@ -30,6 +30,8 @@ export default class Ticker extends React.Component {
     };
   }
 
+  matrixThis = null;
+
   speedChange = (event, index, speed) => {
     this.setState({speed}); // {value: value}
   };
@@ -65,8 +67,11 @@ export default class Ticker extends React.Component {
     );
   };
 
-  onClickSaveButton = () => {
+  onClickGoButton = () => {
     //console.log(this.state);
+    //const text = this.state.text;
+    //console.log(text);
+    //console.log(this.matrixThis);
   };
 
   render() {
@@ -80,9 +85,9 @@ export default class Ticker extends React.Component {
                            this.setState({text: newValue});
                          }}
                          fullWidth={true} type='text'/>
-              <RaisedButton label='Send'
+              <RaisedButton label='Go'
                             secondary={true}
-                            onTouchTap={() => this.onClickSaveButton()}
+                            onTouchTap={() => this.onClickGoButton()}
                             style={{float: `right`}}/>
             </div>
             <div style={formGroupStyle.marginBottom}>
@@ -93,7 +98,7 @@ export default class Ticker extends React.Component {
             </div>
           </div>
           <div>
-            <LedTable/>
+            <LedTable ref={(matrixThis) => this.matrixThis = matrixThis} />
           </div>
         </GridList>
       </div>

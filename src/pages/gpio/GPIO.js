@@ -2,18 +2,18 @@ import React from 'react';
 import {Table, TableBody, TableRow, TableHeaderColumn, TableHeader, TableRowColumn} from 'material-ui/Table';
 import scssVariables from '../../scssVariables';
 import MyTheme from '../../MyTheme';
-import sortedByOriginal from './data.js';
+import data from './data.js';
 
 const newArr = [];
-for (let i = 0; i < sortedByOriginal.length; i = i + 2) {
-  newArr.push([sortedByOriginal[i], sortedByOriginal[i + 1]]);
+for (let i = 0; i < data.length; i = i + 2) {
+  newArr.push([data[i], data[i + 1]]);
 }
 
 export default class GPIO extends React.Component {
   render() {
     return (
       <div style={{width: scssVariables.width}}>
-        <div style={{width: `50%`, margin: `auto`}}>
+        <div style={{width: parseInt(scssVariables.width, 10) / 2, margin: `auto`}}>
           <h3 style={{textAlign: `center`}}>
             Raspberry Pi 3 Model B (J8 Header)
           </h3>

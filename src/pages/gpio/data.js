@@ -246,6 +246,6 @@ const original = [
   }
 ];
 
-const sortedByOriginal = _.sortBy(original, [`number`]);
+const data = _.sortBy(original, [`number`]);
 
-export default sortedByOriginal;
+export default data;

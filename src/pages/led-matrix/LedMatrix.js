@@ -12,10 +12,7 @@ export default class LedMatrix extends React.Component {
 
   handleChange = (value) => {
     this.setState({value});
-  };
-
-  handleActive = (tab) => {
-    this.props.router.push(tab.props.value);
+    this.props.router.push(value);
   };
 
   render() {
@@ -24,9 +21,9 @@ export default class LedMatrix extends React.Component {
         <Tabs value={this.state.value}
               onChange={this.handleChange}
               style={{marginBottom: `70px`}}>
-          <Tab label='Manual' value='/led-matrix/manual/' onActive={this.handleActive}>
+          <Tab label='Manual' value='/led-matrix/manual/'>
           </Tab>
-          <Tab label='Ticker' value='/led-matrix/ticker/' onActive={this.handleActive}>
+          <Tab label='Ticker' value='/led-matrix/ticker/'>
           </Tab>
         </Tabs>
         {this.props.children}
@@ -34,5 +31,3 @@ export default class LedMatrix extends React.Component {
     );
   }
 }
-
-

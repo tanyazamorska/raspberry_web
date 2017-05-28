@@ -33,6 +33,7 @@ export default class LedTable extends React.Component {
         <Table style={{width: `400px`, margin: `auto`}}>
           <TableBody displayRowCheckbox={false}>
             {
+              //this.state.matrix.map(this.buildRow)
               this.state.matrix.map((row, rowI) => {
                 return <TableRow key={rowI} style={{border: `0px`}}>
                   {
