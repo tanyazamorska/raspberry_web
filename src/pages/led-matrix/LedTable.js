@@ -27,9 +27,8 @@ export default class LedTable extends React.Component {
     }
   };
 
-  buildRow = (row, rowI) => {
-
-  }
+  // buildRow = (row, rowI) => {
+  // }
 
   render() {
     return (

@@ -10,25 +10,6 @@ import scssVariables from '../../../scssVariables';
 import LedTable from './../LedTable.js';
 import tickerData from './tickerData.json';
 
-const newData = _.map(tickerData, function(item) {return item;});
-
-const arrData = newData.map((el) => {
- for (let i = 0; i < el.length; i++) {
-   const res = el[i].split('');
-   const trueOrFalseArr = res.map(i => {
-     //console.log(i)
-     if (i === `.`) {
-       i = false;
-     } else {
-       i = true;
-     }
-   });
-   return trueOrFalseArr;
- }
-});
-
-//console.log(arrData)
-
 const None = `None`;
 const leftRight = `Left-Right`;
 const rightLeft = `Right-Left`;
@@ -96,13 +77,17 @@ export default class Ticker extends React.Component {
     this.setState({isRunning: !this.state.isRunning});
 
     const text = this.state.text;
-    const firstLetter = text.charAt(0);
+    const firstLetter = text.toUpperCase().charAt(0);
 
-    // if (firstLetter === key) {
-    //   console.log(newData)
-    //   this.matrixThis.setState({matrix: newData});
-    // }
-    //console.log(this.matrixThis);
+    const ValueOfSymbol = tickerData[firstLetter].map(item => {
+      const itemOfValue = item.split(``);
+      const value = itemOfValue.map(el => {
+        el === `.` ? el = false : el = true;
+        return el;
+      });
+      return value;
+    });
+    this.matrixThis.setState({matrix: ValueOfSymbol});
   };
 
   labelOfButton() {
