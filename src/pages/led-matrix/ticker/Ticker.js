@@ -8,6 +8,26 @@ import Toggle from 'material-ui/Toggle';
 import _ from 'lodash';
 import scssVariables from '../../../scssVariables';
 import LedTable from './../LedTable.js';
+import tickerData from './tickerData.json';
+
+const newData = _.map(tickerData, function(item) {return item;});
+
+const arrData = newData.map((el) => {
+ for (let i = 0; i < el.length; i++) {
+   const res = el[i].split('');
+   const trueOrFalseArr = res.map(i => {
+     //console.log(i)
+     if (i === `.`) {
+       i = false;
+     } else {
+       i = true;
+     }
+   });
+   return trueOrFalseArr;
+ }
+});
+
+//console.log(arrData)
 
 const None = `None`;
 const leftRight = `Left-Right`;
@@ -28,7 +48,8 @@ export default class Ticker extends React.Component {
       speed: 1,
       direction: None,
       text: ``,
-      repeat: false
+      isRepeat: false,
+      isRunning: false
     };
   }
 
@@ -48,7 +69,8 @@ export default class Ticker extends React.Component {
       <SelectField
         floatingLabelText='Select speed'
         value={this.state.speed}
-        onChange={this.speedChange}>
+        onChange={this.speedChange}
+        disabled={this.state.isRunning}>
         {items}
       </SelectField>
     );
@@ -59,7 +81,8 @@ export default class Ticker extends React.Component {
       <SelectField
         floatingLabelText='Select direction'
         value={this.state.direction}
-        onChange={this.directionChange}>
+        onChange={this.directionChange}
+        disabled={this.state.isRunning}>
         <MenuItem value={None} primaryText={None}/>
         <MenuItem value={leftRight} primaryText={leftRight}/>
         <MenuItem value={rightLeft} primaryText={rightLeft}/>
@@ -70,14 +93,24 @@ export default class Ticker extends React.Component {
   };
 
   onClickGoButton = () => {
-    //console.log(this.state);
-    //const text = this.state.text;
-    //console.log(text);
+    this.setState({isRunning: !this.state.isRunning});
+
+    const text = this.state.text;
+    const firstLetter = text.charAt(0);
+
+    // if (firstLetter === key) {
+    //   console.log(newData)
+    //   this.matrixThis.setState({matrix: newData});
+    // }
     //console.log(this.matrixThis);
   };
 
+  labelOfButton() {
+    return this.state.isRunning ? `Stop` : `Go`;
+  }
+
   onChecked = () => {
-    this.state.repeat = !this.state.repeat;
+    this.setState({isRepeat: !this.state.isRepeat});
   };
 
   render() {
@@ -90,8 +123,9 @@ export default class Ticker extends React.Component {
                          onChange={(event, newValue) => {
                            this.setState({text: newValue});
                          }}
-                         fullWidth={true} type='text'/>
-              <RaisedButton label='Go'
+                         fullWidth={true} type='text'
+                         disabled={this.state.isRunning}/>
+              <RaisedButton label={this.labelOfButton()}
                             secondary={true}
                             onTouchTap={() => this.onClickGoButton()}
                             style={{float: `right`}}/>
@@ -103,7 +137,10 @@ export default class Ticker extends React.Component {
               {this.SelectDirection()}
             </div>
             <div style={formGroupStyle.marginBottom}>
-              <Toggle label='repeat' labelPosition='right' onToggle={() => this.onChecked()}/>
+              <Toggle label='repeat'
+                      labelPosition='right'
+                      disabled={this.state.isRunning}
+                      onToggle={this.onChecked}/>
             </div>
           </div>
           <div>

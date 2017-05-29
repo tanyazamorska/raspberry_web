@@ -27,6 +27,10 @@ export default class LedTable extends React.Component {
     }
   };
 
+  buildRow = (row, rowI) => {
+
+  }
+
   render() {
     return (
       <div style={{display: `flex`, justifyContent: `center`}}>
