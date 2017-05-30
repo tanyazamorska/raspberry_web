@@ -18,7 +18,7 @@ const bottomTop = `Bottom-Top`;
 
 const formGroupStyle = {
   marginBottom: {
-    marginBottom: `50px`
+    marginBottom: `40px`
   }
 };
 
@@ -73,21 +73,43 @@ export default class Ticker extends React.Component {
     );
   };
 
+  run() {
+  }
+
+  stop() {
+  }
+
   onClickGoButton = () => {
+    if (this.state.isRunning) {
+      this.run();
+    } else {
+      this.stop();
+    }
+
     this.setState({isRunning: !this.state.isRunning});
-
-    const text = this.state.text;
-    const firstLetter = text.toUpperCase().charAt(0);
-
-    const ValueOfSymbol = tickerData[firstLetter].map(item => {
-      const itemOfValue = item.split(``);
-      const value = itemOfValue.map(el => {
-        el === `.` ? el = false : el = true;
-        return el;
-      });
-      return value;
-    });
-    this.matrixThis.setState({matrix: ValueOfSymbol});
+    const text = this.state.text + ` `;
+    let times = 0;
+    const timerId = setInterval(() => {
+      console.log(123);
+      if (times >= text.length) {
+        clearInterval(timerId);
+      } else {
+        const letter = text.toUpperCase().charAt(times);
+        const ValueOfSymbol = tickerData[letter].map(item => {
+          const itemOfValue = item.split(``);
+          const value = itemOfValue.map(el => {
+            el === `.` ? el = false : el = true;
+            return el;
+          });
+          return value;
+        });
+        this.matrixThis.setState({matrix: ValueOfSymbol});
+        times++;
+      }
+    }, 1000);
+    if (this.state.isRepeat === false) {
+      this.setState({isRunning: false});
+    }
   };
 
   labelOfButton() {
@@ -136,7 +158,4 @@ export default class Ticker extends React.Component {
     );
   }
 }
-
-
-
 
