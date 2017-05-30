@@ -147,6 +147,7 @@ export default class Ticker extends React.Component {
               <Toggle label='repeat'
                       labelPosition='right'
                       disabled={this.state.isRunning}
+                      defaultToggled={true}
                       onToggle={this.onChecked}/>
             </div>
           </div>
