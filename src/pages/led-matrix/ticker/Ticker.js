@@ -22,6 +22,20 @@ const formGroupStyle = {
   }
 };
 
+const data = {};
+for (const key in tickerData) {
+  const arrOfOneSymbol = tickerData[key].map(item => {
+    const matrixOfOneSymbol = item.split(``);
+    const matrixWithTrueOrFalse = matrixOfOneSymbol.map(el => {
+      el === `.` ? el = false : el = true;
+      return el;
+    });
+    return matrixWithTrueOrFalse;
+  });
+  data[key] = arrOfOneSymbol;
+}
+
+
 export default class Ticker extends React.Component {
   constructor(props) {
     super(props);
@@ -90,21 +104,15 @@ export default class Ticker extends React.Component {
     const text = this.state.text + ` `;
     let times = 0;
     const timerId = setInterval(() => {
-      console.log(123);
       if (times >= text.length) {
         clearInterval(timerId);
       } else {
         const letter = text.toUpperCase().charAt(times);
-        const ValueOfSymbol = tickerData[letter].map(item => {
-          const itemOfValue = item.split(``);
-          const value = itemOfValue.map(el => {
-            el === `.` ? el = false : el = true;
-            return el;
-          });
-          return value;
-        });
-        this.matrixThis.setState({matrix: ValueOfSymbol});
-        times++;
+        if (data[letter]) {
+          this.matrixThis.setState({matrix: data[letter]});
+          times++;
+        }
+        //throw `Ticker error: symbol is indefinite`;
       }
     }, 1000);
     if (this.state.isRepeat === false) {
