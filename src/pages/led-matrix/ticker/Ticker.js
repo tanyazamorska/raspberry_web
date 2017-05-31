@@ -22,17 +22,22 @@ const formGroupStyle = {
   }
 };
 
+export function foo(times) {
+  let res = ``;
+  for (let i = 0; i <= times; times++) {
+    res += `foo`;
+  }
+  return res;
+}
+
 const data = {};
 for (const key in tickerData) {
-  const arrOfOneSymbol = tickerData[key].map(item => {
-    const matrixOfOneSymbol = item.split(``);
-    const matrixWithTrueOrFalse = matrixOfOneSymbol.map(el => {
-      el === `.` ? el = false : el = true;
-      return el;
-    });
-    return matrixWithTrueOrFalse;
+  const matrix = tickerData[key].map(stringLine => {
+    const arrOfDotsAndX = stringLine.split(``);
+    const arrOfBooleans = arrOfDotsAndX.map(el => el === `x`);
+    return arrOfBooleans;
   });
-  data[key] = arrOfOneSymbol;
+  data[key] = matrix;
 }
 
 export default class Ticker extends React.Component {
@@ -96,9 +101,8 @@ export default class Ticker extends React.Component {
     this.timerId = setInterval(() => {
       if (indexOfLetter >= text.length) {
         clearInterval(this.timerId);
-        this.setState({text: ``});
         this.matrixThis.setState({matrix: data[`_all_off`]});
-        this.state.isRepeat === true ? this.setState({isRunning: !this.state.isRunning}) : null;
+        this.state.isRepeat === false ? this.setState({isRunning: !this.state.isRunning}) : null;
       } else {
         const letter = text.toUpperCase().charAt(indexOfLetter);
         if (data[letter]) {
@@ -115,7 +119,6 @@ export default class Ticker extends React.Component {
   stop() {
     this.setState({isRunning: !this.state.isRunning});
     clearInterval(this.timerId);
-    this.setState({text: ``});
     this.matrixThis.setState({matrix: data[`_all_off`]});
   }
 
@@ -163,7 +166,6 @@ export default class Ticker extends React.Component {
               <Toggle label='repeat'
                       labelPosition='right'
                       disabled={this.state.isRunning}
-                      defaultToggled={true}
                       onToggle={this.onChecked}/>
             </div>
           </div>

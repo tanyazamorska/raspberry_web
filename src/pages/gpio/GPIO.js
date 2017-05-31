@@ -52,11 +52,11 @@ export default class GPIO extends React.Component {
                       <TableRowColumn key={{key}} style={{width: `19px`}}>
                         <h2>{left[`gpio`]}</h2>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{width: `60px`, paddingLeft: `14px`, overflow: `display`}}>
+                      <TableRowColumn key={key} style={{width: `60px`, paddingLeft: `14px`}}>
                         <div>{left[`name`]}</div>
                         <div>{left[`desc`]}</div>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{width: `5px`, overflow: `display`}}>
+                      <TableRowColumn key={key} style={{width: `5px`, textOverflow: `auto`, padding: `0 16px`}}>
                         <div style={{
                           display: `inline-block`,
                           transform: `rotate(270deg)`
@@ -80,7 +80,7 @@ export default class GPIO extends React.Component {
                             height: `16px`,
                             borderRadius: `25px`,
                             border: `1px solid ${MyTheme.palette.textColor}`,
-                            margin: `4.8px 0 0 6px`,
+                            margin: `5.8px 0 0 6px`,
                             backgroundColor: MyTheme.palette.canvasColor,
                           }}>
                           </div>
@@ -99,13 +99,13 @@ export default class GPIO extends React.Component {
                             height: `16px`,
                             borderRadius: `25px`,
                             border: `1px solid ${MyTheme.palette.textColor}`,
-                            margin: `4.8px 0 0 6px`,
+                            margin: `5.8px 0 0 6px`,
                             backgroundColor: MyTheme.palette.canvasColor,
                           }}>
                           </div>
                         </div>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{width: `5px`, overflow: `display`}}>
+                      <TableRowColumn key={key} style={{width: `5px`, textOverflow: `auto`}}>
                           <div style={{
                             display: `inline-block`,
                             transform: `rotate(90deg)`
