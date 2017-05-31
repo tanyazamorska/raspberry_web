@@ -35,7 +35,6 @@ for (const key in tickerData) {
   data[key] = arrOfOneSymbol;
 }
 
-
 export default class Ticker extends React.Component {
   constructor(props) {
     super(props);
@@ -87,39 +86,45 @@ export default class Ticker extends React.Component {
     );
   };
 
+  timerId = null;
+
   run() {
+    this.setState({isRunning: !this.state.isRunning});
+
+    const text = this.state.text;
+    let indexOfLetter = 0;
+    this.timerId = setInterval(() => {
+      if (indexOfLetter >= text.length) {
+        clearInterval(this.timerId);
+        this.setState({text: ``});
+        this.matrixThis.setState({matrix: data[`_all_off`]});
+        this.state.isRepeat === true ? this.setState({isRunning: !this.state.isRunning}) : null;
+      } else {
+        const letter = text.toUpperCase().charAt(indexOfLetter);
+        if (data[letter]) {
+          this.matrixThis.setState({matrix: data[letter]});
+          indexOfLetter++;
+        } else {
+          clearInterval(this.timerId);
+          throw `Ticker error: symbol is indefinite`;
+        }
+      }
+    }, 1000);
   }
 
   stop() {
+    this.setState({isRunning: !this.state.isRunning});
+    clearInterval(this.timerId);
+    this.setState({text: ``});
+    this.matrixThis.setState({matrix: data[`_all_off`]});
   }
 
   onClickGoButton = () => {
-    this.setState({isRunning: !this.state.isRunning});
-    //console.log(this.state.isRunning)
-    if (this.state.isRunning) {
+    if (!this.state.isRunning) {
       this.run();
     } else {
       this.stop();
     }
-
-
-    const text = this.state.text + ` `;
-    let times = 0;
-    const timerId = setInterval(() => {
-      if (times >= text.length) {
-        clearInterval(timerId);
-      } else {
-        const letter = text.toUpperCase().charAt(times);
-        if (data[letter]) {
-          this.matrixThis.setState({matrix: data[letter]});
-          times++;
-        }
-        //throw `Ticker error: symbol is indefinite`;
-      }
-    }, 1000);
-    // if (this.state.isRepeat === false) {
-    //   this.setState({isRunning: false});
-    // }
   };
 
   labelOfButton() {
@@ -137,6 +142,7 @@ export default class Ticker extends React.Component {
           <div>
             <div style={formGroupStyle.marginBottom}>
               <TextField hintText='Type something'
+                         value={this.state.text}
                          onChange={(event, newValue) => {
                            this.setState({text: newValue});
                          }}
