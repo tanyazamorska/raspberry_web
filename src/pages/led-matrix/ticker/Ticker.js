@@ -94,13 +94,15 @@ export default class Ticker extends React.Component {
   }
 
   onClickGoButton = () => {
+    this.setState({isRunning: !this.state.isRunning});
+    //console.log(this.state.isRunning)
     if (this.state.isRunning) {
       this.run();
     } else {
       this.stop();
     }
 
-    this.setState({isRunning: !this.state.isRunning});
+
     const text = this.state.text + ` `;
     let times = 0;
     const timerId = setInterval(() => {
@@ -115,9 +117,9 @@ export default class Ticker extends React.Component {
         //throw `Ticker error: symbol is indefinite`;
       }
     }, 1000);
-    if (this.state.isRepeat === false) {
-      this.setState({isRunning: false});
-    }
+    // if (this.state.isRepeat === false) {
+    //   this.setState({isRunning: false});
+    // }
   };
 
   labelOfButton() {

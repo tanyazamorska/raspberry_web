@@ -20,19 +20,19 @@ export default class GPIO extends React.Component {
           <Table style={{border: `1px solid ${MyTheme.palette.borderColor}`}}>
             <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
               <TableRow>
-                <TableHeaderColumn style={{color: MyTheme.palette.textColor}}>
+                <TableHeaderColumn style={{color: MyTheme.palette.textColor, width: `19px`}}>
                   GPIO#
                 </TableHeaderColumn>
-                <TableHeaderColumn style={{padding: 0, color: MyTheme.palette.textColor}}>
+                <TableHeaderColumn style={{color: MyTheme.palette.textColor, width: `60px`}}>
                   NAME
                 </TableHeaderColumn>
                 <TableHeaderColumn>
 
                 </TableHeaderColumn>
-                <TableHeaderColumn style={{paddingLeft: `94px`, color: MyTheme.palette.textColor}}>
+                <TableHeaderColumn style={{width: `60px`, color: MyTheme.palette.textColor}}>
                   NAME
                 </TableHeaderColumn>
-                <TableHeaderColumn style={{paddingLeft: `60px`, color: MyTheme.palette.textColor}}>
+                <TableHeaderColumn style={{width: `21px`, paddingRight: `34px`, color: MyTheme.palette.textColor}}>
                   GPIO#
                 </TableHeaderColumn>
               </TableRow>
@@ -49,24 +49,23 @@ export default class GPIO extends React.Component {
                   }
                   return (
                     <TableRow key={key}>
-                      <TableRowColumn key={{key}} style={{textAlign: `left`, width: `19px`}}>
+                      <TableRowColumn key={{key}} style={{width: `19px`}}>
                         <h2>{left[`gpio`]}</h2>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{textAlign: `left`, width: `100px`}}>
+                      <TableRowColumn key={key} style={{width: `60px`, paddingLeft: `14px`, overflow: `display`}}>
                         <div>{left[`name`]}</div>
                         <div>{left[`desc`]}</div>
+                      </TableRowColumn>
+                      <TableRowColumn key={key} style={{width: `5px`, overflow: `display`}}>
                         <div style={{
                           display: `inline-block`,
-                          position: `relative`,
-                          left: `125px`,
-                          bottom: `7px`,
                           transform: `rotate(270deg)`
                         }}>
                           <b>{left[`number`]}</b>
                         </div>
                       </TableRowColumn>
                       <TableRowColumn
-                        style={{width: `75px`, padding: `0 0 0 3px`, backgroundColor: MyTheme.palette.borderColor}}>
+                        style={{width: `80px`, padding: `0 0 0 3px`, backgroundColor: MyTheme.palette.borderColor}}>
                         <div style={{
                           width: `30px`,
                           height: `30px`,
@@ -81,9 +80,7 @@ export default class GPIO extends React.Component {
                             height: `16px`,
                             borderRadius: `25px`,
                             border: `1px solid ${MyTheme.palette.textColor}`,
-                            position: `relative`,
-                            top: `6px`,
-                            left: `6px`,
+                            margin: `4.8px 0 0 6px`,
                             backgroundColor: MyTheme.palette.canvasColor,
                           }}>
                           </div>
@@ -102,28 +99,25 @@ export default class GPIO extends React.Component {
                             height: `16px`,
                             borderRadius: `25px`,
                             border: `1px solid ${MyTheme.palette.textColor}`,
-                            position: `relative`,
-                            top: `6px`,
-                            left: `6px`,
+                            margin: `4.8px 0 0 6px`,
                             backgroundColor: MyTheme.palette.canvasColor,
                           }}>
                           </div>
                         </div>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{textAlign: `right`, width: `100px`}}>
+                      <TableRowColumn key={key} style={{width: `5px`, overflow: `display`}}>
+                          <div style={{
+                            display: `inline-block`,
+                            transform: `rotate(90deg)`
+                          }}>
+                            <b>{right[`number`]}</b>
+                          </div>
+                      </TableRowColumn>
+                      <TableRowColumn key={key} style={{width: `52px`, overflow: `display`}}>
                         <div>{right[`name`]}</div>
                         <div>{right[`desc`]}</div>
-                        <div style={{
-                          display: `inline-block`,
-                          position: `relative`,
-                          left: `-125px`,
-                          bottom: `7px`,
-                          transform: `rotate(90deg)`
-                        }}>
-                          <b>{right[`number`]}</b>
-                        </div>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{textAlign: `right`, width: `21px`}}>
+                      <TableRowColumn key={key} style={{width: `21px`}}>
                         <h2>{right[`gpio`]}</h2>
                       </TableRowColumn>
                     </TableRow>
