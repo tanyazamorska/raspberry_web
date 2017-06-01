@@ -123,6 +123,15 @@ export default class Ticker extends React.Component {
 
   timerId = null;
 
+  chooseRepeat() {
+    if(this.state.isRepeat === false) {
+      this.setState({isRunning: !this.state.isRunning});
+    } else {
+      this.setState({isRunning: !this.state.isRunning});
+      setInterval(this.run(), this.speedValue());
+    }
+  }
+
   run() {
     this.setState({isRunning: !this.state.isRunning});
     const text = this.state.text;
@@ -131,7 +140,7 @@ export default class Ticker extends React.Component {
       if (indexOfLetter >= text.length) {
         clearInterval(this.timerId);
         this.matrixThis.setState({matrix: data[`_all_off`]});
-        this.state.isRepeat === false ? this.setState({isRunning: !this.state.isRunning}) : null;
+        this.chooseRepeat();
       } else {
         const letter = text.toUpperCase().charAt(indexOfLetter);
         if (data[letter]) {
