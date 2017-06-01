@@ -16,19 +16,23 @@ const rightLeft = `Right-Left`;
 const topBottom = `Top-Bottom`;
 const bottomTop = `Bottom-Top`;
 
+//var str = `123`;
+/*[
+  "................................",
+  "...........x......xxx....xxx....",
+  "..........xx.....x...x..x...x...",
+  "...........x.....x...x..x...x...",
+  "...........x........x......x....",
+  "...........x.......x........x...",
+  "...........x......x.....x...x...",
+  "..........xxx....xxxxx...xxx...."
+]*/
+
 const formGroupStyle = {
   marginBottom: {
     marginBottom: `40px`
   }
 };
-
-export function foo(times) {
-  let res = ``;
-  for (let i = 0; i <= times; times++) {
-    res += `foo`;
-  }
-  return res;
-}
 
 const data = {};
 for (const key in tickerData) {
@@ -110,7 +114,7 @@ export default class Ticker extends React.Component {
           indexOfLetter++;
         } else {
           clearInterval(this.timerId);
-          throw `Ticker error: symbol is indefinite`;
+          throw `Ticker error: \'${text}\' isn't encoded`;
         }
       }
     }, 1000);
@@ -139,6 +143,8 @@ export default class Ticker extends React.Component {
   };
 
   render() {
+    const isText = this.state.text === `` ? true : false;
+
     return (
       <div style={{width: scssVariables.width}}>
         <GridList cols={2} cellHeight={450}>
@@ -154,6 +160,7 @@ export default class Ticker extends React.Component {
               <RaisedButton label={this.labelOfButton()}
                             secondary={true}
                             onTouchTap={() => this.onClickGoButton()}
+                            disabled={isText}
                             style={{float: `right`}}/>
             </div>
             <div style={formGroupStyle.marginBottom}>

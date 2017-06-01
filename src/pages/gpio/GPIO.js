@@ -56,16 +56,18 @@ export default class GPIO extends React.Component {
                         <div>{left[`name`]}</div>
                         <div>{left[`desc`]}</div>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{width: `5px`, textOverflow: `auto`, padding: `0 16px`}}>
+                      <TableRowColumn key={key} style={{width: `5px`, textOverflow: `auto`, padding: `0 10px`}}>
                         <div style={{
-                          display: `inline-block`,
+                          width: `15px`,
+                          height: `15px`,
+                          textAlign: `center`,
                           transform: `rotate(270deg)`
                         }}>
                           <b>{left[`number`]}</b>
                         </div>
                       </TableRowColumn>
                       <TableRowColumn
-                        style={{width: `80px`, padding: `0 0 0 3px`, backgroundColor: MyTheme.palette.borderColor}}>
+                        style={{width: `67px`, padding: `0 0 0 3px`, backgroundColor: MyTheme.palette.borderColor}}>
                         <div style={{
                           width: `30px`,
                           height: `30px`,
@@ -105,9 +107,11 @@ export default class GPIO extends React.Component {
                           </div>
                         </div>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{width: `5px`, textOverflow: `auto`}}>
+                      <TableRowColumn key={key} style={{width: `5px`, textOverflow: `auto`, padding: `0 5px`}}>
                           <div style={{
-                            display: `inline-block`,
+                            width: `15px`,
+                            height: `15px`,
+                            textAlign: `center`,
                             transform: `rotate(90deg)`
                           }}>
                             <b>{right[`number`]}</b>

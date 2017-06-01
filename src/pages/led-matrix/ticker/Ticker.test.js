@@ -4,15 +4,18 @@ import renderer from 'react-test-renderer';
 
 
 test('Link changes the class when hovered', () => {
-  expect(1).toBe(1);
 
+  const instance = new Ticker();
+
+  expect(instance.matrixThis).toBe(null);
+  expect(instance.state.speed).toBe(1);
 
   // const component = renderer.create(
-  //   <Link page="http://www.facebook.com">Facebook</Link>
+  //   <Ticker/>
   // );
   // let tree = component.toJSON();
   // expect(tree).toMatchSnapshot();
-  //
+
   // // manually trigger the callback
   // tree.props.onMouseEnter();
   // // re-rendering
