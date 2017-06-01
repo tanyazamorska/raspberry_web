@@ -58,6 +58,32 @@ export default class Ticker extends React.Component {
 
   matrixThis = null;
 
+  speedValue() {
+    let speed = null;
+    if (this.state.speed === 1) {
+      speed = 3000;
+    } else if (this.state.speed === 2) {
+      speed = 2000;
+    } else if (this.state.speed === 3) {
+      speed = 1500;
+    } else if (this.state.speed === 4) {
+      speed = 1000;
+    } else if (this.state.speed === 5) {
+      speed = 900;
+    } else if (this.state.speed === 6) {
+      speed = 800;
+    } else if (this.state.speed === 7) {
+      speed = 700;
+    } else if (this.state.speed === 8) {
+      speed = 600;
+    } else if (this.state.speed === 9) {
+      speed = 500;
+    } else if (this.state.speed === 10) {
+      speed = 300;
+    }
+    return speed;
+  }
+
   speedChange = (event, index, speed) => {
     this.setState({speed}); // {value: value}
   };
@@ -99,7 +125,6 @@ export default class Ticker extends React.Component {
 
   run() {
     this.setState({isRunning: !this.state.isRunning});
-
     const text = this.state.text;
     let indexOfLetter = 0;
     this.timerId = setInterval(() => {
@@ -117,7 +142,7 @@ export default class Ticker extends React.Component {
           throw `Ticker error: \'${text}\' isn't encoded`;
         }
       }
-    }, 1000);
+    }, this.speedValue());
   }
 
   stop() {
@@ -144,7 +169,6 @@ export default class Ticker extends React.Component {
 
   render() {
     const isText = this.state.text === `` ? true : false;
-
     return (
       <div style={{width: scssVariables.width}}>
         <GridList cols={2} cellHeight={450}>

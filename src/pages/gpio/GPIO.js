@@ -67,7 +67,7 @@ export default class GPIO extends React.Component {
                         </div>
                       </TableRowColumn>
                       <TableRowColumn
-                        style={{width: `67px`, padding: `0 0 0 3px`, backgroundColor: MyTheme.palette.borderColor}}>
+                        style={{width: `63px`, padding: `0 0 0 3px`, backgroundColor: MyTheme.palette.borderColor}}>
                         <div style={{
                           width: `30px`,
                           height: `30px`,
@@ -108,20 +108,20 @@ export default class GPIO extends React.Component {
                         </div>
                       </TableRowColumn>
                       <TableRowColumn key={key} style={{width: `5px`, textOverflow: `auto`, padding: `0 5px`}}>
-                          <div style={{
-                            width: `15px`,
-                            height: `15px`,
-                            textAlign: `center`,
-                            transform: `rotate(90deg)`
-                          }}>
-                            <b>{right[`number`]}</b>
-                          </div>
+                        <div style={{
+                          width: `15px`,
+                          height: `15px`,
+                          textAlign: `center`,
+                          transform: `rotate(90deg)`
+                        }}>
+                          <b>{right[`number`]}</b>
+                        </div>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{width: `52px`, overflow: `display`}}>
+                      <TableRowColumn key={key} style={{width: `52px`, overflow: `display`, paddingRight: `14px`, textAlign: `right`}}>
                         <div>{right[`name`]}</div>
                         <div>{right[`desc`]}</div>
                       </TableRowColumn>
-                      <TableRowColumn key={key} style={{width: `21px`}}>
+                      <TableRowColumn key={key} style={{width: `21px`, textAlign: `right`}}>
                         <h2>{right[`gpio`]}</h2>
                       </TableRowColumn>
                     </TableRow>
