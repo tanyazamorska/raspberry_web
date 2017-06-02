@@ -16,24 +16,6 @@ const rightLeft = `Right-Left`;
 const topBottom = `Top-Bottom`;
 const bottomTop = `Bottom-Top`;
 
-//var str = `123`;
-/*[
-  "................................",
-  "...........x......xxx....xxx....",
-  "..........xx.....x...x..x...x...",
-  "...........x.....x...x..x...x...",
-  "...........x........x......x....",
-  "...........x.......x........x...",
-  "...........x......x.....x...x...",
-  "..........xxx....xxxxx...xxx...."
-]*/
-
-const formGroupStyle = {
-  marginBottom: {
-    marginBottom: `40px`
-  }
-};
-
 const data = {};
 for (const key in tickerData) {
   const matrix = tickerData[key].map(stringLine => {
@@ -43,6 +25,23 @@ for (const key in tickerData) {
   });
   data[key] = matrix;
 }
+
+/*[
+ "................................",
+ "...........x......xxx....xxx....",
+ "..........xx.....x...x..x...x...",
+ "...........x.....x...x..x...x...",
+ "...........x........x......x....",
+ "...........x.......x........x...",
+ "...........x......x.....x...x...",
+ "..........xxx....xxxxx...xxx...."
+ ]*/
+
+const formGroupStyle = {
+  marginBottom: {
+    marginBottom: `40px`
+  }
+};
 
 export default class Ticker extends React.Component {
   constructor(props) {
@@ -55,8 +54,6 @@ export default class Ticker extends React.Component {
       isRunning: false
     };
   }
-
-  matrixThis = null;
 
   speedValue() {
     let speed = null;
@@ -122,6 +119,7 @@ export default class Ticker extends React.Component {
   };
 
   timerId = null;
+  matrixThis = null;
 
   chooseRepeat() {
     if(this.state.isRepeat === false) {
@@ -160,11 +158,37 @@ export default class Ticker extends React.Component {
     this.matrixThis.setState({matrix: data[`_all_off`]});
   }
 
+  arrText = [];
+  heightMatrix = (someText) => {
+    for (let j = 0; j < someText.length; j++) {
+      const symbol = (someText[j]).toUpperCase();
+      data[symbol].forEach(el => {
+        this.arrText.push(el)
+      })
+    }
+    return this.arrText;
+  };
+
+  heightMatrixRender = () => {
+    this.heightMatrix(this.state.text);
+    let k = 0;
+    for (k < this.arrText.length; k = k + 7;) {
+      //console.log(this.arrText[k]);
+      k = k - 6;
+    }
+   // console.log(this.matrixThis)
+    //this.setState({matrix: this.arrText})
+  };
+
   onClickGoButton = () => {
     if (!this.state.isRunning) {
       this.run();
     } else {
       this.stop();
+    }
+    if (this.state.direction === topBottom) {
+      //console.log(this.arrText)
+      this.heightMatrixRender()
     }
   };
 
