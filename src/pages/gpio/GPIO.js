@@ -40,13 +40,7 @@ export default class GPIO extends React.Component {
             <TableBody displayRowCheckbox={false}>
               {
                 newArr.map(([left, right], key) => {
-
-                  let borderRadius = null;
-                  if (left[`number`] === 1) {
-                    borderRadius = `0`;
-                  } else {
-                    borderRadius = `25px`;
-                  }
+                  const borderRadius = left[`number`] === 1 ? `0` : `25px`;
                   return (
                     <TableRow key={key}>
                       <TableRowColumn key={{key}} style={{width: `19px`}}>

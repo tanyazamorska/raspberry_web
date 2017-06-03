@@ -10,11 +10,11 @@ import scssVariables from '../../../scssVariables';
 import LedTable from './../LedTable.js';
 import tickerData from './tickerData.json';
 
-const None = `None`;
-const leftRight = `Left-Right`;
-const rightLeft = `Right-Left`;
-const topBottom = `Top-Bottom`;
-const bottomTop = `Bottom-Top`;
+const directionNone = `None`;
+const directionLeftRight = `Left-Right`;
+const directionRightLeft = `Right-Left`;
+const directionTopBottom = `Top-Bottom`;
+const directionBottomTop = `Bottom-Top`;
 
 const data = {};
 for (const key in tickerData) {
@@ -26,17 +26,6 @@ for (const key in tickerData) {
   data[key] = matrix;
 }
 
-/*[
- "................................",
- "...........x......xxx....xxx....",
- "..........xx.....x...x..x...x...",
- "...........x.....x...x..x...x...",
- "...........x........x......x....",
- "...........x.......x........x...",
- "...........x......x.....x...x...",
- "..........xxx....xxxxx...xxx...."
- ]*/
-
 const formGroupStyle = {
   marginBottom: {
     marginBottom: `40px`
@@ -47,49 +36,40 @@ export default class Ticker extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      speed: 1,
-      direction: None,
+      speed: 7,
+      direction: directionNone,
       text: ``,
       isRepeat: false,
       isRunning: false
     };
   }
 
+  speedDictionary = {
+    1: 3000,
+    2: 2000,
+    3: 1500,
+    4: 1000,
+    5: 900,
+    6: 800,
+    7: 700,
+    8: 600,
+    9: 500,
+    10: 300
+  };
+
   speedValue() {
-    let speed = null;
-    if (this.state.speed === 1) {
-      speed = 3000;
-    } else if (this.state.speed === 2) {
-      speed = 2000;
-    } else if (this.state.speed === 3) {
-      speed = 1500;
-    } else if (this.state.speed === 4) {
-      speed = 1000;
-    } else if (this.state.speed === 5) {
-      speed = 900;
-    } else if (this.state.speed === 6) {
-      speed = 800;
-    } else if (this.state.speed === 7) {
-      speed = 700;
-    } else if (this.state.speed === 8) {
-      speed = 600;
-    } else if (this.state.speed === 9) {
-      speed = 500;
-    } else if (this.state.speed === 10) {
-      speed = 300;
-    }
-    return speed;
+    return this.speedDictionary[this.state.speed];
   }
 
   speedChange = (event, index, speed) => {
-    this.setState({speed}); // {value: value}
+    this.setState({speed}); // {speed: speed}
   };
 
   directionChange = (event, index, direction) => {
-    this.setState({direction});
+    this.setState({direction}); // {direction: direction}
   };
 
-  SelectSpeed = () => {
+  selectSpeed = () => {
     const items = _.range(1, 11).map(item => <MenuItem value={item} key={item} primaryText={`Speed ${item}`}/>);
     return (
       <SelectField
@@ -102,18 +82,18 @@ export default class Ticker extends React.Component {
     );
   };
 
-  SelectDirection = () => {
+  selectDirection = () => {
     return (
       <SelectField
         floatingLabelText='Select direction'
         value={this.state.direction}
         onChange={this.directionChange}
         disabled={this.state.isRunning}>
-        <MenuItem value={None} primaryText={None}/>
-        <MenuItem value={leftRight} primaryText={leftRight}/>
-        <MenuItem value={rightLeft} primaryText={rightLeft}/>
-        <MenuItem value={topBottom} primaryText={topBottom}/>
-        <MenuItem value={bottomTop} primaryText={bottomTop}/>
+        <MenuItem value={directionNone} primaryText={directionNone}/>
+        <MenuItem value={directionLeftRight} primaryText={directionLeftRight}/>
+        <MenuItem value={directionRightLeft} primaryText={directionRightLeft}/>
+        <MenuItem value={directionTopBottom} primaryText={directionTopBottom}/>
+        <MenuItem value={directionBottomTop} primaryText={directionBottomTop}/>
       </SelectField>
     );
   };
@@ -121,63 +101,71 @@ export default class Ticker extends React.Component {
   timerId = null;
   matrixThis = null;
 
-  chooseRepeat() {
-    if(this.state.isRepeat === false) {
-      this.setState({isRunning: !this.state.isRunning});
-    } else {
-      this.setState({isRunning: !this.state.isRunning});
-      setInterval(this.run(), this.speedValue());
-    }
-  }
-
-  run() {
-    this.setState({isRunning: !this.state.isRunning});
+  runDirectionNone() {
     const text = this.state.text;
     let indexOfLetter = 0;
+
     this.timerId = setInterval(() => {
-      if (indexOfLetter >= text.length) {
-        clearInterval(this.timerId);
-        this.matrixThis.setState({matrix: data[`_all_off`]});
-        this.chooseRepeat();
-      } else {
+      if (indexOfLetter >= text.length) { // letters ended
+        this.stop();
+        if (this.state.isRepeat) {
+          this.run();
+        }
+      } else { // render letter
         const letter = text.toUpperCase().charAt(indexOfLetter);
         if (data[letter]) {
           this.matrixThis.setState({matrix: data[letter]});
           indexOfLetter++;
         } else {
-          clearInterval(this.timerId);
-          throw `Ticker error: \'${text}\' isn't encoded`;
+          this.matrixThis.setState({matrix: data[`encode`]});
+          console.warn(`Ticker error: \'${letter}\' isn't encoded`);
+          indexOfLetter++;
         }
       }
     }, this.speedValue());
   }
 
+  run() {
+    this.setState({isRunning: true});
+    if (this.state.direction === directionNone) {
+      this.runDirectionNone();
+    } else if (this.state.direction === directionBottomTop) {
+      this.runTallMatrix();
+    }
+  }
+
   stop() {
-    this.setState({isRunning: !this.state.isRunning});
+    this.setState({isRunning: false});
     clearInterval(this.timerId);
     this.matrixThis.setState({matrix: data[`_all_off`]});
   }
 
-  arrText = [];
-  heightMatrix = (someText) => {
+  buildTallMatrix = (someText) => {
+    const matrix = [];
     for (let j = 0; j < someText.length; j++) {
       const symbol = (someText[j]).toUpperCase();
       data[symbol].forEach(el => {
-        this.arrText.push(el)
+        matrix.push(el)
       })
     }
-    return this.arrText;
+    return matrix;
   };
 
-  heightMatrixRender = () => {
-    this.heightMatrix(this.state.text);
-    let k = 0;
-    for (k < this.arrText.length; k = k + 7;) {
-      //console.log(this.arrText[k]);
-      k = k - 6;
-    }
-   // console.log(this.matrixThis)
-    //this.setState({matrix: this.arrText})
+  /**
+   * 1 build tall matrix
+   * 2 run run interval
+   */
+  runTallMatrix = () => {
+    const tallMatrix = this.buildTallMatrix(this.state.text);
+    let from = 0;
+    const timerId1 = setInterval(() => {
+      if (from === tallMatrix.length - 8) {
+        clearInterval(timerId1);
+      }
+      let pieceOfTallMatrix = tallMatrix.slice(from, from + 8);
+      this.matrixThis.setState({matrix: pieceOfTallMatrix});
+      from++;
+    },this.speedValue());
   };
 
   onClickGoButton = () => {
@@ -185,10 +173,6 @@ export default class Ticker extends React.Component {
       this.run();
     } else {
       this.stop();
-    }
-    if (this.state.direction === topBottom) {
-      //console.log(this.arrText)
-      this.heightMatrixRender()
     }
   };
 
@@ -221,10 +205,10 @@ export default class Ticker extends React.Component {
                             style={{float: `right`}}/>
             </div>
             <div style={formGroupStyle.marginBottom}>
-              {this.SelectSpeed()}
+              {this.selectSpeed()}
             </div>
             <div style={formGroupStyle.marginBottom}>
-              {this.SelectDirection()}
+              {this.selectDirection()}
             </div>
             <div style={formGroupStyle.marginBottom}>
               <Toggle label='repeat'
@@ -241,4 +225,45 @@ export default class Ticker extends React.Component {
     );
   }
 }
+
+
+/*[
+ "................................",
+ "...........x......xxx....xxx....",
+ "..........xx.....x...x..x...x...",
+ "...........x.....x...x..x...x...",
+ "...........x........x......x....",
+ "...........x.......x........x...",
+ "...........x......x.....x...x...",
+ "..........xxx....xxxxx...xxx...."
+ ]*/
+
+// renderTallCadre(matrix, from)
+// renderTallCadre([...], 1)
+/*
+ "........",
+ "..xxxx..",
+ ".....x..",
+ ".....x..",
+ ".....x..",
+ ".....x..",
+ ".....x..",
+ ".....x..",
+ "........",
+ "...xx...",
+ "..x..x..",
+ "..x..x..",
+ "...xx...",
+ "..x..x..",
+ "..x..x..",
+ "...xx...",
+ "........",
+ "...xx...",
+ "..x..x..",
+ "..x..x..",
+ "...xxx..",
+ ".....x..",
+ "..x..x..",
+ "...xx..."
+ */
 
