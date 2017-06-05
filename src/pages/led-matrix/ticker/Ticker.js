@@ -98,6 +98,56 @@ export default class Ticker extends React.Component {
     );
   };
 
+  buildTallMatrix = (someText) => {
+    const matrix = [];
+    for (let j = 0; j < someText.length; j++) {
+      const symbol = (someText[j]).toUpperCase();
+      data[symbol].forEach(el => {
+        matrix.push(el);
+      });
+    }
+    return matrix;
+  };
+
+  buildTallMatrixForDirectionTopBottom = (someText) => {
+    const arrSomeText = someText.split(``);
+    const reverseSomeText = _.reverse(arrSomeText).join(``);
+    const matrix = [];
+    for (let j = 0; j < reverseSomeText.length; j++) {
+      const symbol = (reverseSomeText[j]).toUpperCase();
+      data[symbol].forEach(el => {
+        matrix.push(el);
+      });
+    }
+    return matrix;
+  };
+
+  runTallMatrixDirectionTopBottom = () => {
+    const tallMatrix = this.buildTallMatrixForDirectionTopBottom(this.state.text);
+    let from = tallMatrix.length - 8;
+    const timerId2 = setInterval(() => {
+      if (from === 0) {
+        clearInterval(timerId2);
+      }
+      const pieceOfTallMatrix = tallMatrix.slice(from, from + 8);
+      this.matrixThis.setState({matrix: pieceOfTallMatrix});
+      from--;
+    }, this.speedValue());
+  };
+
+  runTallMatrixDirectionBottomTop = () => {
+    const tallMatrix = this.buildTallMatrix(this.state.text);
+    let from = 0;
+    const timerId1 = setInterval(() => {
+      if (from === tallMatrix.length - 8) {
+        clearInterval(timerId1);
+      }
+      const pieceOfTallMatrix = tallMatrix.slice(from, from + 8);
+      this.matrixThis.setState({matrix: pieceOfTallMatrix});
+      from++;
+    }, this.speedValue());
+  };
+
   timerId = null;
   matrixThis = null;
 
@@ -130,7 +180,9 @@ export default class Ticker extends React.Component {
     if (this.state.direction === directionNone) {
       this.runDirectionNone();
     } else if (this.state.direction === directionBottomTop) {
-      this.runTallMatrix();
+      this.runTallMatrixDirectionBottomTop();
+    } else if (this.state.direction === directionTopBottom) {
+      this.runTallMatrixDirectionTopBottom();
     }
   }
 
@@ -139,34 +191,6 @@ export default class Ticker extends React.Component {
     clearInterval(this.timerId);
     this.matrixThis.setState({matrix: data[`_all_off`]});
   }
-
-  buildTallMatrix = (someText) => {
-    const matrix = [];
-    for (let j = 0; j < someText.length; j++) {
-      const symbol = (someText[j]).toUpperCase();
-      data[symbol].forEach(el => {
-        matrix.push(el)
-      })
-    }
-    return matrix;
-  };
-
-  /**
-   * 1 build tall matrix
-   * 2 run run interval
-   */
-  runTallMatrix = () => {
-    const tallMatrix = this.buildTallMatrix(this.state.text);
-    let from = 0;
-    const timerId1 = setInterval(() => {
-      if (from === tallMatrix.length - 8) {
-        clearInterval(timerId1);
-      }
-      let pieceOfTallMatrix = tallMatrix.slice(from, from + 8);
-      this.matrixThis.setState({matrix: pieceOfTallMatrix});
-      from++;
-    },this.speedValue());
-  };
 
   onClickGoButton = () => {
     if (!this.state.isRunning) {
