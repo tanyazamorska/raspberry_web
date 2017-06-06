@@ -117,8 +117,7 @@ export default class Ticker extends React.Component {
   };
 
   buildTallMatrixForDirectionTopBottom = (someText) => {
-    const arrSomeText = someText.split(``);
-    const reverseSomeText = _.reverse(arrSomeText).join(``);
+    const reverseSomeText = someText.split(``).reverse().join(``);
     const matrix = [];
     for (let j = 0; j < reverseSomeText.length; j++) {
       const symbol = (reverseSomeText[j]).toUpperCase();
@@ -130,35 +129,31 @@ export default class Ticker extends React.Component {
   };
 
   buildWidthMatrix = (someText) => {
-    const matrix = [];
-    // const one = [];
-    // const two = [];
-    // const three = [];
-    // const four = [];
-    // const five = [];
-    // const six = [];
-    // const seven = [];
-    // const eight = [];
+    const widthMatrix = [[], [], [], [], [], [], [], []];
     for (let j = 0; j < someText.length; j++) {
-      const symbol = (someText[j]).toUpperCase();
-
-      data[symbol].forEach((el, index) => {
-        // if (index === 0) {
-        //   one.push(el);
-        // } else if (index === 0) {
-        //   two.push(el);
-        // }
-        matrix.push(el);
+      const symbol = someText[j].toUpperCase();
+      const origMatrix = data[symbol];
+      origMatrix.forEach((line, index) => {
+        if (index === 0) {
+          widthMatrix[0] = widthMatrix[0].concat(line);
+        } else if (index === 1) {
+          widthMatrix[1] = widthMatrix[1].concat(line);
+        } else if (index === 2) {
+          widthMatrix[2] = widthMatrix[2].concat(line);
+        } else if (index === 3) {
+          widthMatrix[3] = widthMatrix[3].concat(line);
+        } else if (index === 4) {
+          widthMatrix[4] = widthMatrix[4].concat(line);
+        } else if (index === 5) {
+          widthMatrix[5] = widthMatrix[5].concat(line);
+        } else if (index === 6) {
+          widthMatrix[6] = widthMatrix[6].concat(line);
+        } else if (index === 7) {
+          widthMatrix[7] = widthMatrix[7].concat(line);
+        }
       });
     }
-    // console.log(one)
-    // console.log(two)
-
-    const widthMatrix = [];
-    for (let i = 0; i < matrix.length /someText.length; i++) {
-      widthMatrix.push(matrix[i].concat(matrix[i + 8],matrix[i + 16]))
-    }
-    return matrix;
+    return widthMatrix;
   };
 
   runTallMatrixDirectionTopBottom = () => {
