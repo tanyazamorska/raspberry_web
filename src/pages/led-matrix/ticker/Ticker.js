@@ -99,14 +99,21 @@ export default class Ticker extends React.Component {
   };
 
   buildTallMatrix = (someText) => {
-    const matrix = [];
-    for (let j = 0; j < someText.length; j++) {
-      const symbol = (someText[j]).toUpperCase();
-      data[symbol].forEach(el => {
-        matrix.push(el);
-      });
-    }
-    return matrix;
+    return _.chain(someText)
+      .map(letter => letter.toUpperCase())
+      .map(letter => data[letter])
+      .flatten()
+      .value();
+
+    //
+    // const matrix = [];
+    // for (let j = 0; j < someText.length; j++) {
+    //   const symbol = someText[j].toUpperCase();
+    //   data[symbol].forEach(el => {
+    //     matrix.push(el);
+    //   });
+    // }
+    // return matrix;
   };
 
   buildTallMatrixForDirectionTopBottom = (someText) => {
@@ -118,6 +125,38 @@ export default class Ticker extends React.Component {
       data[symbol].forEach(el => {
         matrix.push(el);
       });
+    }
+    return matrix;
+  };
+
+  buildWidthMatrix = (someText) => {
+    const matrix = [];
+    // const one = [];
+    // const two = [];
+    // const three = [];
+    // const four = [];
+    // const five = [];
+    // const six = [];
+    // const seven = [];
+    // const eight = [];
+    for (let j = 0; j < someText.length; j++) {
+      const symbol = (someText[j]).toUpperCase();
+
+      data[symbol].forEach((el, index) => {
+        // if (index === 0) {
+        //   one.push(el);
+        // } else if (index === 0) {
+        //   two.push(el);
+        // }
+        matrix.push(el);
+      });
+    }
+    // console.log(one)
+    // console.log(two)
+
+    const widthMatrix = [];
+    for (let i = 0; i < matrix.length /someText.length; i++) {
+      widthMatrix.push(matrix[i].concat(matrix[i + 8],matrix[i + 16]))
     }
     return matrix;
   };
@@ -167,8 +206,8 @@ export default class Ticker extends React.Component {
           this.matrixThis.setState({matrix: data[letter]});
           indexOfLetter++;
         } else {
-          this.matrixThis.setState({matrix: data[`encode`]});
-          console.warn(`Ticker error: \'${letter}\' isn't encoded`);
+          this.matrixThis.setState({matrix: data.encode});
+          console.warn(`Ticker warning: \'${letter}\' isn't encoded`);
           indexOfLetter++;
         }
       }
@@ -183,13 +222,15 @@ export default class Ticker extends React.Component {
       this.runTallMatrixDirectionBottomTop();
     } else if (this.state.direction === directionTopBottom) {
       this.runTallMatrixDirectionTopBottom();
+    } else if (this.state.direction === directionLeftRight) {
+      this.buildWidthMatrix(this.state.text);
     }
   }
 
   stop() {
     this.setState({isRunning: false});
     clearInterval(this.timerId);
-    this.matrixThis.setState({matrix: data[`_all_off`]});
+    this.matrixThis.setState({matrix: data._all_off});
   }
 
   onClickGoButton = () => {
@@ -261,33 +302,4 @@ export default class Ticker extends React.Component {
  "...........x......x.....x...x...",
  "..........xxx....xxxxx...xxx...."
  ]*/
-
-// renderTallCadre(matrix, from)
-// renderTallCadre([...], 1)
-/*
- "........",
- "..xxxx..",
- ".....x..",
- ".....x..",
- ".....x..",
- ".....x..",
- ".....x..",
- ".....x..",
- "........",
- "...xx...",
- "..x..x..",
- "..x..x..",
- "...xx...",
- "..x..x..",
- "..x..x..",
- "...xx...",
- "........",
- "...xx...",
- "..x..x..",
- "..x..x..",
- "...xxx..",
- ".....x..",
- "..x..x..",
- "...xx..."
- */
 
